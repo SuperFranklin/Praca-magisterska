@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\graphicspath{{/home/franek/Pictures/}}
+
+\title{Praca magisterska}
+\author{slupskifranek }
+\date{May 2019}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Wstęp}
+
+\subsection{Testowa baza danych}
+Aby przedstawić techniki optymalizacji zawarte w pracy na rzeczywistych przykładach, wykorzystałem bazę danych udostępnioną przez portal stackoverflow.com. Baza zawiera w granicach 50 Gb danych zebranych w latach 2008-2013. Archiwum po zaimportowaniu do serwera MySQL nie zawiera klucz głównych, kluczy obcych, indeksów.
+Początkowy schemat bazy danych jest przedstawiony na rysunku 1.
+\begin{figure}
+    \includegraphics[scale =0.5]{schemat-baza-stackoverflow.jpg} 
+    \caption{Schemat bazy danych stackoverflow}
+\end{figure}
+
+
+
+\input{ArchitekturaMySQL.tex}
+
+\input{Indeksy.tex}
+\end{document}
