@@ -10,7 +10,7 @@ Aby przedstawić wyniki polecenia EXPLAIN na rzeczywistych przykładach wykonał
 \begin{spverbatim}
 	EXPLAIN EXTENDED SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c left join Users u on c.UserId = u.Id where c.PostId = 875;
 \end{spverbatim}
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain7.png} 
 	\caption{Przykład 1}
 \end{figure}
@@ -18,37 +18,52 @@ Aby przedstawić wyniki polecenia EXPLAIN na rzeczywistych przykładach wykonał
 	EXPLAIN EXTENDED select p.Body from Posts p where p.Id = 875 union
 	select c.`Text` from Comments c where c.PostID = 875;
 \end{spverbatim}
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain8.png} 
 	\caption{Przykład 2}
 \end{figure}
 \begin{spverbatim}
 	EXPLAIN EXTENDED select * from Comments where UserId = (select id from Users where DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain9.png} 
 	\caption{Przykład 3}
 \end{figure}
 \begin{spverbatim}
 	EXPLAIN SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
 \end{spverbatim}
-\begin{figure}[h]
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain9.png} 
 	\caption{Przykład 4}
 \end{figure}
-\begin{figure}[h]
+\begin{spverbatim}
+	EXPLAIN SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
+\end{spverbatim}
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain10.png} 
 	\caption{Przykład 5}
 \end{figure}
-\begin{figure}[h]
+\begin{spverbatim}
+	explain select * from Posts  where OwnerUserId in (select id from Users where Reputation>1000 union select UserId from Comments where Score >10)
+\end{spverbatim}
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain11.png} 
 	\caption{Przykład 6}
 \end{figure}
-\begin{figure}[h]
+\begin{spverbatim}
+	EXPLAIN EXTENDED select * from Comments where UserId = (select @var1 from Users where DisplayName = 'Jarrod Dixon');
+\end{spverbatim}
+\begin{figure}[H]
 	\includegraphics[scale =0.4]{explain12.png} 
 	\caption{Przykład 7}
 \end{figure}
-
+\begin{spverbatim}
+explain Select * from Comments limit 10;
+\end{spverbatim}
+\begin{figure}[H]
+	\includegraphics[scale =0.4]{explain13.png} 
+	\caption{Przykład 8}
+\end{figure}
 
 \paragraph{Kolumna ID}\leavevmode\\
 Kolumna id zawiera numer zapytania, którego dotyczy. W przypadku zapytań z podzapytaniami, podzapytania w dyrektywie FROM oraz zapytań z słowem kluczowym JOIN podzapytania numerowane są najczęściej względem ich występowania w zapytaniu. Kolumna ID może przyjąć również wartość NULL, w przypadku polecenia UNION (przykład 2).
@@ -60,4 +75,54 @@ Wartość \textbf{SIMPLE} oznacza, że zapytanie nie zawiera podzapytań, oraz n
 Jeżeli natomiast zapytanie zawiera podzapytania lub wykorzystuje klauzulę UNION, to rekord dla kolumny select\textunderscore type przyjmie wartość \textbf{PRIMARY} (przykład 2). Jeżeli rekord dotyczy podzapytania oznaczonego jako PRIMARY, to będzie oznaczony jako \textbf{SUBQUERY} (przykład 3). Jako \textbf{UNION} zostaną oznaczone zapytania, które są drugim i kolejnym zapytaniem w klauzuli UNION. Pierwsze zapytanie zostanie oznaczone tak samo, jakby było wykonywane jako zwykłe zapytanie SELECT (przykład 2). \textbf{DERIVED} oznacza, że zapytanie jest umieszczone jako podzapytanie w klauzuli FROM, jest wykonywane rekurencyjnie i wyniki są umieszczane w tabeli tymczasowej. Wartość \textbf{UNION RESULT} oznacza wiersz, jako polecenie SELECT użyte do pobrania wyników z tabeli tymczasowej użytej przy poleceniu UNION (przykład 2). Jeśli polecenie SELECT zależy od danych znajdujących się w podzapytaniu lub znajdujących się w wyniki klazuli UNION, to zostanie oznaczone odpowiednio jako \textbf{DEPENDENT SUBQUERY} (przykład 5) lub \textbf{DEPENDENT UNION} (Przykład 6). Dodatkowo w przypadku, jeżeli wynik zwracany jest z \textit{zmaterializowanego widoku (eng. materialized view)}, zapytanie zostanie oznaczone jako \textbf{MATERIALIZED}. W przykładzie 7, który jest oczywiście nonsensowny, ale dobrze obrazuje sytuację, kiedy jako select\textunderscore type otrzymamy wartość \textbf{UNCACHABLE\textunderscore SUBQUERY}, która oznacza, że coś w podzapytaniu uniemożliwiło jego buforowanie. Analogiczną sytuację mamy, jeżeli wiersz zostanie oznaczony jako \textbf{UNCACHABLE\textunderscore UNION}, ale w tym przypadku niemożliwe jest oczywiście buforowanie wyników polecenia UNION.
 
 \paragraph{Kolumna table}\leavevmode\\
-Kolumna table w większości przypadków prezentuje nazwę tabeli lub jej alias, do której odnosi się dany wiersz wyniku polecenia \textit{EXPLAIN}. 
+Kolumna \textit{table} w większości przypadków zawiera nazwę tabeli lub jej alias, do której odnosi się dany wiersz wyniku polecenia \textit{EXPLAIN}. W przypadku gdy zapytanie dotyczy tabel tymczasowych możemy zobaczyć np. table: <union1,2> (przykład 2), co oznacza, że zapytanie dotyczy tabeli tymczasowej stworzonej na podstawie polecenia \textit{UNION} na tabelach z wierszy o id 1 oraz 2.
+Odczytując kolejno wartości kolumny \textit{table} możemy dowiedzieć się, w jakiej kolejności optymalizator MySQL zdecydował się ułożyć zapytania. 
+
+\paragraph{Kolumna Type}\leavevmode\\
+Kolumna \textit{Type} informuje o tym, w jaki sposób MySQL będzie przetwarzał wiersze w tabeli. Poniżej przedstawiono najważniejsze metody dostępu do danych, w kolejności od najgorszej do najlepszej.
+
+\subparagraph{ALL}\leavevmode\\
+Wartość \textit{ALL} informuje o tym, że serwer musi przeskanować całą tabelę w celu odnalezienia rekordów. Istnieją jednak wyjątki takie, jak w przykładzie 8, w którym polecenie \textit{EXPLAIN} pokazuje, że będzie wykonywany pełny skan tabeli, a w rzeczywistości dzięki użyciu polecenia \textit{LIMIT} zapytanie będzie wymagało jedynie 10 rekordów.
+
+\subparagraph{index}\leavevmode\\
+MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku w jakim jest przechowywane w indeksie, dzięki czemu unika sortowania. Największą wadą jest konieczność odczytu całej tabeli w kolejności indeksu, co zazwyczaj oznacza pobieranie danych z dysku w losowej kolejności. Jeżeli w kolumnie \textit{extra} jest dodatkowo zawarta informacja "Using Index" oznacza to, że MySQL wykorzystuje idenks pokrywający (opisany w dalszej części pracy) i nie wymaga odczytywania indeksów z dysku.
+
+\subparagraph{range}\leavevmode\\
+Wartość \textit{range} oznacza ograniczone skanowanie zakresu. Takie skanowanie rozpoczyna się od pewnego miejsca indeksu, dzięki czemu nie musimy przechodzić przez cały indeks. Skanowanie indeksu powodują zapytania zawierające klauzulę \textit{BETWEEN} lub \textit{WHERE} z < lub >. Wady są takie same jak przy rodzaju \textit{index}
+
+\subparagraph{ref}\leavevmode\\
+Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedyńczej wartości.
+Przykładem takiego zapytania może być wyszukiwanie numerów postów danego użytkownika w tabeli \textit{Comments} zawierającej indeks typu \textit{BTREE} na kolumnach \textit{UserId} oraz \textit{PostId}.
+
+\begin{spverbatim}
+	SELECT PostId FROM Comments WHERE UserId = 10;
+\end{spverbatim}
+Dodatkowo odmianą dostępu \textit{ref} jest dostępd \textit{ref\textunderscore or\textunderscore null}, który oznacza, że wymagany jest dodatkowy dostęp w celu sprawdzenia wartości NULL.
+
+\subparagraph{eq\textunderscore ref}\leavevmode\\
+
+Jest to najlepsza możliwa forma złączenia. Oznacza, że każdy wiersz z pierwszej tabeli jest dopasowywany do pierwszego zwróconego wyniku w drugiej tabeli i nie jest wymagane dalsze przeszukiwanie. Z tego rodzaju złączeniem mamy do czynienia, jeżeli wszystkie kolumny używane do złączenia są kluczem głównym lub indeksem "NOT NULL UNIQUE". Przykładem takiego zapytania jest złączenie wszystkich komentarzy z postami bazując na kluczu głównym Id z tabeli Posts. 
+
+\begin{spverbatim}
+	SELECT * FROM Comments c JOIN Posts p ON c.PostId = p.id;
+\end{spverbatim}
+
+\subparagraph{const}\leavevmode\\
+Przeważnie występuje w przypadku użycia w klauzuli WHERE wartości z indeksu głównego. Wtedy MySQL musi znaleźć tylko jedną wartość, która jest kluczem. Dla przykładu w bazie StackOverflow może to być zapytanie pobierające komentarz bazując na Id.
+\begin{spverbatim}
+	EXPLAIN SELECT * FROM Comments WHERE id = 93;
+\end{spverbatim}
+
+\subparagraph{NULL}\leavevmode\\
+Oznacza, że serwer nie wymaga dostepu do tabeli czy indeksu i może zwrócić wartość już podczas fazy optymalizacji. Przykładem takiego zapytania może być zwrócenie minimalnej wartości z indeksu tabeli.
+
+\begin{spverbatim}
+	SELECT MIN(UserId) FROM Comments;
+	#Tabela Comments zawiera indeks BTREE na kolumnie UserID
+\end{spverbatim}
+
+\paragraph{Kolumna Possible\textunderscore keys}\leavevmode\\
+
+Komulna possible\textunderscore keys zawiera listę indeksów, które optymalizator brał pod uwagę podczas tworzenia planu wykonania zapytania. Lista tworzona jest na początku procesu optymalizacji zapytania.
+
+\paragraph{Kolumna Possible\textunderscore keys}\leavevmode\\
