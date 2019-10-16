@@ -8,14 +8,14 @@ Aby użyć polecenia EXPLAIN, wystarczy poprzedzić słowa kluczowe takie jak SE
 \subsubsection{Wyniki polecenia EXPLAIN}
 Aby przedstawić wyniki polecenia EXPLAIN na rzeczywistych przykładach wykonałem kilka zapytań EXPLAIN na bazie StackOverflow. Dla porządku uznajmy, że zapytania są ponumerowane względem kolejności ich występowania w rozdziale.
 \begin{spverbatim}
-	EXPLAIN EXTENDED SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c left join Users u on c.UserId = u.Id where c.PostId = 875;
+	SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c left join Users u on c.UserId = u.Id where c.PostId = 875;
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain7.png} 
 	\caption{Przykład 1}
 \end{figure}
 \begin{spverbatim}
-	EXPLAIN EXTENDED select p.Body from Posts p where p.Id = 875 union
+	SELECT p.Body from Posts p where p.Id = 875 union
 	select c.`Text` from Comments c where c.PostID = 875;
 \end{spverbatim}
 \begin{figure}[H]
@@ -23,42 +23,42 @@ Aby przedstawić wyniki polecenia EXPLAIN na rzeczywistych przykładach wykonał
 	\caption{Przykład 2}
 \end{figure}
 \begin{spverbatim}
-	EXPLAIN EXTENDED select * from Comments where UserId = (select id from Users where DisplayName = 'Jarrod Dixon');
+	SELECT * from Comments where UserId = (select id from Users where DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain9.png} 
 	\caption{Przykład 3}
 \end{figure}
 \begin{spverbatim}
-	EXPLAIN SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
+	SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain9.png} 
 	\caption{Przykład 4}
 \end{figure}
 \begin{spverbatim}
-	EXPLAIN SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
+	SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain10.png} 
 	\caption{Przykład 5}
 \end{figure}
 \begin{spverbatim}
-	explain select * from Posts  where OwnerUserId in (select id from Users where Reputation>1000 union select UserId from Comments where Score >10)
+	SELECT * FROM Posts  WHERE OwnerUserId in (select id from Users where Reputation>1000 UNION SELECT UserId FROM Comments WHERE Score >10)
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain11.png} 
 	\caption{Przykład 6}
 \end{figure}
 \begin{spverbatim}
-	EXPLAIN EXTENDED select * from Comments where UserId = (select @var1 from Users where DisplayName = 'Jarrod Dixon');
+	SELECT * FROM Comments WHERE UserId = (select @var1 from Users where DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain12.png} 
 	\caption{Przykład 7}
 \end{figure}
 \begin{spverbatim}
-explain Select * from Comments limit 10;
+SELECT * FROM Comments limit 10;
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain13.png} 
@@ -90,6 +90,15 @@ MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku w ja
 \subparagraph{range}\leavevmode\\
 Wartość \textit{range} oznacza ograniczone skanowanie zakresu. Takie skanowanie rozpoczyna się od pewnego miejsca indeksu, dzięki czemu nie musimy przechodzić przez cały indeks. Skanowanie indeksu powodują zapytania zawierające klauzulę \textit{BETWEEN} lub \textit{WHERE} z < lub >. Wady są takie same jak przy rodzaju \textit{index}
 
+\subparagraph{index\textunderscore subquery}\leavevmode\\
+TODO przyklad
+\subparagraph{unique\textunderscore subquery}\leavevmode\\
+TODO przyklad
+\subparagraph{index merge}\leavevmode\\
+TODO przyklad
+\subparagraph{fulltext}\leavevmode\\
+TODO przyklad
+
 \subparagraph{ref}\leavevmode\\
 Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedyńczej wartości.
 Przykładem takiego zapytania może być wyszukiwanie numerów postów danego użytkownika w tabeli \textit{Comments} zawierającej indeks typu \textit{BTREE} na kolumnach \textit{UserId} oraz \textit{PostId}.
@@ -98,6 +107,7 @@ Przykładem takiego zapytania może być wyszukiwanie numerów postów danego u�
 	SELECT PostId FROM Comments WHERE UserId = 10;
 \end{spverbatim}
 Dodatkowo odmianą dostępu \textit{ref} jest dostępd \textit{ref\textunderscore or\textunderscore null}, który oznacza, że wymagany jest dodatkowy dostęp w celu sprawdzenia wartości NULL.
+
 
 \subparagraph{eq\textunderscore ref}\leavevmode\\
 
@@ -125,4 +135,37 @@ Oznacza, że serwer nie wymaga dostepu do tabeli czy indeksu i może zwrócić w
 
 Komulna possible\textunderscore keys zawiera listę indeksów, które optymalizator brał pod uwagę podczas tworzenia planu wykonania zapytania. Lista tworzona jest na początku procesu optymalizacji zapytania.
 
-\paragraph{Kolumna Possible\textunderscore keys}\leavevmode\\
+\paragraph{Kolumna key}\leavevmode\\
+
+Kolumna \textit{key} sygnalizuje, który indeks został wybrany do optymalizacji dostępu do tabeli.
+
+\paragraph{Kolumna key\textunderscore len}\leavevmode\\
+Wartość oznacza jaki jest rozmiar bajtów użytego indeksu. W przypadku, kiedy zostanie wykorzystana jedynie część kolumn indeksu, wtedy wartość \textit{key\textunderscore len} będzie odpowiednio mniejsza. Istotny jest fakt, że rozmiar jest zawsze maksymalnym rozmiarem zindeksowanych kolumn, a nie rzeczywistą liczbą bajtów danych używanych przez tabelę.
+
+\paragraph{Kolumna ref}\leavevmode\\
+Kolumna pokazuje, które kolumny z innych tabel lub zmienne z innych tabel zostaną wykorzystane do wyszukania wartości w indeksie podanym w kolumnie \textit{key}. W przykładzie 1, widzimy, że do przeszukania indeksu tabeli Posts została wykorzystana kolumna UserId z tabeli Comments (alias c). Wartość \textit{const} oznacza, że do przeszukania wartości została wykorzystana stała podana np. w klauzuli WHERE (Przykład 2).
+
+\paragraph{Kolumna rows}\leavevmode\\
+Kolumna wskazuje oszacowaną liczbę wierszy, które MySQL będzie musiał odczytać w celu znalezienia szukanych rekordów. Istotne jest to, że jest to liczba przeszukiwanych rekordów na danym poziomie zagnieżdenia pętli planu złączenia. To znaczy, że nie jest to całkowita liczba rekordów, a jedynie liczba rekordów w jednej pętli złączenia danej tabeli. W przypadku złączenia sumaryczna liczba przeszukiwanych nie jest sumą wartości z wszystkich wierszy, a iloczynem wartości z wierszy biorących udział w złączeniu. W przykładzie 9, łączna suma wierszy, które muszą zostać przeszukane nie wynosi 1574
+\begin{spverbatim}
+	SELECT * FROM Posts p JOIN PostTypes pt ON p.PostTypeId = pt.Id;
+\end{spverbatim}
+\begin{figure}[H]
+	\includegraphics[scale =0.4]{explain14.png} 
+	\caption{Przykład 9}
+\end{figure}
+Dodatkowo należy wziąć pod uwagę, że są to jedynie szacunkowe wartości, które w praktyce mogą być zupełnie nie prawidłowe. Ponadto optymalizator podczas szacowania wartości w kolumnie \textit{rows} nie bierze pod uwagę klauzli \textit{LIMIT}.
+
+\paragraph{Kolumna filtered}\leavevmode\\
+Kolumna \textit{filtered} pojawia się jedynie podczas użycia polecenia \textit{EXPLAIN EXTENDED}. Wskazuje na wartość oszacowaną przez optymalizator, która informuje ile rekordów może zostać odfiltrowane za pomocą klauzuli WHERE. W przykładzie 4 optymalizator MySQL oszacował, że jedynie 10 procent użytkowników napisało w sumie więcej niż 10 komentarzy. 
+
+\paragraph{Kolumna extra}\leavevmode\\
+Kolumna \textit{extra} zawiera informacje, których nie udało się zamieścić w pozostałych kolumnach. Poniżej przedstawione zostanie kilka najważniejszych informacji, które mogą znaleźć się w tej kolumnie.
+
+\begin{itemize}
+	\item 'Using index' - MySQL użyje indeksu pokrywającego zamiast dostępu do tabeli.
+	\item 'Using where' - oznacza, że MySQL przeprowadzi filtrowanie danych już po wyciągnięciu danych z tabeli. Często jest to informacja, którą warto przemyśleć pod kątem stworzenia nowego (lub modyfikacji istniejących) indeksów.
+	\item 'Using temporary' - do sortowania wyników używana jest tabela tymczasowa.
+	\item 'Using filesort' - sortowanie nie może wykorzystywać indeksu, więc wiersze są sortowane za pomocą jednego z algorytmów sortowania.
+	
+\end{itemize}
