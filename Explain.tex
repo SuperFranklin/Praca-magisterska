@@ -3,70 +3,73 @@ W rozdziale zostanie przedstawione działanie polecenia EXPLAIN. Polecenie to um
 \subsection{Polecenie EXPLAIN}
 Polecenie EXPLAIN będzie jedną z podstawowych metod porównywania wydajności zapytań stosowaną w tej pracy, dlatego w tym podroździale przedstawie podstawy używania tego polecenia. Funkcja EXPLAIN to główny sposób określania, w jaki sposób optymalizator decyduje o sposobie wykonania zapytania.
 
-Aby użyć polecenia EXPLAIN, wystarczy poprzedzić słowa kluczowe takie jak SELECT,INSERT,UPDATE,DELETE słowem EXPLAIN. Spowoduje to, że zamiast wykonania samego zapytania, sewer zwróci informacje o planie wykonania zapytania. Rezultat polecenia EXPLAIN zawiera po jednym rekordzie dla każdej tabeli użytej w zapytaniu. 
+Aby użyć polecenia EXPLAIN, wystarczy poprzedzić słowa kluczowe takie jak SELECT,INSERT,UPDATE,DELETE słowem EXPLAIN. Spowoduje to, że zamiast wykonania samego zapytania, sewer zwróci informacje o planie wykonania zapytania. Rezultat polecenia EXPLAIN zawiera po jednym rekordzie dla każdej tabeli użytej w zapytaniu. Kolejność wierszy w wyniku zapytania odpowiada kolejności, w jakiej MySQL będzie wykonywał zapytania. Pierwszym zapytaniem wykonanym przez MySQL będzie zapytanie z ostatniego wiersza.
 
 \subsubsection{Wyniki polecenia EXPLAIN}
 Aby przedstawić wyniki polecenia EXPLAIN na rzeczywistych przykładach wykonałem kilka zapytań EXPLAIN na bazie StackOverflow. Dla porządku uznajmy, że zapytania są ponumerowane względem kolejności ich występowania w rozdziale.
 \begin{spverbatim}
-	SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c left join Users u on c.UserId = u.Id where c.PostId = 875;
+	SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c LEFT JOIN Users u ON c.UserId = u.Id WHERE c.PostId = 875;
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain7.png} 
 	\caption{Przykład 1}
 \end{figure}
 \begin{spverbatim}
-	SELECT p.Body from Posts p where p.Id = 875 union
-	select c.`Text` from Comments c where c.PostID = 875;
+	SELECT p.Body FROM Posts p WHERE p.Id = 875 UNION
+	SELECT c.`Text` FROM Comments c WHERE c.PostID = 875;
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain8.png} 
 	\caption{Przykład 2}
 \end{figure}
 \begin{spverbatim}
-	SELECT * from Comments where UserId = (select id from Users where DisplayName = 'Jarrod Dixon');
+	SELECT * FROM Comments WHERE UserId = (SELECT id FROM Users WHERE DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain9.png} 
 	\caption{Przykład 3}
 \end{figure}
 \begin{spverbatim}
-	SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
+	SELECT * FROM Comments WHERE UserID in (SELECT UserId FROM Posts GROUP BY UserId HAVING COUNT(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain9.png} 
+	\includegraphics[scale =0.4]{explain9a.png} 
 	\caption{Przykład 4}
 \end{figure}
 \begin{spverbatim}
-	SELECT * FROM Comments where UserID in ( select UserId from Posts group by UserId having count(*) > 10);
+	SELECT * FROM Comments WHERE UserID in (SELECT UserId FROM Posts GROUP BY UserId HAVING COUNT(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain10.png} 
 	\caption{Przykład 5}
 \end{figure}
 \begin{spverbatim}
-	SELECT * FROM Posts  WHERE OwnerUserId in (select id from Users where Reputation>1000 UNION SELECT UserId FROM Comments WHERE Score >10)
+	SELECT * FROM Posts  WHERE OwnerUserId IN (SELECT id FROM Users WHERE Reputation>1000 UNION SELECT UserId FROM Comments WHERE Score >10)
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain11.png} 
 	\caption{Przykład 6}
 \end{figure}
 \begin{spverbatim}
-	SELECT * FROM Comments WHERE UserId = (select @var1 from Users where DisplayName = 'Jarrod Dixon');
+	SELECT * FROM Comments WHERE UserId = (SELECT @var1 FROM Users WHERE DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain12.png} 
 	\caption{Przykład 7}
 \end{figure}
 \begin{spverbatim}
-SELECT * FROM Comments limit 10;
+SELECT * FROM Comments LIMIT 10;
 \end{spverbatim}
 \begin{figure}[H]
 	\includegraphics[scale =0.4]{explain13.png} 
 	\caption{Przykład 8}
 \end{figure}
 
+\paragraph{Kolumna \#}
+Wartości w kolumnie \# określają w jakiej kolejności MySQL będzie odczytywał tebele. Jako pierwsza zostanie odczytana tabela z największą wartością w kolumnie \#.
+
 \paragraph{Kolumna ID}\leavevmode\\
-Kolumna id zawiera numer zapytania, którego dotyczy. W przypadku zapytań z podzapytaniami, podzapytania w dyrektywie FROM oraz zapytań z słowem kluczowym JOIN podzapytania numerowane są najczęściej względem ich występowania w zapytaniu. Kolumna ID może przyjąć również wartość NULL, w przypadku polecenia UNION (przykład 2).
+Kolumna id zawiera numer zapytania, którego dotyczy. W przypadku zapytań z podzapytaniami, podzapytania w dyrektywie FROM oraz zapytań z słowem kluczowym JOIN podzapytania numerowane są najczęściej względem ich występowania w zapytaniu. Kolumna ID może przyjąć również wartość NULL, w przypadku polecenia UNION (przykład 2). Kolejność
 
 \paragraph{Kolumna select\textunderscore type}\leavevmode\\
 Kolumna select\textunderscore type pokazuje, czy rekord jest prostym, czy złożonym zapytaniem SELECT. 
@@ -85,7 +88,7 @@ Kolumna \textit{Type} informuje o tym, w jaki sposób MySQL będzie przetwarzał
 Wartość \textit{ALL} informuje o tym, że serwer musi przeskanować całą tabelę w celu odnalezienia rekordów. Istnieją jednak wyjątki takie, jak w przykładzie 8, w którym polecenie \textit{EXPLAIN} pokazuje, że będzie wykonywany pełny skan tabeli, a w rzeczywistości dzięki użyciu polecenia \textit{LIMIT} zapytanie będzie wymagało jedynie 10 rekordów.
 
 \subparagraph{index}\leavevmode\\
-MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku w jakim jest przechowywane w indeksie, dzięki czemu unika sortowania. Największą wadą jest konieczność odczytu całej tabeli w kolejności indeksu, co zazwyczaj oznacza pobieranie danych z dysku w losowej kolejności. Jeżeli w kolumnie \textit{extra} jest dodatkowo zawarta informacja "Using Index" oznacza to, że MySQL wykorzystuje idenks pokrywający (opisany w dalszej części pracy) i nie wymaga odczytywania indeksów z dysku.
+MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku w jakim jest przechowywane w indeksie, dzięki czemu unika sortowania. Największą wadą jest jednak nadal konieczność odczytu całej tabeli. Co więcej, dane z dysku pobierane są z adresów, których kolejność wynika z użytego indeksu. Adresy te nie muszą zajmować na dysku ciągłych obszarów, a to oznacza, że czas odczytu danych może znacznie wydłużyć się. Jeżeli w kolumnie \textit{extra} jest dodatkowo zawarta informacja ''Using Index'' oznacza to, ze MySQL wykorzystuje indeks pokrywający (opisany w dalszej części pracy) i nie wymaga odczytywania innych danych z dysku – do wykonania zapytania wystarczają dane umieszczone w indeksie.
 
 \subparagraph{range}\leavevmode\\
 Wartość \textit{range} oznacza ograniczone skanowanie zakresu. Takie skanowanie rozpoczyna się od pewnego miejsca indeksu, dzięki czemu nie musimy przechodzić przez cały indeks. Skanowanie indeksu powodują zapytania zawierające klauzulę \textit{BETWEEN} lub \textit{WHERE} z < lub >. Wady są takie same jak przy rodzaju \textit{index}
@@ -100,7 +103,7 @@ TODO przyklad
 TODO przyklad
 
 \subparagraph{ref}\leavevmode\\
-Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedyńczej wartości.
+Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedynczej wartości.
 Przykładem takiego zapytania może być wyszukiwanie numerów postów danego użytkownika w tabeli \textit{Comments} zawierającej indeks typu \textit{BTREE} na kolumnach \textit{UserId} oraz \textit{PostId}.
 
 \begin{spverbatim}
@@ -111,20 +114,20 @@ Dodatkowo odmianą dostępu \textit{ref} jest dostępd \textit{ref\textunderscor
 
 \subparagraph{eq\textunderscore ref}\leavevmode\\
 
-Jest to najlepsza możliwa forma złączenia. Oznacza, że każdy wiersz z pierwszej tabeli jest dopasowywany do pierwszego zwróconego wyniku w drugiej tabeli i nie jest wymagane dalsze przeszukiwanie. Z tego rodzaju złączeniem mamy do czynienia, jeżeli wszystkie kolumny używane do złączenia są kluczem głównym lub indeksem "NOT NULL UNIQUE". Przykładem takiego zapytania jest złączenie wszystkich komentarzy z postami bazując na kluczu głównym Id z tabeli Posts. 
+Jest to najlepsza możliwa forma złączenia. Oznacza, że z tabeli odczytywany jest tylko jeden wiersz dla każdej kombinacji wierszy z poprzednich tabel. Z tego rodzaju złączeniem mamy do czynienia, jeżeli wszystkie kolumny używane do złączenia są kluczem głównym lub indeksem ''NOT NULL UNIQUE''. Przykładem takiego zapytania jest złączenie wszystkich komentarzy z postami bazując na kluczu głównym Id z tabeli Posts. 
 
 \begin{spverbatim}
 	SELECT * FROM Comments c JOIN Posts p ON c.PostId = p.id;
 \end{spverbatim}
 
 \subparagraph{const}\leavevmode\\
-Przeważnie występuje w przypadku użycia w klauzuli WHERE wartości z indeksu głównego. Wtedy MySQL musi znaleźć tylko jedną wartość, która jest kluczem. Dla przykładu w bazie StackOverflow może to być zapytanie pobierające komentarz bazując na Id.
+Przeważnie występuje w przypadku użycia w klauzuli WHERE wartości z indeksu głównego. Wtedy wystarczy jednokrotne przeszukanie indeksu, a na znalezionym liściu indeksu dostępne są już wszystkie dane z wiersza tabeli. Dla przykładu w bazie StackOverflow może to być zapytanie pobierające komentarz bazując na Id.
 \begin{spverbatim}
 	EXPLAIN SELECT * FROM Comments WHERE id = 93;
 \end{spverbatim}
 
 \subparagraph{NULL}\leavevmode\\
-Oznacza, że serwer nie wymaga dostepu do tabeli czy indeksu i może zwrócić wartość już podczas fazy optymalizacji. Przykładem takiego zapytania może być zwrócenie minimalnej wartości z indeksu tabeli.
+Oznacza, że serwer nie wymaga skanowania całej tabeli lub indeksu i może zwrócić wartość już podczas fazy optymalizacji. Przykładem takiego zapytania może być zwrócenie minimalnej wartości z indeksu tabeli.
 
 \begin{spverbatim}
 	SELECT MIN(UserId) FROM Comments;
@@ -140,13 +143,13 @@ Komulna possible\textunderscore keys zawiera listę indeksów, które optymaliza
 Kolumna \textit{key} sygnalizuje, który indeks został wybrany do optymalizacji dostępu do tabeli.
 
 \paragraph{Kolumna key\textunderscore len}\leavevmode\\
-Wartość oznacza jaki jest rozmiar bajtów użytego indeksu. W przypadku, kiedy zostanie wykorzystana jedynie część kolumn indeksu, wtedy wartość \textit{key\textunderscore len} będzie odpowiednio mniejsza. Istotny jest fakt, że rozmiar jest zawsze maksymalnym rozmiarem zindeksowanych kolumn, a nie rzeczywistą liczbą bajtów danych używanych przez tabelę.
+Wartość oznacza jaki jest rozmiar bajtów użytego indeksu. W przypadku, kiedy zostanie wykorzystana jedynie część kolumn indeksu, wtedy wartość \textit{key\textunderscore len} będzie odpowiednio mniejsza. Istotny jest fakt, że rozmiar jest zawsze maksymalnym rozmiarem zindeksowanych kolumn, a nie rzeczywistą liczbą bajtów danych używanych do zapisu wiersza w tabeli.
 
 \paragraph{Kolumna ref}\leavevmode\\
 Kolumna pokazuje, które kolumny z innych tabel lub zmienne z innych tabel zostaną wykorzystane do wyszukania wartości w indeksie podanym w kolumnie \textit{key}. W przykładzie 1, widzimy, że do przeszukania indeksu tabeli Posts została wykorzystana kolumna UserId z tabeli Comments (alias c). Wartość \textit{const} oznacza, że do przeszukania wartości została wykorzystana stała podana np. w klauzuli WHERE (Przykład 2).
 
 \paragraph{Kolumna rows}\leavevmode\\
-Kolumna wskazuje oszacowaną liczbę wierszy, które MySQL będzie musiał odczytać w celu znalezienia szukanych rekordów. Istotne jest to, że jest to liczba przeszukiwanych rekordów na danym poziomie zagnieżdenia pętli planu złączenia. To znaczy, że nie jest to całkowita liczba rekordów, a jedynie liczba rekordów w jednej pętli złączenia danej tabeli. W przypadku złączenia sumaryczna liczba przeszukiwanych nie jest sumą wartości z wszystkich wierszy, a iloczynem wartości z wierszy biorących udział w złączeniu. W przykładzie 9, łączna suma wierszy, które muszą zostać przeszukane nie wynosi 1574
+Kolumna wskazuje oszacowaną liczbę wierszy, które MySQL będzie musiał odczytać w celu znalezienia szukanych rekordów. Wartość może znacząco odbiegać od rzeczywistej liczby wierszy, które zostaną odczytane podczas wykonania zapytania. Istotne jest to, że jest to liczba przeszukiwanych rekordów na danym poziomie zagnieżdenia pętli planu złączenia. To znaczy, że nie jest to całkowita liczba rekordów, a jedynie liczba rekordów w jednej pętli złączenia danej tabeli. W przypadku złączenia sumaryczna liczba przeszukiwanych nie jest sumą wartości z wszystkich wierszy, a iloczynem wartości z wierszy biorących udział w złączeniu. W przykładzie 9, łączna suma wierszy, które muszą zostać przeszukane nie wynosi 15748463.
 \begin{spverbatim}
 	SELECT * FROM Posts p JOIN PostTypes pt ON p.PostTypeId = pt.Id;
 \end{spverbatim}
@@ -164,8 +167,8 @@ Kolumna \textit{extra} zawiera informacje, których nie udało się zamieścić 
 
 \begin{itemize}
 	\item 'Using index' - MySQL użyje indeksu pokrywającego zamiast dostępu do tabeli.
-	\item 'Using where' - oznacza, że MySQL przeprowadzi filtrowanie danych już po wyciągnięciu danych z tabeli. Często jest to informacja, którą warto przemyśleć pod kątem stworzenia nowego (lub modyfikacji istniejących) indeksów.
+	\item 'Using where' - oznacza, że MySQL przeprowadzi filtrowanie danych dopiero po wczytaniu danych z tabeli. Często jest to informacja, która może sugerować zmianę lub stworzenia nowego indeksu bądź całego zapytania.
 	\item 'Using temporary' - do sortowania wyników używana jest tabela tymczasowa.
-	\item 'Using filesort' - sortowanie nie może wykorzystywać indeksu, więc wiersze są sortowane za pomocą jednego z algorytmów sortowania.
+	\item 'Using filesort' - sortowanie nie może skorzystać z istniejących indeksów (nie ma odpowiedniego optymalnego indeksu), więc wiersze są sortowane za pomocą jednego z algorytmów sortowania.
 	
 \end{itemize}

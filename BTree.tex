@@ -22,14 +22,14 @@ Załóżmy, że w tabeli \textit{Comments} chcemy wyszukać wszystkie komentarze
 Najpierw wykonamy zapytania na tabeli nie zawierającej indeksów.
  \textit{employees}. 
 \begin{verbatim}
-    SELECT * FROM Init_Comments where UserId = 1200 and PostId = 910331;
+    SELECT * FROM Init_Comments WHERE UserId = 1200 AND PostId = 910331;
 \end{verbatim}
 Zapytanie zwróciło wynik w 13,7 sekundy.
 
 Następnie analogiczne zapytanie wykonałem na tabeli \textit{Comments} zawierającej indeks na obu kolumnach.
 \textit{employees\textunderscore idx}. 
 \begin{verbatim}
-    SELECT * FROM Comments where UserId = 1200 and PostId = 910331;
+    SELECT * FROM Comments WHERE UserId = 1200 AND PostId = 910331;
 \end{verbatim}
 Tym razem zapytanie zwróciło wyniki w 0,013 sekundy. Tym razem serwer nie skanował całej tabeli. Z czego wynika różnica w czasie wykonania obu zapytań? Wykorzystując polecenie EXPLAIN dla obu zapytań otrzymujemy ciekawe dane. Rysunek 2 przestawia wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast Rysunek 3 wynik polecania EXPLAIN dla drugiego zapytania. Polecenie EXPLAIN wyjaśnia, że pierwsze zapytania nie będzie korzystać z indeksów, dlatego w kolumnie rows widzimy, że serwer MySQL będzie musiał przeskanować wszystkie 23 miliony wierszy z tabeli \textit{init\textunderscore Comments}. Drguie zapytanie korzysta z indeksu z naszego indeksu. Tym razem serwer będzie musiał przeskanować jedynie 3 wiersze tabeli Comments. 
 
@@ -48,10 +48,10 @@ Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli \textit{where} u
 Dopasowanie prefiksu znajdujcego się najbardziej na lewo może pomóc w wyszukaniu wsystkich komentarzy użytkownika. Załóżmy, że chcemy znaleźć wszystkie komentarze użytkownika o id 1200.
 W tym celu przygotowujemy dwa zapytania. Pierwsze na tabeli \textit{Init\textunderscore Comments}, drugie na tebeli \textit{Comments} zawierającej indeks typu B-Tree, który założyliśmy wcześniej.
 \begin{verbatim}
-    select * from Init_Comments where UserId = 1200;
+    SELECT * FROM Init_Comments WHERE UserId = 1200;
 \end{verbatim}
 \begin{verbatim}
-    select * from Comments where UserId = 1200;
+    SELECT * FROM Comments WHERE UserId = 1200;
 \end{verbatim}
 Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Ponownie sprawdźmy rezultat polecenia EXPLAIN na obu zapytaniach. W pierwszym zapytaniu serwer po raz kolejny musiał przeszukać wszystkie wiersze w tabeli. Drugie zapytanie wymagało przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
 \begin{figure}[h]
@@ -69,12 +69,12 @@ Dopasowanie zakresu wartości oznacza wyszukiwanie wartości w danym przedziale.
 
 Ponownie wykonujemy dwa zapytania. Pierwsze na tabeli bez indeksu, drugie na tabeli z indeksem.
 \begin{verbatim}
-    select * from Init_Comments where UserId >1990 and UserId <2000;
+    SELECT * FROM Init_Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
 
 Tym razem pierwsze zapytanie trwało 1.068 sekundy. Drugie zapytanie wykonujemy na tabeli Comments zawierającej indeksy.
 \begin{verbatim}
-    select * from Comments where UserId >1990 and UserId <2000;
+    SELECT * FROM Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
 Następnie sprawdzamy wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym zapytaniu, kolejny raz MySQL przeskanował całą tabelę Init\textunderscore Comments. Drugie natomiast wymagało przeskanowania jedynie wierszy, które zostały zwrócone jako rezultat zapytania.
 
