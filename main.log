@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  30 NOV 2019 18:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  4 DEC 2019 18:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -661,7 +661,7 @@ Overfull \hbox (49.13956pt too wide) in paragraph at lines 29--30
 [][] 
  []
 
-(./optimizer.tex) (./Explain.tex [1
+(./Explain.tex [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 </home/franek/Pictures/
 schemat-baza-stackoverflow.jpg>] [3]
@@ -697,12 +697,13 @@ Overfull \hbox (61.278pt too wide) in paragraph at lines 22--23
 [][] 
  []
 
-[4 </home/franek/Pictures/explain7.png>]
+
 Overfull \hbox (11.3752pt too wide) in paragraph at lines 27--27
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[] (SELECT[]
  id[] FROM[] Users[] WHERE[]
  []
 
+[4 </home/franek/Pictures/explain7.png> </home/franek/Pictures/explain8.png>]
 </home/franek/Pictures/explain9.png, id=22, 1178.4025pt x 80.3pt>
 File: /home/franek/Pictures/explain9.png Graphic file (type png)
 <use /home/franek/Pictures/explain9.png>
@@ -771,14 +772,13 @@ Overfull \hbox (48.83173pt too wide) in paragraph at lines 50--51
 [][] 
  []
 
-[5 </home/franek/Pictures/explain8.png> </home/franek/Pictures/explain9.png> </
-home/franek/Pictures/explain9a.png> </home/franek/Pictures/explain10.png>]
+
 Overfull \hbox (29.9002pt too wide) in paragraph at lines 55--55
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[] (SELECT[]
  @var1[] FROM[] Users[] WHERE[]
  []
 
-</home/franek/Pictures/explain12.png, id=29, 1124.2pt x 77.28876pt>
+</home/franek/Pictures/explain12.png, id=26, 1124.2pt x 77.28876pt>
 File: /home/franek/Pictures/explain12.png Graphic file (type png)
 <use /home/franek/Pictures/explain12.png>
 Package pdftex.def Info: /home/franek/Pictures/explain12.png  used on input lin
@@ -789,14 +789,17 @@ Overfull \hbox (59.67204pt too wide) in paragraph at lines 57--58
 [][] 
  []
 
+[5 </home/franek/Pictures/explain9.png> </home/franek/Pictures/explain9a.png> <
+/home/franek/Pictures/explain10.png> </home/franek/Pictures/explain11.png>]
 </home/franek/Pictures/explain13.png, id=30, 901.3675pt x 48.18pt>
 File: /home/franek/Pictures/explain13.png Graphic file (type png)
 <use /home/franek/Pictures/explain13.png>
 Package pdftex.def Info: /home/franek/Pictures/explain13.png  used on input lin
 e 64.
 (pdftex.def)             Requested size: 360.5406pt x 19.27164pt.
-[6 </home/franek/Pictures/explain11.png> </home/franek/Pictures/explain12.png> 
-</home/franek/Pictures/explain13.png>] [7] [8]
+
+[6 </home/franek/Pictures/explain12.png> </home/franek/Pictures/explain13.png>]
+[7] [8]
 Underfull \hbox (badness 10000) in paragraph at lines 115--116
 
  []
@@ -811,13 +814,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
-[10] [11]
+[10]
 Overfull \hbox (5.2002pt too wide) in paragraph at lines 155--155
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Posts[] p[] JOIN[] PostTypes[] pt[] ON[] 
 p.PostTypeId[] =[] pt.Id;[] 
  []
 
-</home/franek/Pictures/explain14.png, id=51, 1038.88126pt x 79.29625pt>
+</home/franek/Pictures/explain14.png, id=48, 1038.88126pt x 79.29625pt>
 File: /home/franek/Pictures/explain14.png Graphic file (type png)
 <use /home/franek/Pictures/explain14.png>
 Package pdftex.def Info: /home/franek/Pictures/explain14.png  used on input lin
@@ -828,7 +831,7 @@ Overfull \hbox (25.54514pt too wide) in paragraph at lines 157--158
 [][] 
  []
 
-
+[11]
 Overfull \hbox (0.90038pt too wide) in paragraph at lines 162--164
 \T1/lmr/m/n/12 in-for-muje ile re-kor-dów mo»e zo-sta¢ od-fil-tro-wane za po-mo
 c¡ klau-zuli WHERE.
@@ -841,24 +844,32 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 169.
- [12 </home/franek/Pictures/explain14.png>]) (./ArchitekturaMySQL.tex
+ [12 </home/franek/Pictures/explain14.png>]) (./optimizer.tex [13]
+Overfull \hbox (16.04988pt too wide) in paragraph at lines 15--15
+ []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[
+] (SELECT[] MIN(id)[]
+ []
+
+</home/franek/Pictures/explain20.png, id=60, 1190.4475pt x 80.3pt>
+File: /home/franek/Pictures/explain20.png Graphic file (type png)
+<use /home/franek/Pictures/explain20.png>
+Package pdftex.def Info: /home/franek/Pictures/explain20.png  used on input lin
+e 17.
+(pdftex.def)             Requested size: 476.17056pt x 32.11942pt.
+
+Overfull \hbox (86.17056pt too wide) in paragraph at lines 17--18
+[][] 
+ []
+
+[14 </home/franek/Pictures/explain20.png>]) (./ArchitekturaMySQL.tex
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 14.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 14.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 14.
- [13]) [14] (./Indeksy.tex (./BTree.tex [15]
-
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 6.
-
-
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 6.
-
-
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 6.
-
-[16]
+ [15])
+(./Indeksy.tex [16] (./BTree.tex [17] [18]
 Overfull \hbox (31.88982pt too wide) in paragraph at lines 16--17
 \T1/lmr/m/n/12 utworzyªem in-deks typu B-Tree na dwóch ko-lum-nach \T1/lmr/m/it
 /12 first_UserId \T1/lmr/m/n/12 oraz \T1/lmr/m/it/12 last_PostId\T1/lmr/m/n/12 
@@ -877,8 +888,8 @@ Overfull \hbox (23.7182pt too wide) in paragraph at lines 33--33
 10331;[] 
  []
 
-[17]
-</home/franek/Pictures/explain1.jpg, id=74, 835.12pt x 119.44624pt>
+[19]
+</home/franek/Pictures/explain1.jpg, id=83, 835.12pt x 119.44624pt>
 File: /home/franek/Pictures/explain1.jpg Graphic file (type jpg)
 <use /home/franek/Pictures/explain1.jpg>
 Package pdftex.def Info: /home/franek/Pictures/explain1.jpg  used on input line
@@ -889,7 +900,7 @@ Overfull \hbox (27.55898pt too wide) in paragraph at lines 37--38
 [][] 
  []
 
-</home/franek/Pictures/explain2.jpg, id=75, 837.1275pt x 124.465pt>
+</home/franek/Pictures/explain2.jpg, id=84, 837.1275pt x 124.465pt>
 File: /home/franek/Pictures/explain2.jpg Graphic file (type jpg)
 <use /home/franek/Pictures/explain2.jpg>
 Package pdftex.def Info: /home/franek/Pictures/explain2.jpg  used on input line
@@ -900,8 +911,7 @@ Overfull \hbox (28.56273pt too wide) in paragraph at lines 42--43
 [][] 
  []
 
-[18 </home/franek/Pictures/explain1.jpg> </home/franek/Pictures/explain2.jpg>]
-</home/franek/Pictures/explain3.jpg, id=79, 840.13875pt x 121.45375pt>
+</home/franek/Pictures/explain3.jpg, id=85, 840.13875pt x 121.45375pt>
 File: /home/franek/Pictures/explain3.jpg Graphic file (type jpg)
 <use /home/franek/Pictures/explain3.jpg>
 Package pdftex.def Info: /home/franek/Pictures/explain3.jpg  used on input line
@@ -912,7 +922,8 @@ Overfull \hbox (30.06834pt too wide) in paragraph at lines 58--59
 [][] 
  []
 
-</home/franek/Pictures/explain4.jpg, id=80, 941.5175pt x 119.44624pt>
+[20 </home/franek/Pictures/explain1.jpg> </home/franek/Pictures/explain2.jpg>]
+</home/franek/Pictures/explain4.jpg, id=89, 941.5175pt x 119.44624pt>
 File: /home/franek/Pictures/explain4.jpg Graphic file (type jpg)
 <use /home/franek/Pictures/explain4.jpg>
 Package pdftex.def Info: /home/franek/Pictures/explain4.jpg  used on input line
@@ -929,13 +940,14 @@ Overfull \hbox (29.8862pt too wide) in paragraph at lines 73--73
  <2000;[] 
  []
 
-[19 </home/franek/Pictures/explain3.jpg> </home/franek/Pictures/explain4.jpg>]
+
 Overfull \hbox (35.95439pt too wide) in paragraph at lines 79--80
 \T1/lmr/m/n/12 pierw-szym za-py-ta-niu, ko-lejny raz My-SQL prze-ska-no-waª caª
 ¡ ta-bel¦ Init_Comments.
  []
 
-</home/franek/Pictures/explain5.png, id=85, 937.5025pt x 50.1875pt>
+[21 </home/franek/Pictures/explain3.jpg> </home/franek/Pictures/explain4.jpg>]
+</home/franek/Pictures/explain5.png, id=93, 937.5025pt x 50.1875pt>
 File: /home/franek/Pictures/explain5.png Graphic file (type png)
 <use /home/franek/Pictures/explain5.png>
 Package pdftex.def Info: /home/franek/Pictures/explain5.png  used on input line
@@ -946,7 +958,7 @@ Overfull \hbox (78.7501pt too wide) in paragraph at lines 82--83
 [][] 
  []
 
-</home/franek/Pictures/explain6.png, id=86, 937.5025pt x 51.19125pt>
+</home/franek/Pictures/explain6.png, id=94, 937.5025pt x 51.19125pt>
 File: /home/franek/Pictures/explain6.png Graphic file (type png)
 <use /home/franek/Pictures/explain6.png>
 Package pdftex.def Info: /home/franek/Pictures/explain6.png  used on input line
@@ -957,14 +969,14 @@ Overfull \hbox (78.7501pt too wide) in paragraph at lines 87--88
 [][] 
  []
 
-) (./Hash.tex [20 </home/franek/Pictures/explain5.png> </home/franek/Pictures/e
-xplain6.png>])) (./PraktyczneProblemy.tex [21] [22]
+) (./Hash.tex [22 </home/franek/Pictures/explain5.png> </home/franek/Pictures/e
+xplain6.png>])) (./PraktyczneProblemy.tex [23] [24]
 Overfull \hbox (11.3752pt too wide) in paragraph at lines 24--24
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Reputation,UpVotes[] FROM[] Users[] ORDER[
 ] BY[] Reputation,[]
  []
 
-</home/franek/Pictures/explain15.png, id=96, 995.72pt x 50.1875pt>
+</home/franek/Pictures/explain15.png, id=104, 995.72pt x 50.1875pt>
 File: /home/franek/Pictures/explain15.png Graphic file (type png)
 <use /home/franek/Pictures/explain15.png>
 Package pdftex.def Info: /home/franek/Pictures/explain15.png  used on input lin
@@ -976,86 +988,86 @@ Overfull \hbox (8.28094pt too wide) in paragraph at lines 28--29
  []
 
 
-Overfull \hbox (42.25021pt too wide) in paragraph at lines 34--34
+Overfull \hbox (42.25021pt too wide) in paragraph at lines 33--33
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Id,[] Reputation,[] UpVotes[] FROM[] Users
 [] ORDER[] BY[] Reputation,[]
  []
 
-</home/franek/Pictures/explain17.png, id=97, 1001.7425pt x 49.18375pt>
-File: /home/franek/Pictures/explain17.png Graphic file (type png)
-<use /home/franek/Pictures/explain17.png>
-Package pdftex.def Info: /home/franek/Pictures/explain17.png  used on input lin
-e 36.
-(pdftex.def)             Requested size: 400.6899pt x 19.67314pt.
-
-Overfull \hbox (10.6899pt too wide) in paragraph at lines 36--37
-[][] 
- []
-
-[23 </home/franek/Pictures/explain15.png> </home/franek/Pictures/explain17.png>
-]
-Overfull \hbox (42.25021pt too wide) in paragraph at lines 42--42
-[]\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Id,[] Reputation,[] UpVotes[] FROM[] Users
-[] ORDER[] BY[] Reputation,[]
- []
-
-</home/franek/Pictures/explain16.png, id=101, 994.71625pt x 49.18375pt>
+</home/franek/Pictures/explain16.png, id=105, 994.71625pt x 49.18375pt>
 File: /home/franek/Pictures/explain16.png Graphic file (type png)
 <use /home/franek/Pictures/explain16.png>
 Package pdftex.def Info: /home/franek/Pictures/explain16.png  used on input lin
-e 45.
+e 35.
 (pdftex.def)             Requested size: 397.87946pt x 19.67314pt.
 
-Overfull \hbox (7.87946pt too wide) in paragraph at lines 45--46
+Overfull \hbox (7.87946pt too wide) in paragraph at lines 35--36
+[][] 
+ []
+
+[25 </home/franek/Pictures/explain15.png> </home/franek/Pictures/explain16.png>
+]
+Overfull \hbox (42.25021pt too wide) in paragraph at lines 41--41
+[]\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Id,[] Reputation,[] UpVotes[] FROM[] Users
+[] ORDER[] BY[] Reputation,[]
+ []
+
+</home/franek/Pictures/explain17.png, id=110, 1001.7425pt x 49.18375pt>
+File: /home/franek/Pictures/explain17.png Graphic file (type png)
+<use /home/franek/Pictures/explain17.png>
+Package pdftex.def Info: /home/franek/Pictures/explain17.png  used on input lin
+e 44.
+(pdftex.def)             Requested size: 400.6899pt x 19.67314pt.
+
+Overfull \hbox (10.6899pt too wide) in paragraph at lines 44--45
 [][] 
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 52--52
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 51--51
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] u.*[] FROM[] Users[] u[] ORDER[] BY[] u.Up
 Votes,[] u.Reputation;[] 
  []
 
 
-Overfull \hbox (17.5502pt too wide) in paragraph at lines 59--59
+Overfull \hbox (17.5502pt too wide) in paragraph at lines 58--58
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] *[] FROM[] Users[] WHERE[] Reputation[] =[
 ] 1[] ORDER[] BY[] UpVotes;[] 
  []
 
-[24 </home/franek/Pictures/explain16.png>]
-</home/franek/Pictures/explain18.png, id=105, 953.5625pt x 50.1875pt>
+</home/franek/Pictures/explain18.png, id=111, 953.5625pt x 50.1875pt>
 File: /home/franek/Pictures/explain18.png Graphic file (type png)
 <use /home/franek/Pictures/explain18.png>
 Package pdftex.def Info: /home/franek/Pictures/explain18.png  used on input lin
-e 61.
+e 60.
 (pdftex.def)             Requested size: 381.41824pt x 20.07463pt.
-
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 68--68
+[26 </home/franek/Pictures/explain17.png>]
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 67--67
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] *[] FROM[] Users[] WHERE[] Reputation[] >[
 ] 1000[] ORDER[] BY[] UpVotes;[] 
  []
 
-) [25 </home/franek/Pictures/explain18.png>] (./main.aux) ) 
+) (./ProcedurySkladowane.tex) [27 </home/franek/Pictures/explain18.png>]
+(./main.aux) ) 
 Here is how much of TeX's memory you used:
- 4075 strings out of 492982
- 57164 string characters out of 6134897
- 125932 words of memory out of 5000000
- 7497 multiletter control sequences out of 15000+600000
- 58123 words of font info for 46 fonts, out of 8000000 for 9000
+ 4080 strings out of 492982
+ 57379 string characters out of 6134897
+ 126932 words of memory out of 5000000
+ 7500 multiletter control sequences out of 15000+600000
+ 52143 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,25p,2566b,283s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fo
-nts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{
-/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/d
-vips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy1
-0.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (25 pages, 667768 bytes).
+ 41i,7n,25p,2520b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/
+fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy
+.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/typ
+e1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
+Output written on main.pdf (27 pages, 690056 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 150 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
