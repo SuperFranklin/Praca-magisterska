@@ -66,10 +66,10 @@ SELECT * FROM Comments LIMIT 10;
 \end{figure}
 
 \paragraph{Kolumna \#}
-Wartości w kolumnie \# określają w jakiej kolejności MySQL będzie odczytywał tebele. Jako pierwsza zostanie odczytana tabela z największą wartością w kolumnie \#.
+Wartości w kolumnie \# określają w jakiej kolejności MySQL będzie odczytywał tebele. Jako pierwsza odczytywana jest tabela z najmniejszą wartością.
 
 \paragraph{Kolumna ID}\leavevmode\\
-Kolumna id zawiera numer zapytania, którego dotyczy. W przypadku zapytań z podzapytaniami, podzapytania w dyrektywie FROM oraz zapytań z słowem kluczowym JOIN podzapytania numerowane są najczęściej względem ich występowania w zapytaniu. Kolumna ID może przyjąć również wartość NULL, w przypadku polecenia UNION (przykład 2). Kolejność
+Kolumna id zawiera numer zapytania, którego dotyczy. W przypadku zapytań z podzapytaniami, podzapytania w dyrektywie FROM oraz zapytań z słowem kluczowym JOIN podzapytania numerowane są najczęściej względem ich występowania w zapytaniu. Kolumna ID może przyjąć również wartość NULL, w przypadku polecenia UNION (przykład 2).
 
 \paragraph{Kolumna select\textunderscore type}\leavevmode\\
 Kolumna select\textunderscore type pokazuje, czy rekord jest prostym, czy złożonym zapytaniem SELECT. 
