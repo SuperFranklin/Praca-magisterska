@@ -149,3 +149,50 @@ Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest 
 optimizer\textunderscore prune\textunderscore level=1. Dlatego też zalecane jest pozostawienie domyślnej wartości optimizer\textunderscore prune, chyba że mamy pewności pominięcia optymalnego planu zapytania.
 
 \subsection{Konfiguracja statystyk tabel InnoDB dla optymalizatora}
+Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. , natomiast nietrwałe są czyszczone po każdym restarcie oraz po niektórych operacjach.
+
+\subsubsection{Trwałe statystyki}
+Trwałe statystyki są przechowywane niezależnie od restartów serwera MySQL, dlatego zapisywane są na dysku twardym. Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{STAST\textunderscore PERSISTENT} = 0 dla wybranej tabeli.
+
+\paragraph{Konfiguracja automatycznego przeliczania statystyk}
+Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie możemy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie możemy wywołać polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
+
+\paragraph{Obliczanie statystyk}
+Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr STATS\textunderscore SAMPLE\textunderscore PAGES dla konkretnej tabeli. Kiedy należy rozważyć zmianę liczby stron?
+\begin{itemize}
+	\item \textbf{Wartości statystyczne odbiegają od rzeczywistych.} \linebreak
+	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli innodb\textunderscore index\textunderscore stats i porównać z liczbą rzeczywistych unikatowych wartości indeksu. Sprawdźmy dokładność danych statystycznych dla indeksów tabeli \textit{Posts} i różnych liczb skanowanych stron. Tabela \textit{Posts} zawiera dwa indeksy: owner\textunderscore idx (owner\textunderscore id) oraz favorite\textunderscore idx (FavoriteCount, Score).
+	W tym celu przygotujemy cztery zapytania:
+	\begin{spverbatim}
+		Dla owner_idx:
+		SELECT count(DISTINCT OwnerUserId) from Posts; #liczba unikalnych wartości indeksu
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name='stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'owner_idx' AND 
+		stat_name = 'n_diff_pfx01'; # oszacowana liczba unikalnych wartości indeksu
+		Dla favorite_idx:
+		SELECT count(DISTINCT FavoriteCount, Score) from Posts;
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name='stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'favorite_idx' AND 
+		stat_name = 'n_diff_pfx01';
+	\end{spverbatim}
+	W poniższej tabeli zamieszczone są wyniki eksperymentu.
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c| } 
+			\hline
+			sample pages & owner\textuderscore idx & favorite\textunderscore idx & ANALYZE TABLE czas [s]\\ 
+			\hline
+			1 & 3597380 & 8368 & 0.04\\
+			20 & 1364542 & 159689 & 0.06\\
+			400 & 1443184 & 22930 & 0.4\\
+			8000 & 1435072 & 23311 & 4.3\\
+			16000 & 1435072 & 23311 & 7\\
+			\hline
+			rzeczywista wartość & 1435072 & 23311 & \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Jak widzimy, wraz ze wzrostem liczby stron użytych do analizy wzrasta dokładność statystyk, ale rośnie czas przeprowadzania analizy tabeli. Można też zauważyć, że dla domyślnej wartości parametru, oszacowana wartość unikatowych wartości indeksu favorite\textunderscore idx diametralnie różni się od rzeczywistej, co może doprowadzić do wyboru nieoptymalnego indeksu na etapie optymalizacji. W takiej sytuacji dobrym wyborem może być zwiększenie wartości parametru.
+	
+	\item \textbf{Zbyt długi czas zbierania statystyk dla tabeli} \linebreak
+	Eksperyment pokazał również, że przy wysokich wartościach parametru, serwer MySQL spędza dużo czasu na obliczaniu statystyk dla tabeli, co może prowadzić, szczególnie przy często zmieniających się tabelach, do wysokiego wykorzystania zasobów, szczególnie operacji odczytów z dysku.
+\end{itemize}
+
+
