@@ -1,0 +1,46 @@
+\section{Skalowalność i wysoka dostępność}
+Rozdział rozpocznę od wyjaśnienia kilku terminów i teorii, które będą przydatne podczas dalszego rozważania problemów wydajności i wysokiej dostępności MySQL.
+
+
+\subsection{Terminologia}
+\subsubsection{Skalowalność a wydajność}
+Rozpoczynając ten rozdział najważniejszym zadaniem jest wyjaśnienie różnicy pomiędzy skalowalnością, a wydajnością. Termin\textit{wydajność} w informatyce dotyczy ilości danych przetwarzanych w czasie. W przypadku baz danych termin ten może dotyczyć na przykład: ilości jednoczesnych połączeń do bazy danych, liczbie zapytań wykonywanych na sekundę lub rozmiar odczytywanych danych. Natomiast \textit{skalowalność} oznacza możliwość aplikacji do zwiększenia wydajności. Skalowalny system to taki, w którym w najgorszym przypadku wzrost kosztów wynikający ze zwiększenia zasobów jest liniowy do wzrostu wydajności, jakie te zasoby zapewniają. Innymi słowy możliwy jest system, który jest bardzo wydajny, ale bardzo słabo skalowany. Możliwy jest także system niewydajny, który jest bardzo dobrze skalowany, dlatego istotnym jest, żeby nie mylić tych pojęć.
+
+
+\subsubsection{Teoria CAP}
+Autorem teorii CAP jest Eric Brewer, który przypisał bazą danych trzy własności:
+\begin{itemize}
+	\item Spójność (eng. \textit{Consistency}), oznaczająca, że odpytując dowolny działający węzeł, zawsze otrzymamy takie same dane.
+	\item Dostępność (eng. \textit{Availability}), określająca możliwość zapisywania i odczytywania danych nawet w przypadku awarii dowolnego węzła.
+	\item Odporność na podział (eng. \textit{Partition Tolerance}), pozwalająca na rozproszenie niewrażliwe na awarię.
+\end{itemize}
+Istotą teorii CAP jest stwierdzenie, że baza danych może spełniać co najwyżej dwie spośród trzech wymienionych wyżej własności. Konkluzją z powyższego stwierdzenia jest fakt nieistnienia idealnej bazy danych i każda z nich jest pewnym kompromisem, kładącym nacisk na pewne własności, kosztem innych.
+
+\subsubsection{Rodzaje skalowalności}
+Skalowaniem wertykalnym nazywamy zwiększanie wydajności pojedyńczego serwera. Oznacza to wymianę serwera na taki o potężniejszych możliwościach. Wadą takiego rozwiązania jest ograniczenie możliwości pojedyńczego serwera. Dodatkowo koszt zwiększenia możliwości pojedyńczego serwera powyżej pewnej wartości przestaje być liniowy i każde zwiększenie wydajności serwera, wiąże się z wielokrotnie większym kosztem.
+
+Drugim rodzajem skalowalności jest skalowalność horyzontalna, która polega na zwiększaniu liczby serwerów, przy zachowaniu ich wydajności. Takie rozwiązanie jest zdecydowanie tańsze i teoretycznie nie posiada limitu wydajności. Niestety wraz ze wzrostem liczby serwerów, rosną też problemy z zachowaniem spójności pomiędzy poszczególnymi węzłami.
+
+\subsection{Skalowanie wertykalne}
+Zgodnie z tym co napisałem we wstępie rozdziału, skalowaniem pionowym nazywamy zwiększenie wydajności w ramach jednej monolitycznej maszyny. Takie rozwiązanie jest skuteczne tylko do pewnego momentu. Później takie skalowanie będzie się wiązało z szybkim dużym wzrostem kosztów, nawet przy małym wzroście możliwości serwera. Ostatecznie osiągniemy limit możliwości jednej maszyny i zwiększenie wydajności nie będzie dalej możliwe. Dodatkowo sam serwer MySQL ma problemy z wykorzystywaniem większej ilości procesorów i dysków twardych. Kolejnym utrudnieniem jest fakt, że MySQL nie potrafi obsłużyć pojedyńczego zapytania na kilku procesorach, co jest sporym utrudnieniem przy dużych zapytaniach. Z powodu wyżej wymienionych ograniczeń skalowania pionowego, nie jest ono zalecane, jeżeli aplikacja ma zapewnić wysoką skalowalność.
+
+\subsection{Skalowanie horyzontalne}
+Skalowanie horyzontalne można zrealizować na kilka sposobów, które przedstawię w kolejnych podrozdziałach.
+\subsubsection{Mechanizm replikacji}
+Najpopularniejszym sposobem skalowania horyzontalnego jest realizacja architektury \textit{master-slave}. Rozwiązanie polega na podziale serwerów bazodanowych na jeden serwer nadrzędny (\textit{master}) oraz wiele serwerów podrzędnych (\textit{slave}). Replikacja danych opiera się na bardzo następującej zasadzie. Serwer nadrzędny realizuje wszystkie operacje modyfikujące dane, równocześnie rejestrując każdą operację, która wykonał. Następnie każdy z serwerów podrzędnych odczytuje rejestr operacji (bin-log) i wykonuje zapytania. Efektem tej pracy jest wiele instancji bazy danych zawierających identyczne dane. Co kiekawe możliwe jest takie skonfigurowanie mechanizmu replikacji, żeby replikowane były dane z tylko niektórych schematów, lub nawet pojedynczych tabel.
+Taki podział ma wiele zalet. Przede wszystkim wyraźnie zwiększone zostaje wydajość operacji odczytu, ponieważ mogą być realizowane równolegle przez wiele instacji serwera MySQL. Dodatkowo redundancja danych na wielu instancjach sprawia, że system staje się bardziej odporny na utratę danych spowodowaną awarią sprzętową. W przypadku awarii na którymkolwiek z serwerów, dane na innych instancjach umożliwią przywrócenie stanu sprzed awarii. Dodatkowo zmniejsza się zapotrzebowanie na tworzenie kopi zapasowych danych, co jest szcególnie przydatne przy dużych rozmiarach danych, ponieważ operacje tworzenia kopi zapasowych mogą być znaczącym obciążeniem dla serwera. Dodatkowo operację backupu danych można wykonać na serwerze \textit{slave} nie obciążając serwera głównego. Replikacja danych w trybie \textit{master-slave} może odbywać się w jednym z następujących trybów:
+\begin{itemize}
+ 	\item \textbf{SBR} (statement-based replication) - Najprostsza z metod. Zapisywane są tylko zapytania modyfikujące dane. SBR jest pierwszym typem replikacji stosowanym w MySQL. Tryb ten może jednak prowadzić do braku spójności danych na różnych serwerach \textit{slave}. Wyobraźmy sobie zapytanie, które zawiera funckję RAND() lub funkcje odwołujące się do aktualnego czasu. Takie zapytania wykonane na różnych serwerach mogą zmodyfikować w taki sposób, że będą one niespójne.
+	\item \textbf{RBR} (row-based replication) - logowane są wyniki zapytań modyfikujących dane, czyli informacja o tym, który rekord i w jaki sposób został zmodyfikowany. Jest to domyślny typ replikacji w MYSQL 8. W porównaniu do metody SBR jest niestety wolniejsza i dodatkowo ziększa się ilość przesyłanych danych pomiędzy serwerem master i slave.
+	\item \textbf{MFL} - połączenie dwóch powyższych metod. W tym trybie domyślnie używana jest metoda SBR, ale w niektórych sytuacjach wykorzystywana jest metoda RBR.
+\end{itemize}
+
+Rozwiązanie polegające na replikacji danych do serwerów podległych idealnie sprawdzi się w aplikacjach, które przechowują ograniczoną wielkość danych, oraz zdecydowana większość operacji, to operacje odczytu. Taka realizacja skalowania poziomego może nie sprawdzić się w systemach przechowujących ogromne ilości danych, ponieważ wymaga przechowywania danych w rozmiarze wielkokrotnie większym niż baza, wymaga powielania buforów, co może skutkować bardzo wysokimi kosztami serwerów, a nawet być niemożliwe, jeżeli rozmiar danych przekracza możliwości pojedynczego węzła. Kolejmym przypadkiem, którego nie rozwiązuje mechanizm replikacji jest system, w którym większość operacji to operacje modyfikujące dane. W takim scenariuszu serwer nadrzędny stanie się wąskim gardłem, a dużą część obciążenia serwerów będzie stanowiła replikacja pomiędzy serwerem nadrzędnym i serwerami podrzędnymi, co dodatkowo zmniejszy możliwości serwera nadrzędnego, który będzie przyjmował praktycznie całe obciążenie systemu. Reasumując skalowanie horyzontalne za pomocą mechanizmu replikacji idealnie sprawdzi się, zdecydowaną większością operacji, są operacje odczytu, a rozmiar danych jest ograniczony.
+
+\subsection{Partycjonowanie funkcjonalne}
+
+Funkcje aplikacji można podzielić na pewne podgrupy, które nie łączą się z pozostałymi, na poziomie zapytań SQL. Przykładowo serwis społecznościowy \textit{Facebook} umożliwia odczytywania postów innych użytkoników oraz dokonywanie zakupów w sekcji \textit{Marketplace}. Jeżeli użytkownik przegląda aktualne oferty w dziale \textit{Marketplace}, to zapytania kierowane o bazę danych, będą odpytywać jedynie kilka tabel związanych z zakupami. Jeżeli w tym samym czasie inny użytkownik przegląda posty użytkowników, zapytania nie będą dotyczyć table związanych z zakupami. Oczywiście przykład, który przedstawiłem powyżej, może i z pewnością jest rozwiązany za pomocą podziału na osobne serwisy jeszcze na poziomie aplikacji, ale zakładając, że nasza aplikacja nie została podzielona na osobne serwisy i łączy się z jedną bazą danych. W takiej sytuacji obciążenie serwera MySQL jest sumą obciążeń związanych z postami i zakupami. W takim przypadku skutecznym rozwiązaniem jest podział danych pojedynczej aplikacji na zestaw tabel, które nigdy nie są ze sobą łączone. Oczywiście takiego partycjonowania danych nie można przeprowadzać w nieskończoność, ponieważ nie istnieje skończony zbiór tabel, które możemy w taki sposób podzielić. Dodatkowo w ramach każdej z grup jesteśmy ograniczeni możliwościami skalowania pionowego bazy danych. Wadą jest też zwiększona złożoność samej aplikacji, która musi obsłużyć kilka źródeł danych. 
+
+
+
+\subsection{MySQL Cluster}

@@ -1,0 +1,21 @@
+1.Opisać koszt null w tabeli.
+2.Partycjonowanie i tabele merge. Transakcje rozproszone.
+3.MySQL cluster.
+4.Polecenia składowane.
+5.Wyszukiwanie pełnotekstowe.
+6.Ograniczenia klucza zewnętrznego.
+7.Transakcje rozproszone? 
+8.Konfiguracja serwera.
+9.Dostosowanie współbieżnoci MySQL
+10.Opisać pola z konfiguracji MySQL na azure!.
+11.Opisać max_length_for_sort_data i wpływ na wydajność zapytania.
+12.Słabszy procesor czy większa liczba procesorów.
+13.Co ogranicza wydajność MySQL. Strona 326.
+14.Wybór dysku twardego.
+15.test na tabelach > 500 milionów wierszy.
+16.Jak szybka jest replikacja.
+17.Analiza stanu serwera MySQL.
+
+
+
+.Sprawdzenie błędów ortograficznych
