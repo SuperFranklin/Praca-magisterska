@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  11 JUN 2020 00:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  18 JUN 2020 00:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -539,7 +539,14 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \NC@list=\toks24
 \extratabsurround=\skip50
 \backup@length=\skip51
-) (./main.aux)
+) (./main.aux
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+
+LaTeX Warning: Label `fig:label' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
@@ -555,8 +562,7 @@ LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 19.
-
-(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -908,14 +914,36 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 183.
  [14 </home/franek/Documents/magisterka/images/explain14.png>]) (./Architektura
-MySQL.tex [15] [16]) (./optimizer.tex
-[17] [18]
+MySQL.tex [15] [16] [17]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.39 \\t
+        odo jakies podsumowanie?
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+</home/franek/Documents/magisterka/images/innodb-files.png, id=74, 491.8375pt x
+ 249.93375pt>
+File: /home/franek/Documents/magisterka/images/innodb-files.png Graphic file (t
+ype png)
+<use /home/franek/Documents/magisterka/images/innodb-files.png>
+Package pdftex.def Info: /home/franek/Documents/magisterka/images/innodb-files.
+png  used on input line 46.
+(pdftex.def)             Requested size: 211.486pt x 107.4694pt.
+[18 </home/franek/Documents/magisterka/images/innodb-files.png>] [19])
+(./optimizer.tex [20] [21]
 Overfull \hbox (16.04988pt too wide) in paragraph at lines 19--19
  []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[
 ] (SELECT[] MIN(id)[]
  []
 
-</home/franek/Documents/magisterka/images/explain20.png, id=77, 1190.4475pt x 8
+</home/franek/Documents/magisterka/images/explain20.png, id=89, 1190.4475pt x 8
 0.3pt>
 File: /home/franek/Documents/magisterka/images/explain20.png Graphic file (type
  png)
@@ -928,7 +956,7 @@ Overfull \hbox (86.17056pt too wide) in paragraph at lines 21--22
 [][] 
  []
 
-[19 </home/franek/Documents/magisterka/images/explain20.png>]
+[22 </home/franek/Documents/magisterka/images/explain20.png>]
 Overfull \hbox (29.9002pt too wide) in paragraph at lines 36--36
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Posts[] p[] LEFT[] JOIN[] PostTypes[] pt[
 ] ON[] p.PostTypeId[] =[] pt.Id[]
@@ -940,7 +968,7 @@ Overfull \hbox (11.3752pt too wide) in paragraph at lines 36--36
 [] JOIN[] LinkTypes[] lt[]
  []
 
-</home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png, id=82, 713.6662
+</home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png, id=93, 713.6662
 4pt x 342.27875pt>
 File: /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png Graphic fil
 e (type png)
@@ -948,7 +976,8 @@ e (type png)
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/PLAN_WYKONANI
 A_1.png  used on input line 39.
 (pdftex.def)             Requested size: 321.14684pt x 154.024pt.
-</home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png, id=84, 485.815p
+[23]
+</home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png, id=98, 485.815p
 t x 402.50375pt>
 File: /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png Graphic fil
 e (type png)
@@ -956,8 +985,7 @@ e (type png)
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/PLAN_WYKONANI
 A_2.png  used on input line 43.
 (pdftex.def)             Requested size: 218.61473pt x 181.125pt.
-[20 </home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png>]
-</home/franek/Documents/magisterka/images/explain21.png, id=89, 626.34pt x 323.
+</home/franek/Documents/magisterka/images/explain21.png, id=99, 626.34pt x 323.
 2075pt>
 File: /home/franek/Documents/magisterka/images/explain21.png Graphic file (type
  png)
@@ -965,8 +993,8 @@ File: /home/franek/Documents/magisterka/images/explain21.png Graphic file (type
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain21.png
   used on input line 47.
 (pdftex.def)             Requested size: 313.16922pt x 161.60335pt.
- [21 </home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png> </home/fra
-nek/Documents/magisterka/images/explain21.png>]
+ [24 </home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png> </home/fra
+nek/Documents/magisterka/images/PLAN_WYKONANIA_2.png>]
 Overfull \hbox (5.2002pt too wide) in paragraph at lines 56--56
 []\T1/lmtt/m/n/12 SELECT[] u.Id,[] p.Id,[] c.Id,[] pt.`Type`[] FROM[] Users[] u
 [] INNER[] JOIN[] Posts[]
@@ -978,8 +1006,8 @@ Overfull \hbox (17.5502pt too wide) in paragraph at lines 56--56
  ON[] c.UserId[] =[] u.Id[]
  []
 
-</home/franek/Documents/magisterka/images/explain22.png, id=94, 883.3pt x 138.5
-175pt>
+</home/franek/Documents/magisterka/images/explain22.png, id=105, 883.3pt x 138.
+5175pt>
 File: /home/franek/Documents/magisterka/images/explain22.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain22.png>
@@ -997,8 +1025,8 @@ Overfull \hbox (14.93083pt too wide) in paragraph at lines 62--63
 e STRA-IGHT_JOIN,
  []
 
-</home/franek/Documents/magisterka/images/explain23.png, id=95, 885.3075pt x 13
-6.51pt>
+</home/franek/Documents/magisterka/images/explain23.png, id=106, 885.3075pt x 1
+36.51pt>
 File: /home/franek/Documents/magisterka/images/explain23.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain23.png>
@@ -1010,8 +1038,9 @@ Overfull \hbox (8.38469pt too wide) in paragraph at lines 64--65
  [] 
  []
 
-[22 </home/franek/Documents/magisterka/images/explain22.png> </home/franek/Docu
-ments/magisterka/images/explain23.png>] [23]
+[25 </home/franek/Documents/magisterka/images/explain21.png> </home/franek/Docu
+ments/magisterka/images/explain22.png>] [26 </home/franek/Documents/magisterka/
+images/explain23.png>] [27]
 Overfull \hbox (5.2002pt too wide) in paragraph at lines 107--107
 []\T1/lmtt/m/n/12 INSERT[] INTO[] `students`[] (`id`,[] `lecturer_id`,[] `value
 `)[] VALUES[] (0,[]
@@ -1023,12 +1052,6 @@ Overfull \hbox (5.2002pt too wide) in paragraph at lines 107--107
 `)[] VALUES[] (0,[]
  []
 
-[24]
-Overfull \hbox (17.5502pt too wide) in paragraph at lines 122--122
-[]\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
-[] s.lecturer_id[] =[] p.id[]
- []
-
 
 Overfull \hbox (17.5502pt too wide) in paragraph at lines 122--122
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
@@ -1077,14 +1100,19 @@ Overfull \hbox (17.5502pt too wide) in paragraph at lines 122--122
 [] s.lecturer_id[] =[] p.id[]
  []
 
+[28]
+Overfull \hbox (17.5502pt too wide) in paragraph at lines 122--122
+[]\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
+[] s.lecturer_id[] =[] p.id[]
+ []
+
 
 Overfull \hbox (17.5502pt too wide) in paragraph at lines 122--122
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[]
  []
 
-[25]
-</home/franek/Documents/magisterka/images/profile1.png, id=109, 375.4025pt x 77
+</home/franek/Documents/magisterka/images/profile1.png, id=120, 375.4025pt x 77
 .28876pt>
 File: /home/franek/Documents/magisterka/images/profile1.png Graphic file (type 
 png)
@@ -1092,19 +1120,19 @@ png)
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/profile1.png 
  used on input line 144.
 (pdftex.def)             Requested size: 225.24323pt x 46.3736pt.
- [26 </home/franek/Documents/magisterka/images/profile1.png>]
+[29 </home/franek/Documents/magisterka/images/profile1.png>] [30]
 Overfull \hbox (7.66902pt too wide) in paragraph at lines 155--156
 \T1/lmr/m/it/12 nodb_stats_persistent \T1/lmr/m/n/12 = OFF, lub po-przez usta-w
 ie-nie \T1/lmr/m/it/12 STAST_PERSISTENT
  []
 
-[27]
+
 Overfull \hbox (17.02786pt too wide) in paragraph at lines 161--162
 \T1/lmr/m/it/12 nodb_stats_persistent_sample_pages \T1/lmr/m/n/12 lub pa-ra-met
 r STATS_SAMPLE_PAGES
  []
 
-
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 163--166
 []\T1/lmr/bx/n/12 Warto±ci sta-ty-styczne od-bie-gaj¡ od rze-czy-wi-stych.
  []
@@ -1133,7 +1161,7 @@ Overfull \hbox (188.94997pt too wide) in paragraph at lines 175--175
 E[] database_name='stackOverflowMedium'[]
  []
 
-[28]
+
 Overfull \hbox (53.0999pt too wide) in paragraph at lines 175--175
  []\T1/lmtt/m/n/12 stat_name[] =[] 'n_diff_pfx01';[] #[] oszacowana[] liczba[] 
 unikalnych[] warto±ci[]
@@ -1165,14 +1193,14 @@ Overfull \hbox (40.95358pt too wide) in paragraph at lines 178--191
  [] 
  []
 
-
+[32]
 Underfull \hbox (badness 10000) in paragraph at lines 194--196
 []\T1/lmr/bx/n/12 Zbyt dªugi czas zbie-ra-nia sta-ty-styk dla ta-beli
  []
 
-[29]) (./scalability.tex [30] [31] [32] [33]
+) (./scalability.tex [33] [34] [35] [36]
 </home/franek/Documents/magisterka/images/architektura-z-load-balancerem.png, i
-d=135, 543.02875pt x 701.62125pt>
+d=146, 543.02875pt x 701.62125pt>
 File: /home/franek/Documents/magisterka/images/architektura-z-load-balancerem.p
 ng Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/architektura-z-load-balancerem.pn
@@ -1180,10 +1208,14 @@ g>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/architektura-
 z-load-balancerem.png  used on input line 41.
 (pdftex.def)             Requested size: 190.0629pt x 245.5711pt.
- [34 </home/franek/Documents/magisterka/images/architektura-z-load-balancerem.p
-ng>] [35] [36]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[37] [38 </home/franek/Documents/magisterka/images/architektura-z-load-balancer
+em.png>] [39]
 </home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png, id=
-146, 261.97874pt x 272.01625pt>
+158, 261.97874pt x 272.01625pt>
 File: /home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png
  Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png>
@@ -1191,10 +1223,10 @@ File: /home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/partycjonowan
 ie-funkcjonalne.png  used on input line 58.
 (pdftex.def)             Requested size: 183.38387pt x 190.41006pt.
- [37 </home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png
->]
+ [40] [41 </home/franek/Documents/magisterka/images/partycjonowanie-funkcjonaln
+e.png>]
 </home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-sharding
-.png, id=152, 352.31625pt x 422.57875pt>
+.png, id=166, 352.31625pt x 422.57875pt>
 File: /home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-sha
 rding.png Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-shar
@@ -1202,14 +1234,8 @@ ding.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/Partycjonowan
 ie-funkcjonalne-sharding.png  used on input line 68.
 (pdftex.def)             Requested size: 246.61969pt x 295.8031pt.
- [38]
-Overfull \hbox (12.9609pt too wide) in paragraph at lines 72--73
-\T1/lmr/m/n/12 https://www.percona.com/blog/2018/07/09/innodb-cluster-in-a-nuts
-hell-part-
- []
-
 </home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png, id=1
-56, 638.385pt x 452.69125pt>
+67, 638.385pt x 452.69125pt>
 File: /home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png 
 Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png>
@@ -1217,11 +1243,18 @@ Package pdftex.def Info: /home/franek/Documents/magisterka/images/InnoDb-cluste
 r-architektura.png  used on input line 77.
 (pdftex.def)             Requested size: 223.43808pt x 158.4443pt.
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (./partycjonowanie.tex) (./Indeksy.tex (./BTree.tex [39 </home/franek/Documen
-ts/magisterka/images/Partycjonowanie-funkcjonalne-sharding.png>] [40 </home/fra
-nek/Documents/magisterka/images/InnoDb-cluster-architektura.png>] [41]
+
+Overfull \hbox (1.36836pt too wide) in paragraph at lines 80--81
+[]\T1/lmr/m/n/12 InnoDb Clu-ster jest do-st¦pn¡ na-tyw-nie kom-bi-na-cj¡ kilku 
+tech-no-logi umo»-
+ []
+
+[42 </home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-shar
+ding.png>] [43 </home/franek/Documents/magisterka/images/InnoDb-cluster-archite
+ktura.png>]) (./partycjonowanie.tex) (./Indeksy.tex (./BTree.tex [44] [45]
 Overfull \hbox (31.88982pt too wide) in paragraph at lines 16--17
 \T1/lmr/m/n/12 utworzyªem in-deks typu B-Tree na dwóch ko-lum-nach \T1/lmr/m/it
 /12 first_UserId \T1/lmr/m/n/12 oraz \T1/lmr/m/it/12 last_PostId\T1/lmr/m/n/12 
@@ -1240,8 +1273,8 @@ Overfull \hbox (23.7182pt too wide) in paragraph at lines 33--33
 10331;[] 
  []
 
-[42]
-</home/franek/Documents/magisterka/images/explain1.jpg, id=174, 835.12pt x 119.
+[46]
+</home/franek/Documents/magisterka/images/explain1.jpg, id=189, 835.12pt x 119.
 44624pt>
 File: /home/franek/Documents/magisterka/images/explain1.jpg Graphic file (type 
 jpg)
@@ -1254,7 +1287,7 @@ Overfull \hbox (27.55898pt too wide) in paragraph at lines 37--38
 [][] 
  []
 
-</home/franek/Documents/magisterka/images/explain2.jpg, id=175, 837.1275pt x 12
+</home/franek/Documents/magisterka/images/explain2.jpg, id=190, 837.1275pt x 12
 4.465pt>
 File: /home/franek/Documents/magisterka/images/explain2.jpg Graphic file (type 
 jpg)
@@ -1267,9 +1300,9 @@ Overfull \hbox (28.56273pt too wide) in paragraph at lines 42--43
 [][] 
  []
 
-[43 </home/franek/Documents/magisterka/images/explain1.jpg> </home/franek/Docum
+[47 </home/franek/Documents/magisterka/images/explain1.jpg> </home/franek/Docum
 ents/magisterka/images/explain2.jpg>]
-</home/franek/Documents/magisterka/images/explain3.jpg, id=180, 840.13875pt x 1
+</home/franek/Documents/magisterka/images/explain3.jpg, id=194, 840.13875pt x 1
 21.45375pt>
 File: /home/franek/Documents/magisterka/images/explain3.jpg Graphic file (type 
 jpg)
@@ -1282,7 +1315,7 @@ Overfull \hbox (30.06834pt too wide) in paragraph at lines 58--59
 [][] 
  []
 
-</home/franek/Documents/magisterka/images/explain4.jpg, id=181, 941.5175pt x 11
+</home/franek/Documents/magisterka/images/explain4.jpg, id=195, 941.5175pt x 11
 9.44624pt>
 File: /home/franek/Documents/magisterka/images/explain4.jpg Graphic file (type 
 jpg)
@@ -1295,7 +1328,7 @@ Overfull \hbox (80.7576pt too wide) in paragraph at lines 63--64
 [][] 
  []
 
-[44 </home/franek/Documents/magisterka/images/explain3.jpg> </home/franek/Docum
+[48 </home/franek/Documents/magisterka/images/explain3.jpg> </home/franek/Docum
 ents/magisterka/images/explain4.jpg>]
 Overfull \hbox (29.8862pt too wide) in paragraph at lines 73--73
 []    \T1/lmtt/m/n/12 SELECT * FROM Init_Comments WHERE UserId >1990 AND UserId
@@ -1308,7 +1341,7 @@ Overfull \hbox (35.95439pt too wide) in paragraph at lines 79--80
 ¡ ta-bel¦ Init_Comments.
  []
 
-</home/franek/Documents/magisterka/images/explain5.png, id=185, 937.5025pt x 50
+</home/franek/Documents/magisterka/images/explain5.png, id=199, 937.5025pt x 50
 .1875pt>
 File: /home/franek/Documents/magisterka/images/explain5.png Graphic file (type 
 png)
@@ -1321,7 +1354,7 @@ Overfull \hbox (78.7501pt too wide) in paragraph at lines 82--83
 [][] 
  []
 
-</home/franek/Documents/magisterka/images/explain6.png, id=186, 937.5025pt x 51
+</home/franek/Documents/magisterka/images/explain6.png, id=200, 937.5025pt x 51
 .19125pt>
 File: /home/franek/Documents/magisterka/images/explain6.png Graphic file (type 
 png)
@@ -1334,15 +1367,15 @@ Overfull \hbox (78.7501pt too wide) in paragraph at lines 87--88
 [][] 
  []
 
-) (./Hash.tex [45 </home/franek/Documents/magisterka/images/explain5.png> </hom
+) (./Hash.tex [49 </home/franek/Documents/magisterka/images/explain5.png> </hom
 e/franek/Documents/magisterka/images/explain6.png>])) (./PraktyczneProblemy.tex
-[46] [47]
+[50] [51]
 Overfull \hbox (11.3752pt too wide) in paragraph at lines 24--24
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Reputation,UpVotes[] FROM[] Users[] ORDER[
 ] BY[] Reputation,[]
  []
 
-</home/franek/Documents/magisterka/images/explain15.png, id=196, 995.72pt x 50.
+</home/franek/Documents/magisterka/images/explain15.png, id=212, 995.72pt x 50.
 1875pt>
 File: /home/franek/Documents/magisterka/images/explain15.png Graphic file (type
  png)
@@ -1361,7 +1394,7 @@ Overfull \hbox (42.25021pt too wide) in paragraph at lines 33--33
 [] ORDER[] BY[] Reputation,[]
  []
 
-</home/franek/Documents/magisterka/images/explain16.png, id=197, 994.71625pt x 
+</home/franek/Documents/magisterka/images/explain16.png, id=213, 994.71625pt x 
 49.18375pt>
 File: /home/franek/Documents/magisterka/images/explain16.png Graphic file (type
  png)
@@ -1374,13 +1407,13 @@ Overfull \hbox (7.87946pt too wide) in paragraph at lines 35--36
 [][] 
  []
 
-[48 </home/franek/Documents/magisterka/images/explain15.png>]
+[52 </home/franek/Documents/magisterka/images/explain15.png>]
 Overfull \hbox (42.25021pt too wide) in paragraph at lines 41--41
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] Id,[] Reputation,[] UpVotes[] FROM[] Users
 [] ORDER[] BY[] Reputation,[]
  []
 
-</home/franek/Documents/magisterka/images/explain17.png, id=201, 1001.7425pt x 
+</home/franek/Documents/magisterka/images/explain17.png, id=217, 1001.7425pt x 
 49.18375pt>
 File: /home/franek/Documents/magisterka/images/explain17.png Graphic file (type
  png)
@@ -1399,14 +1432,14 @@ Overfull \hbox (11.3752pt too wide) in paragraph at lines 51--51
 Votes,[] u.Reputation;[] 
  []
 
-[49 </home/franek/Documents/magisterka/images/explain16.png> </home/franek/Docu
+[53 </home/franek/Documents/magisterka/images/explain16.png> </home/franek/Docu
 ments/magisterka/images/explain17.png>]
 Overfull \hbox (17.5502pt too wide) in paragraph at lines 58--58
 []\T1/lmtt/m/n/12 EXPLAIN[] SELECT[] *[] FROM[] Users[] WHERE[] Reputation[] =[
 ] 1[] ORDER[] BY[] UpVotes;[] 
  []
 
-</home/franek/Documents/magisterka/images/explain18.png, id=206, 953.5625pt x 5
+</home/franek/Documents/magisterka/images/explain18.png, id=221, 953.5625pt x 5
 0.1875pt>
 File: /home/franek/Documents/magisterka/images/explain18.png Graphic file (type
  png)
@@ -1420,32 +1453,33 @@ Overfull \hbox (36.07521pt too wide) in paragraph at lines 67--67
 ] 1000[] ORDER[] BY[] UpVotes;[] 
  []
 
-) (./ProcedurySkladowane.tex) [50 </home/franek/Documents/magisterka/images/exp
+) (./ProcedurySkladowane.tex) [54 </home/franek/Documents/magisterka/images/exp
 lain18.png>] (./main.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4193 strings out of 492982
- 63101 string characters out of 6134897
- 129660 words of memory out of 5000000
- 7590 multiletter control sequences out of 15000+600000
- 52143 words of font info for 44 fonts, out of 8000000 for 9000
+ 4200 strings out of 492982
+ 63389 string characters out of 6134897
+ 129699 words of memory out of 5000000
+ 7595 multiletter control sequences out of 15000+600000
+ 56414 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,25p,2545b,348s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,7n,25p,2545b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/s
-hare/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm
-/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb><
-/usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (50 pages, 890239 bytes).
+ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share
+/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm
+/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmm
+i8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/font
+s/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type
+1/public/lm/lmtt12.pfb>
+Output written on main.pdf (54 pages, 929604 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 144 compressed objects within 2 object streams
+ 262 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 166 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 
