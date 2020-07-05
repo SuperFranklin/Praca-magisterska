@@ -1,0 +1,1 @@
+sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --range_selects=off --mysql_storage_engine=MEMORY /usr/share/sysbench/oltp_read_only.lua prepare

@@ -13,7 +13,6 @@ natomiast w drugim pliku (\textbf{.MYI(MYIndex)}) przechowywane są indeksy. Pon
 	\item \textbf{Buforowanie indeksów.} Silnik MyISAM buforuje jedynie indeksy.
 \end{itemize}
 
-\\todo jakies podsumowanie?
 
 \subsubsection{InnoDB}
 Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB zawiera wiele rozwiazań, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym silnikiem używanym w MySQL. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe mogą być również przechowywane w wielu plikach. Struktura plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, została przedstawiona na poniższej grafice. 
@@ -50,9 +49,10 @@ Tabele z silnikiem Memory są tabelami, których dane przechowywane są w pamię
 \end{itemize}
 Niżej przedstawiłem kilka podstawowych własności tabeli Memory.
 \begin{itemize}
-	\item \textbf{Indeksy Hash} Tabele Memory obsługują indeksy Hash (opisane w rozdziale dotyczącym indeksów).
+	\item \textbf{Wsparcie dla indeksów} Tabele Memory obsługują indeksy Hash oraz B-tree. Domyślnym indeksem jest indeks typ Hash.
 	\item \textbf{Blokowanie na poziomie tabeli.} Podobnie jak tabele MyISAM, w momencie modyfikowania danych blokowana jest cała tabela.
 	\item \textbf{Brak obsługi typów TEXT oraz BLOB}. Tabele nie obsługują typów TEXT. Przechowywanie teksu możliwe jest w kolumnach VARCHAR o stałej zdefiniowanej wielkości, co prowadzi do marnotrawienia pamięci.
+	\item \textbf{Brak danych statystycznych indeksu.} Tabele MEMORY nie przechowują statystyk dotyczących indeksów, co czasami może skutkować wybraniem nieodpowiedniego indeksu przez optymalizator zapytań i w efekcie pogorszenie wydajności zapytań.
 \end{itemize}
 
 
@@ -71,10 +71,11 @@ Silnik archive służącym do przechowywania dużej ilości nieindeksowanych dan
 Silnik NDB Cluster został zaprojektowany do działania w klastrze MySQL. Został opracowany w celu zapewnienia dużej szbkości działania wraz z możliwościami w zakresie redundancji i równoważenia obciążenia. Pierwotnie został zaprojektowany do przechowywania danych w pamięci, ale obecnie możliwe jest również przechowywanie danych na dysku twardym. Zastosowanie silnika NDB Cluster jest dokładniej opisane w rozdziale dotyczącym skalowania.
 
 \subsection{Porównanie silników}
-\\todo https://dev.mysql.com/doc/refman/8.0/en/storage-engines.html
 
 
-W celu porównania silników baz danych przygotowałem testową bazę danych zawierają pięć tabel będących niemalże kopią tabeli \textit{Users} z bazy testowej, z których każda wykorzystuje inny silnik. Jedyną zmianą jest usunięcie kolumny \textit{AboutMe}, która została usunięta ze względu na fakt, że silnik MEMORY nie wspiera typu TEXT. Do tworzenia tabel wykorzystałem następujące polecenie.
+
+\subsubsection{Przechowywanie danych}
+W celu porównania sposobu przechowywania danych na dysku, przygotowałem testową bazę danych zawierają pięć tabel będących niemalże kopią tabeli \textit{Users} z bazy testowej, z których każda wykorzystuje inny silnik. Jedyną zmianą jest brak kolumny \textit{AboutMe}, która została usunięta ze względu brak wsparcia dla kolumn TEXT w silniku MEMORY. Do tworzenia tabel wykorzystałem następujące polecenie, a następnie zaimportowałem dane z bazy \textit{Stackoverflow}. Ze względu na fakt, że nie wszystkie silniki wspierają przechowywania wartości NULL zamieniłem domyślne wartości NULL na wartość 0 lub pustego tekstu (w zależności od typu danych).
 \begin{spverbatim}
 	CREATE TABLE `Users` (
 	`Id` int NOT NULL,
@@ -93,55 +94,207 @@ W celu porównania silników baz danych przygotowałem testową bazę danych zaw
 	PRIMARY KEY (`Id`) -- w tabelach, które wspierają klucze główne
 	) ENGINE=<nazwa silnika>;
 \end{spverbatim}
-Dla silników, które nie wspierają kluczy głównych musiałem je usunąć.Dla tych, które nie wspierają przechowywania wartości NULL zamieniłem domyślne wartości NULL na wartość 0 lub pustego tekstu (w zależności od typu danych).
-Tabela zawiera blisko dwa i pół miliona wierszy.
-Silnik NDB pominąłem, ponieważ został dodatkowo opisany w rozdziale dotyczącym skalowalności, a jego zastosowanie jest ograniczone do specyficznych przypadków wymagających wysokiej skalowalności, dlatego jego porównanie z innymi silnikami mogło być niemiarodajne. Po stworzeniu tabel i zaimportowaniu danych, baza danych wygląda następująco.
+Dla silników, które nie wspierają kluczy głównych musiałem je usunąć. Ostatecznie tabela zawiera w granicach 2,5 miliona wierszy. Silnik NDB pominąłem, ponieważ został dodatkowo opisany w rozdziale dotyczącym skalowalności.
 \begin{figure}[!h]
 	\caption{Baza danych użyta do testowania silników baz danych}
 	\centering
 	\includegraphics[scale = 0.59]{engines_tests.png}
 	\label{fig:label}
 \end{figure}
-Do testowania zapytań wykorzystałem narzędzie \textit{mysqlslap} lub gotowe zastawy testowe narzędzia \textit{sysbench}.
-\subsection{Przechowywanie danych}
-\\todo rozmiar tez
+\begin{figure}[!h]
+	\caption{Pliki z danymi użytkowników dla testowych silników.}
+	\centering
+	\includegraphics[scale = 0.6]{engines_storage.png}
+	\label{fig:label}
+\end{figure}
+Jak możemy zauważyć pod względem optymalizacji ilości miejsca na dysku zdecydowanie najlepiej wypada silnik Archive, który potrzebuje jedynie 67 MB dla danych użytkowników. Na drugim miejscu pod tym względem plasuje się silnik MyISAM. Silniki InnoDB oraz CSV wymagają praktycznie takiej samej przestrzeni dyskowej; w granicach 250 MB. Silnik MEMORY na dysku twardym przechowuje jedynie strukturę tabeli, ale do sprawdzenia ilości użytej pamięci możemy użyć narzędzia \textit{MySQL Workbench}.
+\begin{figure}[!h]
+	\caption{Informacje dotyczące tabeli Users\textunderscore memory w \textit{MySQL Workbench}. \textit{StackOverflow}}
+	\centering
+	\includegraphics[scale = 0.6]{memory_engine_storage.png}
+	\label{fig:label}
+\end{figure}
+Silnik MEMORY wymaga bez mała 5.5 Gb pamięci. Wynika to w dużej mierze z tego, że silnik MEMORY dla kolumn VARCHAR zawsze rezerwuje rozmiar wynikający z maksymalnej wartości, nawet jeżeli nie jest ona wykorzystana.
+
+
+
 
 \subsubsection{Wymaganie transakcyjności}
 W przypadku tabel, które wymagają użycia transakcji, jedynym możliwym wyborem jest silnik InnoDB.
-\subsubsection{Operacje odczytu z wykorzystaniem klucza głównego}
-Aby przetestować wydajność wyszukiwania danych dla różnych silników przygotowałem następują procedurę.
+
+\subsubsection{Operacje odczytu klucz-wartość}
+Do testów użyłem narzędzia \textit{sysbench}, który posiada wbudowany mechanizm ułatwiający testowanie baz danych. Na początku przygotowałem testową bazę danych udostępnioną przez \textit{sysbench} za pomocą polecenia:
 \begin{spverbatim}
-	create procedure test_select_users()
-	begin
-	declare v_max int unsigned default 20000;
-	declare v_counter int unsigned default 0;
-	while v_counter < v_max do
-		SET @START = ROUND(RAND() * 10000);
-		SELECT id, DisplayName, Reputation FROM engines_tests.Users<Nazwa_silnika> where id = @START;
-		set v_counter=v_counter+1;
-	end while;
-	end #
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --range_selects=off --mysql_storage_engine=<nazwa silnika> /usr/share/sysbench/oltp_read_only.lua prepare
+\end{spverbatim} 
+Baza danych zawiera 2 miliony rekordów, tabela domyślnie przyjmuje nazwę \textit{sbtest1}.
+\begin{figure}[H]
+	\caption{Struktura tabeli \textit{sbtest1}.}
+	\centering
+	\includegraphics[scale = 0.6]{struktura_sbtest1.png}
+	\label{fig:label}
+\end{figure}
+Pierwszy test został wykonany za pomocą polecenia:
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --range_selects=off --mysql_storage_engine=<nazwa silnika> /usr/share/sysbench/oltp_read_only.lua prepare
+\end{spverbatim}
+Przy takiej konfiguracji wykonywane jest następujące zapytanie:
+\begin{spverbatim}
+	SELECT c FROM sbtest1 WHERE id=?
+\end{spverbatim}
+\begin{figure}[H]
+	\caption{Przykładowe statystyki testu wydajności izolowanych operacji odczytu.}
+	\centering
+	\includegraphics[scale = 0.6]{sysbench_statistics.png}
+	\label{fig:label}
+\end{figure}
+\begin{center}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+		\hline
+		średni czas [ms] & 0.54 & 0.55 & 0.38 & powyżej minuty & powyżej minuty \\
+		\hline
+	\end{tabular}
+\end{center}
+Silnik MEMORY okazał się najwydajniejszy w przypadku zapytania używającego pełnego klucza głównego. Dobry wynik wynika z faktu zastosowania indeksu HASH na kolumnie Id. Silniki InnoDB oraz MyISAM prezentują podobną wydajność w przypadku zapytań używających indeksy (w tym przypadku indeksy BTree). Silniki Archive oraz CSV wyraźnie odstają w tym zestawieniu ze względu na brak obsługi kluczy głównych.
+
+\subsubsection{Operacje odczytu z wykorzystaniem klucza głównego}
+Dla potrzeb tego testu zmodyfikowałem polecenie w następujący sposób:
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silnika> /usr/share/sysbench/oltp_read_only.lua prepare
+\end{spverbatim}
+Przy takiej konfiguracji wykonywane będą 
+
+
+
+Przypadek, który przedstawiłem test wydajności operacji odczytu w izolowanych środowisku (brak równoczesnych operacji odczytu danych). W kolejnym teście dane będą odczytywane w analogiczny sposób, ale równocześnie wykonywane będą operacje modyfikujące dane.
+\subsubsection{Symultaniczne operacje odczytu z wykorzystaniem klucza głównego oraz operacji zapisu.}
+
+Do przygotowania testowych zestawów danych wykorzystałem następujące skrypty:
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --range_selects=off --mysql_storage_engine=<nazwa silinika>  /usr/share/sysbench/oltp_read_write.lua prepare
 \end{spverbatim}
 
-Następnie za pomocą polecenia: \begin{spverbatim}
-	mysqlslap --concurrency=10 --iterations=5 --query="call test_select_users();" --delimiter=";" --user=root --password=root --create-schema=engines_tests
-\end{spverbatim} zmierzyłem wydajność pobierania 20000 losowych danych z różnych tabel i wyniki zamieściłem w poniższej tabeli.
+Wykonanie testu analogicznie jak w poprzednich przypadkach wykonałem podmieniając słowo kluczowe \textit{prepare} na \textit{run}.
+
+Przykładowe wynik polecenia został przedstawiony poniżej.
+\begin{figure}[H]
+	\caption{Przykładowe statystyki testu symultanicznych odczytów i zapisów.}
+	\centering
+	\includegraphics[scale = 0.6]{wyniki_testu_symulatnicznych_odczytow.png}
+	\label{fig:label}
+\end{figure}
+
+Widzimy, że w porównaniu z poprzednim testem, tym razem równolegle z operacjami odczytu wykonywane były operacje zapisu do tabeli. Wyniki testu zostały przedstawione w poniższej tabeli.
+
 
 \begin{center}
 	\begin{tabular}{ | c | c | c | c | c | c |}
 		\hline
-		- & MyISAM & InnoDB & Memory & Archive & Csv  \\ 
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
 		\hline
-		średni czas [s] & 3.972 & 4.036 & 3.23 & powyżej 1 godziny & powyżej 1 godziny \\
+		średni czas [ms] & 432.7 & 75.5 & 425.1 & powyżej minuty & powyżej minuty \\
 		\hline
 	\end{tabular}
 \end{center}
-Jak widzimy w przypadku zapytań wykorzystujących klucz podstawowy; trzy silniki, które posiadają taki mechanizm mają bardzo podobną wydajność. Pomiędzy testami restartowałem serwer MySQL, aby maksmymalnie wyrównać warunki. Oczywiście w mniej odizolowanym przypadku, MySQL przeprowadza pewne optymalizacje, między innymi przechowywanie często używanych danych w pamięci, co ma pewien wpływ na wydajność zapytań, ale imitując taką sytuację poprzez wielokrotne wywołanie skryptu bez restartów, wyniki nie odbiegały znacząco od tych zawartych w tabeli.
 
-\subsubsection{Operacje odczytu bez klucza głównego}
-Do przeprowadzenia testu zmodyfikowałem kluczową część procedury testującej w następujący sposób:
+W teście zdecydowanie najwydajniejszym silnikiem okazał się InnoDB, na co wpływ miał mechanizm blokowania pojedynczych rekordów, zamiast całej tabeli.
+
+\subsubsection{Wyszukiwanie danych z zakresu.}
+
+Do wykonania testu użyłem następującego polecenia:
 \begin{spverbatim}
-	SET @START = ROUND(RAND() * 3000);
-	SELECT id, DisplayName, Reputation FROM engines_tests.Users<Nazwa_silnika> where reputation = @START;
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silniku> --num-threads=12 /usr/share/sysbench/select_random_ranges.lua prepare
 \end{spverbatim}
-Zmodyfikowałem również liczbę zapytań do 100 (zmienna \textit{v\textunderscore max}).
+W związku z tym, że domyślnym indeksem dla tabeli MEMORY jest indeks HASH, a nie B-tree, na stworzonej tabeli stworzyłem dodatkowy indeks typu B-tree za pomocą polecenia:
+\begin{spverbatim}
+	CREATE index k_12 on sbtest1(k) using btree;
+\end{spverbatim}
+\begin{center}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+		\hline
+		średni czas [ms] & 1.23 & 1.25 & 0.51 & 26687 & 51400 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Tym razem skuteczne okazały się tylko silniki wykorzystujące indeksy typu B-Tree, które pozwalają w optymalny sposób wykonywanać wysukiwanie za pomoca zakresu. Silnik \textit{MEMORY} okazał się najszybszy ze względu na przechowywanie danych bezpośrednio w pamięci.
+
+\subsubsection{Operacje zapisu.}
+
+Do wykonania testu użyłem następującego polecenia:
+\begin{spverbatim}
+	 sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silnika> --num-threads=12 /usr/share/sysbench/oltp_insert.lua prepare
+\end{spverbatim}
+
+Wyniki testu umieszcozne zostały w poniższej tabeli:
+\begin{center}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+		\hline
+		średni czas [ms] & 107.8 & 37.9 & 104.1 & 17.1 & 108.9 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+W operacjach zapisywania danych najszybszy okazał się silnik \textit{Archive}, który został zaprojektowany właśnie do wydajnego zapisywania danych. Duży wpływ na dużą wydajność ma bez wątpienia fakt braku indeksów. Istotnym jest również fakt niemal trzykrotnie większej wydajności operacji zapisu w tabelach \textit{InnoDB} w porównaniu do \textit{MyISAM}.
+
+\subsubsection{Operacje aktualizacji danych z wykorzystaniem indeksu.}
+
+Do wykonania testu użyłem następującego polecenia:
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=MEMORY /usr/share/sysbench/oltp_update_index.lua prepare
+\end{spverbatim}
+
+Wyniki testu umieszcozne zostały w poniższej tabeli:
+\begin{center}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+		\hline
+		średni czas [ms] & 109.1 & 54.9 & 105.9 & Brak wsparcia & Brak indeksów \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Test był miarodajny jedynie dla trzech silników wspierających indeksy. Podstawową różnicą, która spowodowała niemal dwukrotnie większą wydajność operacji modyfikujących dane, jest mechanizm blokowania na poziomie rekordów, który pozwala tabelom \textit{InnoDB} działać wydajniej w środowisku wielowątkowym.
+
+\subsubsection{Operacje aktualizacji danych bez wykorzystania indeksów.}
+Do wykonania testu użyłem następującego polecenia:
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=<nazwa silnika> /usr/share/sysbench/oltp_update_non_index.lua run
+	
+\end{spverbatim}
+\begin{center}
+	\begin{tabular}{ | c | c | c | c | c | c |}
+		\hline
+		- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+		\hline
+		średni czas [ms] & 107.6 & 46.9 & 107.1 & Brak wsparcia & 67627.1 \\
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Operacje usuwania danych}
+
+\begin{spverbatim}
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=<nazwa tabeli>  /usr/share/sysbench/oltp_delete.lua prepare
+\end{spverbatim}
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | c |}
+	\hline
+	- & MyISAM & InnoDB & Memory & Archive & CSV  \\ 
+	\hline
+	średni czas [ms] & 312.5 & 43.3 & 106.1 & Brak wsparcia & 62342.1 \\
+	\hline
+\end{tabular}
+\end{center}
+
+
+\subsubsection{Podsumowanie}
+
+W tym rozdziale przedstawiłem podstawowe własności najpopularniejszych dostępnych obecnie silników MySQL. W zdecydowanej większości przypadków, które możemy spotkać we współczenych aplikacjach korzystających z baz danych najlepszym rozwiązaniem jest silnik InnoDB. Są jednak specyficzne przypadki, kiedy dobrym wyborem może okazać się jeden z alternatywnych silników.
