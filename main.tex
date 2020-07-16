@@ -5,13 +5,15 @@
 \usepackage{lmodern}
 \selectlanguage{polish}
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage{mathtools}
 \usepackage{spverbatim}
 \usepackage{float}
 \linespread{1.25}
 \usepackage{array}
 \graphicspath{{/home/franek/Documents/magisterka/images/}}
-
+\setcounter{secnumdepth}{2} % only chapter and sections will be numbered
+\setcounter{tocdepth}{2}    % entries down to \subsubsections in the TOC
 \title{Praca magisterska}
 \author{Franciszek Słupski}
 \date{Brak}
@@ -21,10 +23,11 @@
 \maketitle
 
 \tableofcontents
+\newpage
 \section{Wstęp}
 
 \subsection{Testowa baza danych}
-Aby przedstawić techniki optymalizacji zawarte w pracy na rzeczywistych przykładach, wykorzystałem bazę danych udostępnioną przez portal stackoverflow.com. Baza zawiera w granicach 50 Gb danych zebranych w latach 2008-2013. Archiwum po zaimportowaniu do serwera MySQL nie zawiera klucz głównych, kluczy obcych, indeksów.
+Aby przedstawić techniki optymalizacji zawarte w pracy na rzeczywistych przykładach, wykorzystałem bazę danych udostępnioną przez portal \textit{stackoverflow.com}. Baza zawiera w granicach 50 Gb danych zebranych w latach 2008-2013. Archiwum po zaimportowaniu do serwera MySQL nie zawiera klucz głównych, kluczy obcych, indeksów.
 Początkowy schemat bazy danych jest przedstawiony na rysunku 1.
 \begin{figure}
     \includegraphics[scale =0.5]{schemat-baza-stackoverflow.jpg} 
@@ -32,13 +35,21 @@ Początkowy schemat bazy danych jest przedstawiony na rysunku 1.
 \end{figure}
 
 \input{Explain.tex}
+\newpage
 \input{ArchitekturaMySQL.tex}
+\newpage
 \input{DataStoreEngines.tex}
+\newpage
 \input{optimizer.tex}
+\newpage
 \input{scalability.tex}
+\newpage
 \input{partycjonowanie.tex}
-
+\newpage
 \input{Indeksy.tex}
+\newpage
 \input{PraktyczneProblemy.tex}
+\newpage
 \input{ProcedurySkladowane.tex}
+\newpage
 \end{document}

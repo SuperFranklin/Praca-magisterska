@@ -67,3 +67,52 @@ Sprawdźmy co się stanie, jeżeli delikatnie zmodyfikujemy zapytanie do postaci
 \end{spverbatim}
 
 W tym przypadku nie ma jednoznaczej odpowiedzi na pytanie, w jaki sposób MySQL posortuje dane. Optymalizator MySQL musi podjąć decyzję, czy warunki w klauzuli WHERE są wystarczająco selektywne, czy może pobranie indeksu i na jego podstawie przeprowadzenie sortowania będzie efektywniejsze.
+
+\subsection{Przechowywanie wartości NULL czy pustej wartości}
+Częstą wątpliwością przy przechowywaniu danych w tabelach MySQL jest pytanie, w jaki sposób reprezentować brak wartości. Załóżmy, że mamy tabelę studentów, która posiada wiersz z numerem domowym studenta. Zdecydowana większość studentów nie posiada numeru domowego. W jaki zatem sposób ustawić wartość w bazie danych. Brak numeru zapisać jako wartość NULL czy może pusty ciąg znaków? Na początku skupmy się na kwestii wykorzystania miejsca na dysku. Przygotowałem cztery następujące tabele:
+
+\begin{spverbatim}
+	CREATE TABLE test_null_varchar_values(
+	k1 varchar(32) not null, k2 varchar(32) not null,
+	k3 varchar(32) not null, k4 varchar(32) not null,
+	k5 varchar(32) not null, k6 varchar(32) not null,
+	k7 varchar(32) not null, k8 varchar(32) not null);
+	
+	CREATE TABLE test_not_null_varchar_values(
+	k1 varchar(32) not null, k2 varchar(32) not null,
+	k3 varchar(32) not null, k4 varchar(32) not null,
+	k5 varchar(32) not null, k6 varchar(32) not null,
+	k7 varchar(32) not null, k8 varchar(32) not null);
+	
+	CREATE TABLE test_not_null_int_values(
+	k1 int not null, k2 int not null,
+	k3 int not null, k4 int not null,
+	k5 int not null, k6 int not null,
+	k7 int not null, k8 int not null);
+	
+	CREATE TABLE test__null_int_values(
+	k1 int,	k2 int,	k3 int, k4 int,
+	k5 int,	k6 int,	k7 int,	k8 int);
+	
+\end{spverbatim}
+
+Następnie wypełniłem tabele piętnastoma tysiącami wierszy. W przypadtku tabeli, które dopuszcząją wartość NULL wypełniłem je takimi właśnie wartościami. Dla tabel z kolumnami oznaczonymi jako NOT NULL wypełniłem odpowiednio pustym tekstem ('') lub wartością 0.
+Następnie na każdej z tabel wykonałem polecenie ANALYZE TABLE, w celu aktualizacji statystyk i wykonałem polecenie \textit{SHOW TABLE STATUS}, które wyniki umieściłem poniżej na rysunku ~\ref{fig:null_vs_empty_value_analyze_table}.
+
+\begin{figure}
+	\caption{Wyniki polecenia ANALYZE TABLE dla tabeli z ośmioma kolumnami}
+	\centering
+	\includegraphics[scale = 0.43]{null_vs_empty_value_analyze_table.png}
+	\label{fig:null_vs_empty_value_analyze_table}
+\end{figure}
+
+Widzimy, że wykorzystanie NULL zredukować rozmiar danych o ok. 70 \%. Zobaczmy teraz co się stanie, jeżeli w tabeli będziemy przechowywać tylko jedną kolumnę z możliwymi wartościami NULL. Zmodyfikowałem skrypty tworzące tabele tak, żeby każda tabela posiadała tylko jedną kolumnę. W analogiczny sposób wypełniłem bazę piętnastoma tysiącami wierszy i dla każdej z tabel wykonałem polecenie ANALYZE TABLE. Na rysunku ~\ref{fig:null_vs_empty_value_analyze_table_for_one_column}.
+
+\begin{figure}
+	\caption{Wyniki polecenia ANALYZE TABLE dla tabeli z jedną kolumną}
+	\centering
+	\includegraphics[scale = 0.43]{null_vs_empty_value_analyze_table_for_one_column.png}
+	\label{fig:null_vs_empty_value_analyze_table_for_one_column}
+\end{figure}
+
+W pierwszej chwili możemy być zaskoczeni jednakowym rozmiarem tabel. Jednakowy rozmiar wierszy zawierających osiem wartości NULL oraz wierszy z jedną wartością NULL wynika ze sposobu w jaki MySQL przechowuje informację o kolumnach z wartościami NULL. Mianowicie, dla każdego wiersza, który zawiera kolumny z wartości przechowywany jest dodatkowy bajt z informacją o kolumnach z wartością NULL. MySQL na każdym bajcie przechowuje informacje dla maksymalnie 8 kolumn. Gdybyśmy w wierszu zawierającym osiem kolumn, dodali jeszcze jedną z warością NULL, wtedy MySQL zarezerwowałby dodatkowy bajt dla tego wiersza.

@@ -3,24 +3,27 @@
 Zasadniczo każde zapytanie SQL skierowane do bazy danych MySQL może zostać zrealizowane na wiele różnych sposobów. Optymalizator jest fragmentem oprogramowania serwera MySQL, który odpowiada za wybranie najefektywniejszego sposobu wykonania zapytania (plan wykonania zapytania).
 Proces ten ma kilka etapów. W pierwszej kolejności analizator MySQL dzieli zapytanie na tokeny i z nich tworzy "drzewo analizy". Na tym etapie przeprowadzana jest jednocześnie analiza składni zapytania. Następnym krokiem jest \textit{preprocessing}, w którego trakcie sprawdzane są między innymi: nazwy kolumn i tabel, a także nazwy i aliasy, aby zapewnić, że nazwy użyte w zapytaniu nie są np. dwuznaczne. Na kolejnym etapie weryfikowane są uprawnienia. Czynność ta może zajmować szczególnie dużo czasu, jeżeli serwer posiada ogromną liczbę uprawnień. Po zakończeniu etapu \textit{preprocessingu} drzewo analizy jest poprawne i gotowe do tego, aby optymalizator przekształcił je do postaci planu wykonania.
 
-W MySQL stosowany jest optymalizator kosztowy, co oznacza, że optymalizator szacuje koszt wykonania dla wariantów planu wykonania i wybiera ten z najmniejszym kosztem. Jednostką kosztu jest odczytanie pojedynczej, losowo wybranej strony danych o wielkości czterech kilobajtów. Wartość kosztu jest wyliczana na podstawie danych statystycznych, dlatego optymalizator wcale nie musi wybrać optymalnego planu. Istnieją dwa rodzaje optymalizacji: \textit{statyczna} i \textit{dynamiczna}. Optymalizacja \textit{statyczna} przeprowadzana jest tylko raz i jest niezależna od wartości używanych w zapytaniu. To oznacza, że przeprowadzona raz będzie aktualna, nawet jeżeli zapytanie będzie wykonywane z różnymi wartościami. Natomiast optymalizacja dynamiczna bazuje na kontekście, w którym wykonywane jest zapytanie i jest przeprowadzana za każdym razem, kiedy polecenie jest wykonywane. Optymalizacja dynamiczna opiera się na wielu parametrach, takich jak: wartości w klauzuli WHERE czy liczba wierszy w indeksie, które znane są dopiero w momencie wykonania konkretnego zapytania.
+W MySQL stosowany jest optymalizator kosztowy, co oznacza, że optymalizator szacuje koszt wykonania dla wariantów planu wykonania i wybiera ten z najmniejszym kosztem. Jednostką kosztu jest odczytanie pojedynczej, losowo wybranej strony danych o wielkości czterech kilobajtów. Wartość kosztu jest wyliczana na podstawie danych statystycznych, dlatego optymalizator wcale nie musi wybrać optymalnego planu. Istnieją dwa rodzaje optymalizacji: \textit{statyczna} i \textit{dynamiczna}. Optymalizacja \textit{statyczna} przeprowadzana jest tylko raz i jest niezależna od wartości używanych w zapytaniu. To oznacza, że przeprowadzona raz będzie aktualna, nawet jeżeli zapytanie będzie wykonywane z różnymi wartościami. Natomiast optymalizacja dynamiczna bazuje na kontekście, w którym wykonywane jest zapytanie i jest przeprowadzana za każdym razem, kiedy polecenie jest wykonywane. Optymalizacja dynamiczna opiera się na wielu parametrach, takich jak: wartości w klauzuli WHERE czy liczba wierszy w indeksie, które znane są dopiero w momencie wykonania zapytania.
 
-Poniżej przedstawione zostało kilka przykładowych typów optymalizacji, które może wykonać moduł optymalizatora.
+Poniżej przedstawione zostało kilka przykładowych optymalizacji, które może wykonać moduł serwer MySQL.
 
 \begin{itemize}
 	\item \textbf{Zmiana kolejności złączeń}. Podczas wykonywania zapytania tabele nie zawsze są łączone w takiej kolejności jak w zapytaniu. Zagadnienie jest dokładniej opisane w podrozdziale dotyczącym optymalizatora złączeń.
-	\item \textbf{Zamiana OUTER JOIN na INNER JOIN.} OUTER JOIN nie zawsze musi być wykonywany jako OUTER JOIN. Niektóre czynniki takie jak warunki w klauzuli WHERE czy schemat bazy danych mogą spowodować, że OUTER JOIN będzie równoznaczne złączeniu INNER JOIN. 
-	\item \textbf{Przekształcenia algebraiczne.} Optymalizator przeprowadza transformacje algebraiczne takie jak: redukcja stałych, eliminowanie nieosiągalnych warunków czy stałych. Przykładowo warunek (2=2 AND a>2) może zostać przekształcony do postaci (a>2. Podobnie warunek (a<b AND b=c AND a=5) może być przekształcony do (b>5 AND b=c AND a=5).
+	\item \textbf{Zamiana OUTER JOIN na INNER JOIN.} Nawet jeżeli w zapytaniu użyjemy klauzuli OUTER JOIN, złączenie nie zawsze musi być wykonywany jako OUTER JOIN. Niektóre czynniki takie jak warunki w klauzuli WHERE czy schemat bazy danych mogą spowodować, że OUTER JOIN będzie równoznaczne złączeniu INNER JOIN. 
+	\item \textbf{Przekształcenia algebraiczne.} Optymalizator przeprowadza transformacje algebraiczne takie jak: redukcja stałych, eliminowanie nieosiągalnych warunków czy stałych. Przykładowo warunek (2=2 AND a>2) może zostać przekształcony do postaci (a>2). Podobnie warunek (a<b AND b=c AND a=5) może być przekształcony do (b>5 AND b=c AND a=5).
 	\item \textbf{Optymalizacja funkcji MIN(), MAX().}
-	Serwer już na etapie optymalizacji zapytania może uznać wartości zwracane przez funkcje jako stałe dla reszty zapytania. W niektórych przypadkach optymalizator może nawet pominąć tabelę w planie wykonania zapytania, jeżeli jedyną wartością pobieraną z tabeli jest wynik funkcji MIN() lub MAX(). W takim przypadku w danych wyjściowych polecenia EXPLAIN znajdzie się ciąg tekstowy "Select tables optimized away".
-	Na poniższym przykładzie widzimy, że kolumna \textit{ref} dla pierwszego wiersza jest wartość ''const'', czyli najmniejsza wartość id z tabeli Users została potraktowana jako stała.
+	Serwer już na etapie optymalizacji zapytania może uznać wartości zwracane przez funkcje jako stałe dla reszty zapytania. W niektórych przypadkach optymalizator może nawet pominąć tabelę w planie wykonania zapytania, jeżeli jedyną wartością pobieraną z tabeli jest wynik funkcji MIN() lub MAX(). W takim przypadku w danych wyjściowych polecenia EXPLAIN znajdzie się ciąg tekstowy''Select tables optimized away''.
+	Na rysunku ~\ref{fig:explain20} widzimy, że kolumna \textit{ref} dla pierwszego wiersza jest wartość ''const'', czyli najmniejsza wartość id z tabeli \textit{Users} została potraktowana jako stała.
 	\begin{spverbatim}
 		EXPLAIN SELECT * FROM Comments WHERE UserId = (SELECT MIN(id) FROM Users);
 	\end{spverbatim}
-	\begin{figure}[H]
-		\includegraphics[scale =0.4]{explain20.png} 
-	\end{figure}
-	\item \textbf{Optymalizacja funkcji COUNT().} Wynik funkcji COUNT(*) bez klauzuli WHERE w niektórych silnikach (np. MyISM), również mogą zostać potraktowane jako stała, ale nie dotyczy to najpopularniejszego obecnie w MySQL silnika InnoDB.
+\begin{figure}
+	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
+	\centering
+	\includegraphics[scale = 0.37]{explain20.png}
+	\label{fig:explain20}
+\end{figure}
+	\item \textbf{Optymalizacja funkcji COUNT().} Wyniki funkcji COUNT() bez klauzuli WHERE w niektórych silnikach (np. MyISM), również mogą zostać potraktowane jako stała, ale nie dotyczy to najpopularniejszego obecnie w MySQL silnika InnoDB.
 	\textbf{Optymalizacja stałej tabeli}
 	
 	\item \textbf{Stałe tabele.} \textit{Stała tabela} jest to tabela, która zawiera co najwyżej jeden wiersz lub warunek zawarty w klauzuli WHERE odnosi się do wszystkich kolumn klucza głównego, albo do indeksu UNIQUE NOT NULL. W takim przypadku MySQL może zwrócić wartość jeszcze przed wykonaniem zapytania i potraktować jako stałą dla dalszej części zapytania.
@@ -34,7 +37,7 @@ Wynikiem optymalizacji jest plan wykonania zapytania. Plan wykonania jest zapisy
 \begin{spverbatim}
 	SELECT * FROM Posts p LEFT JOIN PostTypes pt ON p.PostTypeId = pt.Id LEFT JOIN PostLinks pl ON p.Id = pl.PostId LEFT JOIN LinkTypes lt on pl.LinkTypeId = lt.id WHERE PostID = 9;
 \end{spverbatim}
-Gdybyśmy mieli wyobrazić sobie sposób łączenia tabel w MySQL, zapewne przedstawilibyśmy to tak, jak na poniższym schemacie.
+Gdybyśmy mieli wyobrazić sobie sposób łączenia tabel w MySQL dla takiego zapytania, zapewne przedstawilibyśmy to tak, jak na poniższym schemacie.
  \begin{center}
  	\includegraphics[scale =0.45]{PLAN_WYKONANIA_1.png} 
  \end{center}
@@ -42,11 +45,11 @@ W praktyce drzewo instrukcji przybiera postać \textit{drzewa lewostronnie zagni
 \begin{center}
 	\includegraphics[scale =0.45]{PLAN_WYKONANIA_2.png} 
 \end{center}
-Wywołując polecenie EXPLAIN dla naszego zapytania, używając klienta MySQL Workbench możemy wyświetlić graficzną postać odpowiadającą drzewu instrukcji.
+Wywołując polecenie EXPLAIN dla naszego zapytania, używając klienta \textit{MySQL Workbench} możemy wyświetlić graficzną postać odpowiadającą drzewu instrukcji.
 \begin{center}
 	\includegraphics[scale =0.5]{explain21.png} 
 \end{center}
-Widzimy, że drzewo otrzymane jako wynik polecenia EXPLAIN jest drzewem lewostronnie zagnieżdżonym. Widzimy też, że optymalizator zdecydował się zamienić kolejność złączeń, aby zminimalizować koszt wykonania zapytania.
+Widzimy, że drzewo otrzymane jako wynik polecenia EXPLAIN jest drzewem lewostronnie zagnieżdżonym. Możemy zauważyć też, że optymalizator zdecydował się zamienić kolejność złączeń, aby zminimalizować koszt wykonania zapytania.
 
 \subsection{Optymalizator złączeń}
 Większość operacji złączeń można wykonać na wiele różnych sposobów, uzyskując ten sam wynik. Zamiana kolejności jest bardzo skuteczną formą optymalizacji zapytań. Rozważmy teraz następujące przykładowe zapytanie:
@@ -67,12 +70,12 @@ Widzimy, że oba rezultaty polecenia są niemalże identyczne, jedyną różnic�
 W kolejnym kroku włączyłem profilowanie zapytań za pomocą komendy:
 \begin{spverbatim}
 	SET PROFILING = 1;
-\end{spverbatim}, wykonałem 10 zapytań dla każdego wariantu i policzyłem średni czas, jaki serwer MySQL spędzał na etapie ''executing'', czyli etapie faktycznego wykonywania zapytania. Dla zapytania z kolejnością wybraną przez optymalizator otrzymałem wartość 0.04 sekundy, natomiast przy kolejności wybranej przez nas w zapytaniu wartość ta wynosiła już 0.28 sekundy. Powyższy eksperyment pokazuje, że zamiana kolejności złączeń jest niezwykle skuteczną formą optymalizacji zapytań i może prowadzić do wielokrotnego zmniejszenia kosztu zapytania. Oczywiście nadal może się zdarzyć sytuacja, kiedy zapytanie z wymuszoną kolejnością załączeń będzie wydajniejsze, ponieważ optymalizator MySQL nie zawsze może sprawdzić wszystkie potencjalne kombinacje złączeń, ale w zdecydowanej większości przypadków optymalizator złączeń wygrywa z człowiekiem.
+\end{spverbatim}, wykonałem 10 zapytań dla każdego wariantu i policzyłem średni czas, jaki serwer MySQL spędzał na etapie ''executing'', czyli etapie faktycznego wykonywania zapytania. Dla zapytania z kolejnością wybraną przez optymalizator otrzymałem wartość 0.04 sekundy, natomiast przy kolejności wybranej przez nas w zapytaniu wartość ta wynosiła już 0.28 sekundy. Powyższy eksperyment pokazuje, że zamiana kolejności złączeń jest bardzo skuteczną formą optymalizacji i może prowadzić do wielokrotnego zmniejszenia kosztu zapytania. Oczywiście nadal może się zdarzyć sytuacja, kiedy zapytanie z wymuszoną kolejnością załączeń będzie wydajniejsze, ponieważ optymalizator MySQL nie zawsze może sprawdzić wszystkie potencjalne kombinacje złączeń, ale w zdecydowanej większości przypadków optymalizator złączeń okazuje się skuteczniejszy od człowieka.
 
 \subsection{Konfiguracja optymalizatora złączeń}
-Optymalizator złączeń stara się wygenerować plan zapytań o najniższym możliwym koszcie. W idealnym przypadku optymalizator może zweryfikować wszystkie potencjalne kombinacje złączeń. Niestety operacja łączenia dla \textit{n} tabel będzie miała \textit{n!} możliwych kombinacji. Oznacza to, że dla dziesięciu tabel złączenia mogą zostać przeprowadzone na 3628800 różnych sposobów i gdyby optymalizator zdecydował się przetestować każdy dostępny scenariusz, kompilacja mogłaby zająć wiele godzin, a nawet dni. Do zdefiniowania, jak wiele planów powinien przetestować optymalizator służy opcja \textit{optimizer\textunderscore search\textunderscore depth}. Na ogół im niższa wartość zmiennej, tym szybciej optymalizator zwróci plan wykonania, ale zmniejsza się też prawdopodobieństwo optymalności planu. Wartość 0 oznacza, że MySQL dla każdego zapytania dobierze odpowiednią (zdaniem optymalizatora) przestrzeń przeszukiwania.
+Optymalizator złączeń stara się wygenerować plan zapytań o najniższym możliwym koszcie. W idealnym przypadku optymalizator zweryfikowałby wszystkie możliwe kombinacje złączeń. Niestety operacja łączenia dla \textit{n} tabel będzie miała \textit{n!} możliwych kombinacji. Oznacza to, że dla dziesięciu tabel złączenia mogą zostać przeprowadzone na 3628800 różnych sposobów i gdyby optymalizator zdecydował się przetestować każdy dostępny scenariusz, kompilacja mogłaby zająć wiele godzin, a nawet dni. Do zdefiniowania, jak wiele planów powinien przetestować optymalizator służy opcja \textit{optimizer\textunderscore search\textunderscore depth}. Na ogół im niższa wartość zmiennej, tym szybciej optymalizator zwróci plan wykonania, ale zmniejsza się też prawdopodobieństwo optymalności planu. Wartość 0 oznacza, że MySQL dla każdego zapytania dobierze odpowiednią (zdaniem optymalizatora) przestrzeń przeszukiwania.
 
-Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunderscore depth} przygotowałem następujący kod sql, który tworzy dwie tabele, a następnie wypełnia je losowymi danymi.
+Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunderscore depth} przygotowałem następujący kod SQL, który tworzy dwie tabele, a następnie wypełnia je losowymi danymi.
 
 \begin{spverbatim}
 	CREATE TABLE `lecturers`
@@ -94,12 +97,12 @@ Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunders
 	delimiter ;;
 	CREATE PROCEDURE fill_tables()
 	BEGIN
-	DECLARE i int DEFAULT 0;
-	WHILE i <= 1000 DO
-	INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 1, i);
-	INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 2, i);
-	SET i = i + 1;
-	END WHILE;
+		DECLARE i int DEFAULT 0;
+		WHILE i <= 1000 DO
+			INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 1, i);
+			INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 2, i);
+			SET i = i + 1;
+		END WHILE;
 	END;;
 	delimiter ;
 	
@@ -139,38 +142,43 @@ zmieniając parametr \textit{optimizer\textunderscore search\textunderscore dept
 		\hline
 	\end{tabular}
 \end{center}
-Widzimy, że wraz ze wzrostem wartości parametru wzrastał czas wykonywania zapytania. Kolejnym krokiem było włączenie profilowania i sprawdzenie, na który z etapów serwer spędził najwięcej czasu. Wyniki zostały posortowane według czasu i na poniższym zrzucie ekranu widzimy profil zapytania dla wartości 62.
+Widzimy, że wraz ze wzrostem wartości parametru wzrastał czas wykonywania polecenia SQL. Kolejnym krokiem było włączenie profilowania i sprawdzenie, na który z etapów serwer spędził najwięcej czasu. Wyniki zostały posortowane według czasu i na poniższym zrzucie ekranu widzimy profil zapytania dla wartości 62.
 \begin{center}
 	\includegraphics[scale =0.60]{profile1.png} 
 \end{center}
-Profilowanie zapytania wskazuje nam, że przez większość czasu zapytania, serwer starał się zebrać dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Obserwacja pokazuje, że dla pewnych zapytań, próba wybrania optymalny rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru optimizer\textunderscore search\textunderscore depth.
+Profilowanie zapytania wskazuje nam, że przez większość czasu zapytania, serwer starał się zebrać dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Obserwacja pokazuje, że dla pewnych zapytań, próba wybrania optymalny rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru \textit{optimizer\textunderscore search\textunderscore depth}.
 
-Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest optimizer\textunderscore prune\textunderscore level. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach. Aby pokazać wpływ parametru na wydajność zapytania, wykorzystałem jeszcze raz zapytanie do wygenerowanej tabeli \textit{students}. Najpierw ustawiłem wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 razy więcej czasu. Następnie ustawiłem wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzyłem średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do
-optimizer\textunderscore prune\textunderscore level=1. Dlatego też zalecane jest pozostawienie domyślnej wartości optimizer\textunderscore prune, chyba że mamy pewności pominięcia optymalnego planu zapytania.
+Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest \textit{optimizer\textunderscore prune\textunderscore level}. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach. Aby pokazać wpływ parametru na wydajność zapytania, wykorzystałem jeszcze raz zapytanie do wygenerowanej tabeli \textit{students}. Najpierw ustawiłem wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiłem wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzyłem średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do
+\textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego też zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.
 
 \subsection{Konfiguracja statystyk tabel InnoDB dla optymalizatora}
-Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. , natomiast nietrwałe są czyszczone po każdym restarcie oraz po niektórych operacjach.
+Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. Trwałe zapisywane są na dysku twardym i przechowywane są pomiędzy restartami serwera; natomiast nietrwałe są usuwane po każdym restarcie. Statystyki ulotne mogą być również usunięte po wykonaniu niekórych poleceń. 
 
 \subsubsection{Trwałe statystyki}
-Trwałe statystyki są przechowywane niezależnie od restartów serwera MySQL, dlatego zapisywane są na dysku twardym. Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{STAST\textunderscore PERSISTENT} = 0 dla wybranej tabeli.
+Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{STAST\textunderscore PERSISTENT} = 0 dla wybranej tabeli.
 
 \paragraph{Konfiguracja automatycznego przeliczania statystyk}
 Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie, możemy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie możemy wywołać polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
 
 \paragraph{Obliczanie statystyk}
-Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr STATS\textunderscore SAMPLE\textunderscore PAGES dla konkretnej tabeli. Kiedy należy rozważyć zmianę liczby stron?
+Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr STATS\textunderscore SAMPLE\textunderscore PAGES dla konkretnej tabeli. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
 \begin{itemize}
 	\item \textbf{Wartości statystyczne odbiegają od rzeczywistych.} \linebreak
-	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli innodb\textunderscore index\textunderscore stats i porównać z liczbą rzeczywistych unikatowych wartości indeksu. Sprawdźmy dokładność danych statystycznych dla indeksów tabeli \textit{Posts} i różnych liczb skanowanych stron. Tabela \textit{Posts} zawiera dwa indeksy: owner\textunderscore idx (owner\textunderscore id) oraz favorite\textunderscore idx (FavoriteCount, Score).
-	W tym celu przygotujemy cztery zapytania:
+	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli \textit{innodb\textunderscore index\textunderscore stats} i porównać z liczbą rzeczywistych unikatowych wartości indeksu. Sprawdźmy dokładność danych statystycznych dla indeksów tabeli \textit{Posts} i różnych liczb skanowanych stron. Tabela \textit{Posts} zawiera dwa indeksy: owner\textunderscore idx (owner\textunderscore id) oraz favorite\textunderscore idx (FavoriteCount, Score).
+	W tym celu przygotujemy cztery zapytania.
+	Dwa dla owner\textunderscore idx:
 	\begin{spverbatim}
-		Dla owner_idx:
 		SELECT count(DISTINCT OwnerUserId) from Posts; #liczba unikalnych wartości indeksu
-		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name='stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'owner_idx' AND 
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name=
+		'stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'owner_idx' AND 
 		stat_name = 'n_diff_pfx01'; # oszacowana liczba unikalnych wartości indeksu
-		Dla favorite_idx:
+	\end{spverbatim}
+	Oraz dwa dla favorite\textunderscore idx:
+	\begin{spverbatim}
 		SELECT count(DISTINCT FavoriteCount, Score) from Posts;
-		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name='stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'favorite_idx' AND 
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name=
+		'stackOverflowMedium'
+		AND table_name = 'Posts' AND index_name = 'favorite_idx' AND 
 		stat_name = 'n_diff_pfx01';
 	\end{spverbatim}
 	W poniższej tabeli zamieszczone są wyniki eksperymentu.
