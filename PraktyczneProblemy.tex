@@ -116,3 +116,6 @@ Widzimy, że wykorzystanie NULL zredukować rozmiar danych o ok. 70 \%. Zobaczmy
 \end{figure}
 
 W pierwszej chwili możemy być zaskoczeni jednakowym rozmiarem tabel. Jednakowy rozmiar wierszy zawierających osiem wartości NULL oraz wierszy z jedną wartością NULL wynika ze sposobu w jaki MySQL przechowuje informację o kolumnach z wartościami NULL. Mianowicie, dla każdego wiersza, który zawiera kolumny z wartości przechowywany jest dodatkowy bajt z informacją o kolumnach z wartością NULL. MySQL na każdym bajcie przechowuje informacje dla maksymalnie 8 kolumn. Gdybyśmy w wierszu zawierającym osiem kolumn, dodali jeszcze jedną z warością NULL, wtedy MySQL zarezerwowałby dodatkowy bajt dla tego wiersza.
+
+
+\subsection{Klucz stuczny czy złożony}

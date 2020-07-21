@@ -71,16 +71,24 @@
 \contentsline {subsection}{\numberline {6.6}InnoDB Cluster}{55}
 \contentsline {subsection}{\numberline {6.7}MySQL NDB Cluster}{57}
 \contentsline {subsection}{\numberline {6.8}Galera Cluster}{57}
-\contentsline {section}{\numberline {7}Indeksy w MySQL}{59}
-\contentsline {subsection}{\numberline {7.1}Indeksy typu B-Tree}{59}
-\contentsline {paragraph}{Struktura}{59}
-\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{61}
-\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{61}
-\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{62}
-\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{63}
-\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{64}
-\contentsline {subsection}{\numberline {7.2}Indeksy typu hash}{65}
-\contentsline {subsubsection}{Indeksy typu SPATIAL}{66}
-\contentsline {section}{\numberline {8}Praktyczne problemy}{67}
-\contentsline {subsection}{\numberline {8.1}Sortowanie wynik\IeC {\'o}w}{67}
-\contentsline {subsection}{\numberline {8.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{70}
+\contentsline {section}{\numberline {7}Partycjonowanie Tabel}{58}
+\contentsline {subsection}{\numberline {7.1}Metody partycjonowania}{58}
+\contentsline {subsubsection}{Range partitioning}{59}
+\contentsline {subsubsection}{List partitioning}{59}
+\contentsline {subsubsection}{Key partitioning}{60}
+\contentsline {subsubsection}{Hash partitioning}{60}
+\contentsline {subsection}{\numberline {7.2}Przypadki u\IeC {\.z}ycia}{60}
+\contentsline {section}{\numberline {8}Indeksy w MySQL}{63}
+\contentsline {subsection}{\numberline {8.1}Indeksy typu B-Tree}{63}
+\contentsline {paragraph}{Struktura}{63}
+\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{65}
+\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{65}
+\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{66}
+\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{67}
+\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{68}
+\contentsline {subsection}{\numberline {8.2}Indeksy typu hash}{69}
+\contentsline {subsubsection}{Indeksy typu SPATIAL}{70}
+\contentsline {section}{\numberline {9}Praktyczne problemy}{72}
+\contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{72}
+\contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{75}
+\contentsline {subsection}{\numberline {9.3}Klucz stuczny czy z\IeC {\l }o\IeC {\.z}ony}{77}

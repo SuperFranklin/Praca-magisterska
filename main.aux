@@ -105,26 +105,42 @@
 \newlabel{fig:label}{{22}{56}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.7}MySQL NDB Cluster}{57}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.8}Galera Cluster}{57}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Indeksy w MySQL}{59}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Indeksy typu B-Tree}{59}}
-\@writefile{toc}{\contentsline {paragraph}{Struktura}{59}}
-\@writefile{toc}{\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{61}}
-\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{61}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces EXPLAIN 1}}{62}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces EXPLAIN 2}}{62}}
-\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{62}}
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces EXPLAIN 3}}{63}}
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces EXPLAIN 4}}{63}}
-\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{63}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces EXPLAIN 5}}{64}}
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces EXPLAIN 6}}{64}}
-\@writefile{toc}{\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{64}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Indeksy typu hash}{65}}
-\@writefile{toc}{\contentsline {subsubsection}{Indeksy typu SPATIAL}{66}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Praktyczne problemy}{67}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Sortowanie wynik\IeC {\'o}w}{67}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{70}}
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Wyniki polecenia ANALYZE TABLE dla tabeli z o\IeC {\'s}mioma kolumnami}}{71}}
-\newlabel{fig:null_vs_empty_value_analyze_table}{{29}{71}}
-\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Wyniki polecenia ANALYZE TABLE dla tabeli z jedn\IeC {\k a} kolumn\IeC {\k a}}}{72}}
-\newlabel{fig:null_vs_empty_value_analyze_table_for_one_column}{{30}{72}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Partycjonowanie Tabel}{58}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Metody partycjonowania}{58}}
+\@writefile{toc}{\contentsline {subsubsection}{Range partitioning}{59}}
+\@writefile{toc}{\contentsline {subsubsection}{List partitioning}{59}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Pliki z partycjami tabeli \textit  {Votes\textunderscore Partitioned}}}{60}}
+\newlabel{fig:votes_partitioned_files}{{23}{60}}
+\@writefile{toc}{\contentsline {subsubsection}{Key partitioning}{60}}
+\@writefile{toc}{\contentsline {subsubsection}{Hash partitioning}{60}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Przypadki u\IeC {\.z}ycia}{60}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces }}{61}}
+\newlabel{fig:explain_without_rage_partition1}{{24}{61}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces }}{61}}
+\newlabel{fig:explain_range_partition1}{{25}{61}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Indeksy w MySQL}{63}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Indeksy typu B-Tree}{63}}
+\@writefile{toc}{\contentsline {paragraph}{Struktura}{63}}
+\@writefile{toc}{\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{65}}
+\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{65}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces EXPLAIN 1}}{66}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces EXPLAIN 2}}{66}}
+\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{66}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces EXPLAIN 3}}{67}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces EXPLAIN 4}}{67}}
+\@writefile{toc}{\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{67}}
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces EXPLAIN 5}}{68}}
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces EXPLAIN 6}}{68}}
+\@writefile{toc}{\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{68}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Indeksy typu hash}{69}}
+\@writefile{toc}{\contentsline {subsubsection}{Indeksy typu SPATIAL}{70}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Praktyczne problemy}{72}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{72}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{75}}
+\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Wyniki polecenia ANALYZE TABLE dla tabeli z o\IeC {\'s}mioma kolumnami}}{76}}
+\newlabel{fig:null_vs_empty_value_analyze_table}{{32}{76}}
+\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces Wyniki polecenia ANALYZE TABLE dla tabeli z jedn\IeC {\k a} kolumn\IeC {\k a}}}{77}}
+\newlabel{fig:null_vs_empty_value_analyze_table_for_one_column}{{33}{77}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Klucz stuczny czy z\IeC {\l }o\IeC {\.z}ony}{77}}
+\bibcite{ms}{1}
+\bibcite{brooks}{2}
