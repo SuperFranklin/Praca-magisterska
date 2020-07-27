@@ -3,25 +3,14 @@
 \contentsline {section}{\numberline {1}Wst\IeC {\k e}p}{3}
 \contentsline {subsection}{\numberline {1.1}Testowa baza danych}{3}
 \contentsline {section}{\numberline {2}Por\IeC {\'o}wnywanie zapyta\IeC {\'n}}{3}
-\contentsline {paragraph}{Polecenie EXPLAIN}{5}
-\contentsline {paragraph}{Wyniki polecenia EXPLAIN}{6}
-\contentsline {paragraph}{Kolumna \#}{8}
-\contentsline {paragraph}{Kolumna ID}{8}
-\contentsline {paragraph}{Kolumna select\textunderscore type}{8}
-\contentsline {paragraph}{Kolumna table}{9}
-\contentsline {paragraph}{Kolumna Type}{10}
-\contentsline {subparagraph}{ALL}{10}
-\contentsline {subparagraph}{index}{10}
-\contentsline {subparagraph}{range}{10}
-\contentsline {subparagraph}{index\textunderscore subquery}{11}
-\contentsline {subparagraph}{unique\textunderscore subquery}{11}
-\contentsline {subparagraph}{index\textunderscore merge}{11}
-\contentsline {subparagraph}{fulltext}{11}
-\contentsline {subparagraph}{ref}{11}
-\contentsline {subparagraph}{eq\textunderscore ref}{12}
-\contentsline {subparagraph}{const}{12}
-\contentsline {subparagraph}{NULL}{12}
-\contentsline {paragraph}{Kolumna Possible\textunderscore keys}{13}
+\contentsline {subsection}{\numberline {2.1}Polecenie EXPLAIN}{5}
+\contentsline {subsection}{\numberline {2.2}Wyniki polecenia EXPLAIN}{6}
+\contentsline {subsubsection}{Kolumna \#}{8}
+\contentsline {subsubsection}{Kolumna ID}{8}
+\contentsline {subsubsection}{Kolumna select\textunderscore type}{9}
+\contentsline {subsubsection}{Kolumna table}{10}
+\contentsline {subsubsection}{Kolumna Type}{10}
+\contentsline {subsubsection}{Kolumna Possible\textunderscore keys}{13}
 \contentsline {paragraph}{Kolumna key}{13}
 \contentsline {paragraph}{Kolumna key\textunderscore len}{13}
 \contentsline {paragraph}{Kolumna ref}{13}
@@ -35,10 +24,9 @@
 \contentsline {subsection}{\numberline {4.1}Kr\IeC {\'o}tka charakterystyka podstawowych silnik\IeC {\'o}w.}{18}
 \contentsline {subsubsection}{MyISAM}{18}
 \contentsline {subsubsection}{InnoDB}{19}
-\contentsline {subsubsection}{CSV Storage Engine}{20}
+\contentsline {subsubsection}{CSV Storage Engine}{21}
 \contentsline {subsubsection}{Memory}{21}
 \contentsline {subsubsection}{Silnik Archive}{22}
-\contentsline {subsubsection}{Silnik NDB Cluster}{23}
 \contentsline {subsection}{\numberline {4.2}Por\IeC {\'o}wnanie silnik\IeC {\'o}w}{23}
 \contentsline {subsubsection}{Przechowywanie danych}{23}
 \contentsline {subsubsection}{Wymaganie transakcyjno\IeC {\'s}ci}{26}
@@ -68,9 +56,7 @@
 \contentsline {subsection}{\numberline {6.3}Architektura multi-master}{51}
 \contentsline {subsection}{\numberline {6.4}Partycjonowanie funkcjonalne}{53}
 \contentsline {subsection}{\numberline {6.5}Data-sharding}{54}
-\contentsline {subsection}{\numberline {6.6}InnoDB Cluster}{55}
-\contentsline {subsection}{\numberline {6.7}MySQL NDB Cluster}{57}
-\contentsline {subsection}{\numberline {6.8}Galera Cluster}{57}
+\contentsline {subsection}{\numberline {6.6}InnoDB Cluster}{56}
 \contentsline {section}{\numberline {7}Partycjonowanie Tabel}{58}
 \contentsline {subsection}{\numberline {7.1}Metody partycjonowania}{58}
 \contentsline {subsubsection}{Range partitioning}{59}
@@ -78,7 +64,7 @@
 \contentsline {subsubsection}{Key partitioning}{60}
 \contentsline {subsubsection}{Hash partitioning}{60}
 \contentsline {subsection}{\numberline {7.2}Przypadki u\IeC {\.z}ycia}{60}
-\contentsline {section}{\numberline {8}Indeksy w MySQL}{63}
+\contentsline {section}{\numberline {8}Indeksy}{63}
 \contentsline {subsection}{\numberline {8.1}Indeksy typu B-Tree}{63}
 \contentsline {paragraph}{Struktura}{63}
 \contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{65}
@@ -91,4 +77,8 @@
 \contentsline {section}{\numberline {9}Praktyczne problemy}{72}
 \contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{72}
 \contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{75}
-\contentsline {subsection}{\numberline {9.3}Klucz stuczny czy z\IeC {\l }o\IeC {\.z}ony}{77}
+\contentsline {subsection}{\numberline {9.3}Indeks na jednej wielu kolumnach czy wiele indeks\IeC {\'o}w na jednej}{77}
+\contentsline {subsection}{\numberline {9.4}Sztuczny czy naturalny klucz g\IeC {\l }\IeC {\'o}wny}{79}
+\contentsline {subsection}{\numberline {9.5}Monitorowanie zapyta\IeC {\'n} - \textit {Slow log}}{79}
+\contentsline {subsection}{\numberline {9.6}Konfiguracja serwera}{79}
+\contentsline {subsection}{\numberline {9.7}Ograniczenia klucza zewn\IeC {\k e}trznego}{79}

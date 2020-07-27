@@ -58,7 +58,7 @@ Większość operacji złączeń można wykonać na wiele różnych sposobów, 
 	SELECT u.Id, p.Id, c.Id, pt.`Type` FROM Users u INNER JOIN Posts p ON u.Id = p.OwnerUserId	INNER JOIN Comments c ON c.UserId = u.Id INNER JOIN PostTypes pt ON pt.Id = p.PostTypeId WHERE u.Id = 4;
 \end{spverbatim}
 
-Wykonując polecenie z prefiksem EXPLAIN otrzymujemy następujący wynik:
+Wykonując polecenie z prefiksem EXPLAIN, otrzymujemy następujący wynik:
 \begin{center}
 	\includegraphics[scale =0.45]{explain22.png} 
 \end{center}
@@ -146,7 +146,7 @@ Widzimy, że wraz ze wzrostem wartości parametru wzrastał czas wykonywania pol
 \begin{center}
 	\includegraphics[scale =0.60]{profile1.png} 
 \end{center}
-Profilowanie zapytania wskazuje nam, że przez większość czasu zapytania, serwer starał się zebrać dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Obserwacja pokazuje, że dla pewnych zapytań, próba wybrania optymalny rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru \textit{optimizer\textunderscore search\textunderscore depth}.
+Profilowanie zapytania wskazuje nam, że przez większość czasu zapytania, serwer starał się zebrać dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Obserwacja pokazuje, że dla pewnych zapytań, próba wybrania optymalnego rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru \textit{optimizer\textunderscore search\textunderscore depth}.
 
 Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest \textit{optimizer\textunderscore prune\textunderscore level}. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach. Aby pokazać wpływ parametru na wydajność zapytania, wykorzystałem jeszcze raz zapytanie do wygenerowanej tabeli \textit{students}. Najpierw ustawiłem wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiłem wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzyłem średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do
 \textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego też zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.

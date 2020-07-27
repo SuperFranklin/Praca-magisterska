@@ -69,7 +69,6 @@ Głownymi przesłankami skłaniającymi do zastosowania tego sposobu skalowalno�
 \end{center}
 
 \subsection{InnoDB Cluster}
-Książka advanced MySQL 8!!!
 
 \begin{figure}[!h]
 	\caption{Architektura InnoDB Cluster}
@@ -79,13 +78,9 @@ Książka advanced MySQL 8!!!
 \end{figure}
 InnoDb Cluster jest dostępną natywnie kombinacją kilku technologi umożliwiających stworzenie wysoko dostępnej bazy danych w klastrze. Składa się z trzech podstawowych elementów:
 \begin{itemize}
+	\item \textbf{Group replication} czyli rozwiązania, które zostało opisane w poprzednich rozdziałach (architektura multi-master oraz master-slave).
 	\item \textbf{MySQL Shell}, który jest klientem umożliwiającym zarządzanie serwerami MySQL za pomocą jezyków \textit{Java Script}, \textit{Python} lub SQL. Za jego pomocą możemy konfigurować klaster, między innymi poprzez dodawanie lub usuwanie węzłów, tworzenie nowych instancji serwerów, a nawet modyfikowanie danych na poszczególnych serwerach.
 	\item \textbf{MySQL Router} będący punktem styku pomiędzy apliakacjami, a instancjami serwerów w klastrze. Router odpowiada za kierowaniem ruchem do poszczególnych węzłów jednocześnie uniezależnia klientów od zmian wewnątrz klastra. 
-	\item \textbf{Group replication} czyli rozwiązania, które zostało opisane w poprzednich rozdziałach (architektura multi-master oraz master-slave).
 \end{itemize}
-Ważne jest to, że MySQL InnoDB Cluster może działać tylko z tabelami InnoDB, dlatego, żeby użyć klustra należy upewnić się, że wszystkie tabele spełniają ten wymóg.
 
-\subsection{MySQL NDB Cluster}
-Aktualną 
-
-\subsection{Galera Cluster}
+Rozwiązanie InnoDB Cluster posiada wszystkie ograniczenia replikacji grupowej przedstawionej w poprzednich sekcjach. Zaletą tego rozwiązania jest wygodniejsza konfiguracja, dzięki możliwości wykorzystania \textit{MySQL shell} w którym możemy administrować naszym klastrem nawet wykorzystując takie języki jak \textit{Java script} czy \textit{Python}. Ważne jest to, że MySQL InnoDB Cluster może działać tylko z tabelami InnoDB, dlatego, żeby użyć klustra należy upewnić się, że wszystkie tabele spełniają ten wymóg.

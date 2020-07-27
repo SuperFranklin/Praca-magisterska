@@ -7,16 +7,18 @@ MyISAM był domyślnym silnikiem składowania danych do wersji 5.4 (włącznie).
 natomiast w drugim pliku (\textbf{.MYI(MYIndex)}) składowane są indeksy. Poniżej przedstawię kilka cech tego silnika bazy danych. 
 \begin{itemize}
 	\item \textbf{Brak wsparcia dla transakcji.} Z tego powodu MyISAM nie powinien być używany do tabel, dla których istotnym wymaganiem jest zapewnienie integralności danych.
+	\item \textbf{Obsługa indeksów B-tree oraz Geospatial.}
 	\item \textbf{Blokady tabeli.}  W momencie, kiedy wykonujemy operacje dodającą dane do tabeli, jest ona blokowana na cały czas wykonywania operacji (również dla operacji odczytujących dane). Sprawia to, że w przypadku dużej liczby operacji modyfikujących dane - wydajność bazy danych wyraźnie spada.
 	\item \textbf{Brak obłusgi mechanizmu kluczy obcych}
 	\item \textbf{Mechanizm kompresji danych.} Silnik umożliwia kompresowanie danych w celu optymalizacji ilości miejsca potrzebnego do przechowywania danych z tabeli. Taka operacja sprawia, że skompresowane dane są dostępne jedynie do odczytu, a ich modyfikacja jest zablokowana i wymaga rozpakowania danych. Tabele MyISAM można kompresować i dekompresować za pomocą mechanizmu \textit{myisampack}.
 	\item \textbf{Buforowanie indeksów.} Silnik MyISAM buforuje jedynie indeksy.
+	\item \textbf{Obsługa statystyk.}
 \end{itemize}
 
 W czasie pisania tej pracy silnik MyISAM nie był już praktycznie rozwijany, dlatego raczej odradzam jego stosowanie w nowszych wersjach serwera MySQL. 
 
 \subsubsection{InnoDB}
-Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB zawiera wiele rozwiazań, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym wyborem. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe mogą być również przechowywane w wielu plikach. Struktura plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, została przedstawiona na rysunku ~\ref{fig:innodb-fileslabel}.
+Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB został uzupełniony o funkcje, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym wyborem. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe mogą być również przechowywane w wielu plikach. Struktura plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, została przedstawiona na rysunku ~\ref{fig:innodb-fileslabel}.
 \begin{figure}
 	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
 	\centering
@@ -26,11 +28,13 @@ Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm Inno
 Poniżej przedstawiłem kilka podstawowych charakterystyk silnika.
 \begin{itemize}
 	\item \textbf{Wsparcie dla transakcji.} Silnik wspiera transakcje oraz cztery poziomy izolacji.
+	\item \textbf{Wsparcie dla indeksów.} InnoDb wspiera najważniejsze indeksy takie jak: B-tree, Hash, Spatial.
 	\item \textbf{Blokowanie dostępu na poziomie rekordów. } Dostęp do tabel InnoDB jest blokowany za pomocą mechanizmy MVCC (Multi-Versioned Concurrency Control), który w przeciwieństwie do MyISAM blokuje pojedyncze rekordy, zamiast całej tabeli. Wprowadzenie tej zmiany znacząco zwiększyło wydajność równoległych operacji modyfikujące dane w tabeli.
 	\item \textbf{Wsparcie dla kluczy obcych.}
 	\item \textbf{Buforowanie danych oraz indeksów.} Silnik InnoDb może buforować nie tylko indeksy, ale również dane.
-	\item  \textbf{Nieskompresowane indeksy.} Silnik InnoDb nie kompresuje indeksów, co prowadzi do zwięszenia zużycia przestrzeni dyskowej.
+	\item  \textbf{Nieskompresowane indeksy.} Silnik InnoDb nie kompresuje indeksów, co prowadzi do zwiększenia zużycia przestrzeni dyskowej.
 	\item \textbf{Wsparcie dla partycjonowania.} Szerzej opisane w podrozdziale dotyczącym partycjonowania.
+	\item \textbf{Obsługa statystyk.}
 \end{itemize}
 
 \subsubsection{CSV Storage Engine}
@@ -73,15 +77,13 @@ Silnik archive służącym do przechowywania dużej ilości nieindeksowanych dan
 	\textit{Brak wsparcia dla transakcji.}
 \end{itemize}
 
-\subsubsection{Silnik NDB Cluster}
-Silnik NDB Cluster został zaprojektowany do działania w klastrze MySQL. Został opracowany w celu zapewnienia dużej szbkości działania wraz z możliwościami w zakresie redundancji i równoważenia obciążenia. Pierwotnie został zaprojektowany do przechowywania danych w pamięci, ale obecnie możliwe jest również przechowywanie danych na dysku twardym. Zastosowanie silnika NDB Cluster jest dokładniej opisane w rozdziale dotyczącym skalowania.
 
 \subsection{Porównanie silników}
 
 
 
 \subsubsection{Przechowywanie danych}
-W celu porównania sposobu przechowywania danych na dysku, przygotowałem testową bazę danych zawierają pięć tabel będących niemalże kopią tabeli \textit{Users} z bazy testowej, z których każda wykorzystuje inny silnik. Jedyną zmianą jest brak kolumny \textit{AboutMe}, która została usunięta ze względu brak wsparcia dla kolumn TEXT w silniku MEMORY. Do tworzenia tabel wykorzystałem następujące polecenie, a następnie zaimportowałem dane z bazy \textit{Stackoverflow}. Ze względu na fakt, że nie wszystkie silniki wspierają przechowywania wartości NULL zamieniłem domyślne wartości NULL na wartość 0 lub pustego tekstu (w zależności od typu danych).
+W celu porównania sposobu przechowywania danych na dysku, przygotowałem testową bazę danych, zawierającą pięć tabel będących niemalże kopią tabeli \textit{Users} z bazy testowej, z których każda wykorzystuje inny silnik. Jedyną zmianą jest brak kolumny \textit{AboutMe}, która została usunięta ze względu brak wsparcia dla kolumn TEXT w silniku MEMORY. Do tworzenia tabel wykorzystałem następujące polecenie, a następnie zaimportowałem dane z bazy \textit{Stackoverflow}. Ze względu na fakt, że nie wszystkie silniki wspierają przechowywania wartości NULL, zamieniłem domyślne wartości NULL na wartość 0 lub pustego tekstu (w zależności od typu danych).
 \begin{spverbatim}
 	CREATE TABLE `Users` (
 	`Id` int NOT NULL,
@@ -100,7 +102,7 @@ W celu porównania sposobu przechowywania danych na dysku, przygotowałem testow
 	PRIMARY KEY (`Id`) -- w tabelach, które wspierają klucze główne
 	) ENGINE=<nazwa silnika>;
 \end{spverbatim}
-Dla silników, które nie wspierają kluczy głównych musiałem je usunąć. Ostatecznie tabela zawiera w granicach 2,5 miliona wierszy. Silnik NDB pominąłem, ponieważ został dodatkowo opisany w rozdziale dotyczącym skalowalności.
+Dla silników, które nie wspierają kluczy głównych, musiałem je usunąć. Ostatecznie tabela zawiera w granicach 2,5 miliona wierszy. Silnik NDB pominąłem, ponieważ został dodatkowo opisany w rozdziale dotyczącym skalowalności.
 \begin{figure}[!h]
 	\caption{Baza danych użyta do testowania silników baz danych}
 	\centering
@@ -171,7 +173,7 @@ Do przygotowania testowych zestawów danych wykorzystałem następujące skrypty
 	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --range_selects=off --mysql_storage_engine=<nazwa silinika>  /usr/share/sysbench/oltp_read_write.lua prepare
 \end{spverbatim}
 
-Wykonanie testu analogicznie jak w poprzednich przypadkach wykonałem zastępując słowo kluczowe \textit{prepare} na \textit{run}.
+Wykonanie testu analogicznie jak w poprzednich przypadkach wykonałem, zastępując słowo kluczowe \textit{prepare} na \textit{run}.
 
 Przykładowe wynik polecenia został przedstawiony poniżej.
 \begin{figure}[H]
@@ -211,7 +213,7 @@ W związku z tym, że domyślnym indeksem dla tabeli MEMORY jest indeks HASH, a 
 	\end{tabular}
 \end{center}
 
-Tym razem skuteczne okazały się tylko silniki wykorzystujące indeksy typu B-Tree, które pozwalają w optymalny sposób wykonywanać wysukiwanie za pomoca zakresu. Silnik \textit{MEMORY} okazał się najszybszy ze względu na przechowywanie danych bezpośrednio w pamięci.
+Tym razem skuteczne okazały się tylko silniki wykorzystujące indeksy typu B-Tree, które pozwalają w optymalny sposób wyszukiwać za pomocą zakresu. Silnik \textit{MEMORY} okazał się najszybszy ze względu na przechowywanie danych bezpośrednio w pamięci.
 
 \subsubsection{Operacje zapisu.}
 
@@ -241,7 +243,7 @@ Do wykonania testu użyłem następującego polecenia:
 	<nazwa silnika> /usr/share/sysbench/oltp_update_index.lua prepare
 \end{spverbatim}
 
-Wyniki testu umieszcozne zostały w poniższej tabeli:
+Wyniki testu zamieściłem w poniższej tabeli:
 \begin{center}
 	\begin{tabular}{ | c | c | c | c | c | c |}
 		\hline
@@ -293,4 +295,4 @@ Silnik InnoDB jest najwydajniejszym rozwiązaniem ze względu na mechanizm bloko
 
 \subsubsection{Podsumowanie}
 
-W tym rozdziale przedstawiłem podstawowe własności najpopularniejszych dostępnych obecnie silników MySQL. W zdecydowanej większości przypadków, które możemy spotkać we współczenych aplikacjach korzystających z baz danych najlepszym rozwiązaniem jest silnik InnoDB. Są jednak specyficzne przypadki, kiedy dobrym wyborem może okazać się jeden z alternatywnych silników.
+W tym rozdziale przedstawiłem podstawowe własności najpopularniejszych dostępnych obecnie silników MySQL. W zdecydowanej większości przypadków, które możemy spotkać we współczenych aplikacjach, korzystających z baz danych najlepszym rozwiązaniem jest silnik InnoDB. Są jednak specyficzne przypadki, kiedy dobrym wyborem może okazać się jeden z alternatywnych silników.

@@ -1,7 +1,7 @@
-\section{Indeksy w MySQL}
+\section{Indeksy}
 Indeks jest strukturą danych służącą do zwiększenia wydajności wyszukiwania danych w tabeli. Poprawne stosowanie indeksów jest krytyczne dla zachowania dobrej wydajności bazy danych.
 Najprostszą i zarazem najpopularniejszą analogią pozwalającą zrozumieć działanie indeksów bazodanowych jest indeks znajdujący się najczęściej na końcu książki, służący do wygodnego wyszukiwania interesujących nas zagadnień. Zakładając, że książka nie zawiera indeksu, wyszukiwanie konkretnego słowa lub tematu w najgorszym wypadku wymaga przewertowania wszystkich stron. Z tego powodu w książkach stosuje się indeksy, które zawierają kluczowe słowa użyte w książce. Indeks taki zawiera listę słów w kolejności alfabetycznej oraz stron, na których one występują. Dzięki temu wyszukanie konkretnego słowa wymaga jedynie sprawdzenia numeru strony w indeksie. Jest to szczególnie przydatne przy książkach zawierających dużą liczbę stron. Podobnie jest z tabelami w bazie danych. Przy tabelach o niewielkiej ilości wierszy, wyszukanie konkretnego rekordu jest wydajne nawet przy niestosowaniu indeksów. Indeksy stają się jednak kluczowe wraz ze wzrostem rozmiaru danych.
-W MySQL istnieje wiele rodzajów indeksów, które są implementowane w wartstwie silnika bazy danych, dlatego też nie każdy rodzaj indeksu jest obsługiwany przez wszystkie silniki. W tym rozdziale omówię tylko najpopularniejsze z nich.
+W MySQL istnieje wiele rodzajów indeksów, które są implementowane w warstwie silnika bazy danych, dlatego też nie każdy rodzaj indeksu jest obsługiwany przez wszystkie silniki. W tym rozdziale omówię tylko najpopularniejsze z nich.
 \input{BTree.tex}
 \input{Hash.tex}
 \input{Spatial.tex}

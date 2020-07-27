@@ -45,7 +45,7 @@ Tym razem zapytanie zwróciło wyniki w 0,013 sekundy. Tym razem serwer nie skan
 
 Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli \textit{where} uwzględnimy wszystkie kolumny, na które założony jest indeks. 
 \subparagraph{Dopasowanie prefiksu znajdującego się najbardziej na lewo}\mbox{} 
-Dopasowanie prefiksu znajdujcego się najbardziej na lewo może pomóc w wyszukaniu wsystkich komentarzy użytkownika. Załóżmy, że chcemy znaleźć wszystkie komentarze użytkownika o id 1200.
+Dopasowanie prefiksu znajdującego się najbardziej na lewo może pomóc w wyszukaniu wsystkich komentarzy użytkownika. Załóżmy, że chcemy znaleźć wszystkie komentarze użytkownika o id 1200.
 W tym celu przygotowujemy dwa zapytania. Pierwsze na tabeli \textit{Init\textunderscore Comments}, drugie na tebeli \textit{Comments} zawierającej indeks typu B-Tree, który założyliśmy wcześniej.
 \begin{verbatim}
     SELECT * FROM Init_Comments WHERE UserId = 1200;
@@ -90,7 +90,7 @@ Następnie sprawdzamy wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym z
 
 
 PREFIX INDEX
-będą wymagały przeszukania całej tabeli. Dodatkowo wyszukiwanie za pomocą prefiksu nie będzie optymalne w przypadku indeksu wielokolumnowego dla wszystkich kolumn za wyjątkiem pierwszej. Jest to bezpośrednim następstwem budowy indeksów typu B-Tree i wynika z faktu sortowania kluczy względem pierwszej kolumny.
+będą wymagały przeszukania całej tabeli. Dodatkowo wyszukiwanie za pomocą prefiksu nie będzie optymalne w przypadku indeksu wielokolumnowego dla wszystkich kolumn z wyjątkiem pierwszej. Jest to bezpośrednim następstwem budowy indeksów typu B-Tree i wynika z faktu sortowania kluczy względem pierwszej kolumny.
 
 
 

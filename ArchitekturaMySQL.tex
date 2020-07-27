@@ -24,3 +24,5 @@ Jeżeli tabela, z której pobierane są dane poprzez polecenie SELECT  zostanie 
 
 Jeżeli polecenie SELECT składa się z wielu podzapytań, ale nie znajduje się w tabeli bufora, to żadne z nich nie zostanie pobrane, ponieważ bufor zapytań działa na podstawie całego polecenia SELECT.
 
+W MySQL 8.0 bufor zapytań został usunięty z serwera, ale wciąż jest dostępny w rozwiązaniach takich jak \textit{ProxySQL}. W takiej architekturze bufor znajduje się jeszcze przed serwerem MySQL. Przykład takiej architektury znajduje się w rozdziale dotyczącym skalowania horyzontalnego.
+
