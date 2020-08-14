@@ -1,59 +1,67 @@
 \subsection{Indeksy typu B-Tree}
-Indeks typu B-Tree jest zdecydowanie najczęściej stosowanym typem indeksu w bazach MySQL i jest domyślnie wybierany przez serwer MySQL podczas tworzenia nowego indeksu. Dlatego właśnie jemu poświęce zdecydowaną wiekszość tego rozdziału.
+Indeks typu B-Tree jest zdecydowanie najczęściej stosowanym typem indeksu w bazach MySQL i jest domyślnie wybierany przez serwer MySQL podczas tworzenia nowego indeksu. Dlatego właśnie jemu poświęcono zdecydowaną wiekszość tego rozdziału.
 
 \paragraph{Struktura}\mbox{}
 
-Indeks typu B-Tree zbudowany jest na bazie struktury B-Drzewa. B-Drzewo jest drzewiastą strukturą danych przechowującą dane wraz z kluczami posortowanymi w pewnej kolejności. Każdy węzeł drzewa może posiadać od M+1 do 2M+1 dzieci, za wyjątkiem korzenia, który od 0 do 2M+1 potomków, gdzie M jest nazywany rzędem drzewa. Dzięki temu maksymalna wysokość drzewa zawierającego n kluczy wynosi $log_M n$. Takie właściwości sprawiają, że operacje wyszukiwania są złożoności asymptotycznej $O(log_M n)$. Chcąc być dokładnym, należy wspomnieć, że MySQL do zapisu indeksów stosuje strukurę B+Drzewa, która jest szczególnym przypadkiem B-Drzewa i zawiera dane jedynie w liściach.
-Zastosowanie struktury B+Drzewa sprawia, że liście z danymi znajdują się w jednakowej odległości od korzenia drzewa. Wysoki rząd oznacza niską wysokość drzewa, to z kolei sprawia, że zapytanie wymaga mniejszej ilości operacji odczytu z dysku. Ma to fundamentalne znaczenie, ponieważ dane zapisane są na dyskach twardych, których czasy dostępu są dużo większe niż do pamięci RAM. Dla przykładu, załóżmy, że dana jest tabela zawierająca bilion wierszy, oraz indeks, którego rząd wynosi 64. Operacja wyszukania na danej tabeli wykorzystująca indeks będzie wymagać średnio tylu operacji odczytu, jaka jest wysokość drzewa przechowującego indeksy. Wysokość drzewa obliczamy ze wzoru $\log M n$,gdzie M jest rzędem drzewa równym 64, a n oznacza ilość wierszy. W takim przypadku będziemy potrzebować zaledwie 5 odczytów danych z dysku. Dodatkowo silnik InnoDB nie przechowuje referencji do miejsca w pamięci, w którym znajdują się dane, ale odwołuje się do rekordów poprzez klucz podstawowy, który jednoznacznie identyfikuje każdy wiersz w tabeli.Dzięki temu zmiana fizycznego położenia rekordu nie wymusza aktualizacji indeksu. Indeksy mogą być zakładane zarówno na jedną jak i wiele kolumn. W przypadku indeksu wielokolumnowego, węzły sortowane są w pierwszej kolejności względem pierwszej kolumny indeksu. W następnej kolejności węzły z równymi wartościami pierwszej kolumny, sortowane są względem drugiej itd. Kolejność kolumn jest ustalana na podstawie kolejności podczas polecenia tworzenia indeksu.
+Indeks typu B-Tree zbudowany jest na bazie struktury B-Drzewa. B-Drzewo jest drzewiastą strukturą danych przechowującą dane wraz z kluczami posortowanymi w pewnej kolejności. Każdy węzeł drzewa może posiadać od M+1 do 2M+1 dzieci, za wyjątkiem korzenia, który od 0 do 2M+1 potomków, gdzie M jest nazywany rzędem drzewa. Dzięki temu maksymalna wysokość drzewa zawierającego n kluczy wynosi $log_M n$. Takie właściwości sprawiają, że operacje wyszukiwania są złożoności asymptotycznej $O(log_M n)$. Należy wspomnieć, że MySQL do zapisu indeksów stosuje strukurę B+Drzewa, która jest szczególnym przypadkiem B-Drzewa i zawiera dane jedynie w liściach.
+Zastosowanie struktury B+Drzewa sprawia, że liście z danymi znajdują się w jednakowej odległości od korzenia drzewa. Wysoki rząd oznacza niską wysokość drzewa, to z kolei sprawia, że zapytanie wymaga mniejszej ilości operacji odczytu z dysku. Ma to fundamentalne znaczenie, ponieważ dane zapisane są na dyskach twardych, których czasy dostępu są dużo większe niż do pamięci RAM. Przykładowo dana jest tabela zawierająca bilion wierszy, oraz indeks, którego rząd wynosi 64. Operacja wyszukania na danej tabeli wykorzystująca indeks będzie wymagać średnio tylu operacji odczytu, jaka jest wysokość drzewa przechowującego indeksy. Wysokość drzewa obliczamy ze wzoru $\log M n$,gdzie M jest rzędem drzewa równym 64, a n oznacza liczbę wierszy. W takim przypadku będziemy potrzebować zaledwie 5 odczytów danych z dysku. 
+
+Dodatkowo silnik InnoDB nie przechowuje referencji do miejsca w pamięci, w którym znajdują się dane, ale odwołuje się do rekordów poprzez klucz podstawowy, który jednoznacznie identyfikuje każdy wiersz w tabeli. Dzięki temu zmiana fizycznego położenia rekordu nie wymusza aktualizacji indeksu. 
+
+Indeksy mogą być zakładane zarówno na jedną jak i wiele kolumn. W przypadku indeksu wielokolumnowego, węzły sortowane są w pierwszej kolejności względem pierwszej kolumny indeksu. W następnej kolejności węzły z równymi wartościami pierwszej kolumny, sortowane są względem drugiej itd. Kolejność kolumn jest ustalana na podstawie kolejności podczas polecenia tworzenia indeksu.
 
 \paragraph{Zastosowanie indeksu typu B-Tree}\mbox{}
 
-Aby przedstawić działanie indeksu typu B-Tree na rzeczyczywistym przykładzie przygotowałem dwie tabele. Pierwszą jest tabela \textit{Comments} z bazy danych stackoverflow. Drugą tabelą jest \textit{Init\textunderscore Comments}, która jest kopią tabeli Comments i nie zawiera klucza głównego oraz indeksów.
+Aby przedstawić działanie indeksu typu B-Tree na rzeczyczywistym przykładzie przygotowano dwie tabele. Pierwszą jest tabela \textit{Comments} z bazy danych stackoverflow. Drugą tabelą jest \textit{Init\textunderscore Comments}, która jest kopią tabeli Comments i nie zawiera klucza głównego oraz indeksów.
 Dla tabeli \textit{Comments\textunderscore idx} za pomocą polecania \begin{verbatim}
     CREATE INDEX user_post_idx 
 ON Comments(UserId,PostId);
 \end{verbatim}
-utworzyłem indeks typu B-Tree na dwóch kolumnach \textit{first\textunderscore UserId} oraz \textit{last\textunderscore PostId}.
+utworzono indeks typu B-Tree na dwóch kolumnach \textit{first\textunderscore UserId} oraz \textit{last\textunderscore PostId}.
 
 \subparagraph{Dopasowanie pełnego indeksu}\mbox{}
+Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli \textit{where} uwzględnione zostaną wszystkie kolumny, na które założony jest indeks. 
 
-Załóżmy, że w tabeli \textit{Comments} chcemy wyszukać wszystkie komentarze użytkownika o id 1200 do postu o id 910331.
+Załóżmy, że celem jest wyszukanie wszystkich komentarzy użytkownika o id 1200 do postu o id 910331 w tabeli \textit{Comments}.
 
-Najpierw wykonamy zapytania na tabeli nie zawierającej indeksów.
+Najpierw wykonano zapytania na tabeli nie zawierającej indeksów.
  \textit{employees}. 
 \begin{verbatim}
     SELECT * FROM Init_Comments WHERE UserId = 1200 AND PostId = 910331;
 \end{verbatim}
-Zapytanie zwróciło wynik w 13,7 sekundy.
+Zapytanie zwraca wyniko w 13,7 sekundy.
 
-Następnie analogiczne zapytanie wykonałem na tabeli \textit{Comments} zawierającej indeks na obu kolumnach.
+Następnie analogiczne zapytanie wykonano na tabeli \textit{Comments} zawierającej indeks na obu kolumnach.
 \textit{employees\textunderscore idx}. 
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId = 1200 AND PostId = 910331;
 \end{verbatim}
-Tym razem zapytanie zwróciło wyniki w 0,013 sekundy. Tym razem serwer nie skanował całej tabeli. Z czego wynika różnica w czasie wykonania obu zapytań? Wykorzystując polecenie EXPLAIN dla obu zapytań otrzymujemy ciekawe dane. Rysunek 2 przestawia wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast Rysunek 3 wynik polecania EXPLAIN dla drugiego zapytania. Polecenie EXPLAIN wyjaśnia, że pierwsze zapytania nie będzie korzystać z indeksów, dlatego w kolumnie rows widzimy, że serwer MySQL będzie musiał przeskanować wszystkie 23 miliony wierszy z tabeli \textit{init\textunderscore Comments}. Drguie zapytanie korzysta z indeksu z naszego indeksu. Tym razem serwer będzie musiał przeskanować jedynie 3 wiersze tabeli Comments. 
+Dla drugiego zapytania baza danych zwraca wyniki w 0,013 sekundy. Wykorzystując polecenie EXPLAIN dla obu zapytań, otrzymano wyniki przedstawione na rysunkach ~\ref{fig::explain1.jpg} oraz ~\ref{fig::explain2.jpg}. Rysunek ~\ref{fig::explain1.jpg} przestawia wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast Rysunek ~\ref{fig::explain2.jpg} wynik polecania EXPLAIN dla drugiego zapytania. Z danych wynika, że pierwsze zapytania nie będzie korzystać z indeksów, dlatego wartość w kolumnie \textit{Rows} wskazuje, że serwer MySQL dokona skanowania wszystkich wierszy tabeli \textit{init\textunderscore Comments}. Drugie zapytanie korzysta z indeksu z utworzonego indeksu. W tym przypadku serwer musi przeskanować jedynie 3 wiersze tabeli Comments. Różnica w czasie wykonania obu zapytań wynika z użycia indeksu w drugim zapytaniu.
 
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain1.jpg} 
     \caption{EXPLAIN 1}
+    \label{fig::explain1.jpg}
 \end{figure}
 
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain2.jpg} 
     \caption{EXPLAIN 2}
+    \label{fig::explain2.jpg}
 \end{figure}
 
-Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli \textit{where} uwzględnimy wszystkie kolumny, na które założony jest indeks. 
-\subparagraph{Dopasowanie prefiksu znajdującego się najbardziej na lewo}\mbox{} 
-Dopasowanie prefiksu znajdującego się najbardziej na lewo może pomóc w wyszukaniu wsystkich komentarzy użytkownika. Załóżmy, że chcemy znaleźć wszystkie komentarze użytkownika o id 1200.
-W tym celu przygotowujemy dwa zapytania. Pierwsze na tabeli \textit{Init\textunderscore Comments}, drugie na tebeli \textit{Comments} zawierającej indeks typu B-Tree, który założyliśmy wcześniej.
+
+\subparagraph{Dopasowanie prefiksu znajdującego się najbardziej na lewo}\mbox{} \newline
+Dopasowanie prefiksu znajdującego się najbardziej na lewo ma miejsce wtedy, kiedy wyszukiwanie bazuje na pierwszych kolumnach indeksu.
+Dopasowanie prefiksu znajdującego się najbardziej na lewo może pomóc w wyszukaniu wsystkich komentarzy użytkownika. Założono, że celem jest znalezienie wszystkich komentarzy użytkownika o id 1200.
+W tym celu przygotowano dwa zapytania. Pierwsze na tabeli \textit{Init\textunderscore Comments}, drugie na tebeli \textit{Comments} zawierającej indeks typu B-Tree, który założono wcześniej.
 \begin{verbatim}
     SELECT * FROM Init_Comments WHERE UserId = 1200;
 \end{verbatim}
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId = 1200;
 \end{verbatim}
-Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Ponownie sprawdźmy rezultat polecenia EXPLAIN na obu zapytaniach. W pierwszym zapytaniu serwer po raz kolejny musiał przeszukać wszystkie wiersze w tabeli. Drugie zapytanie wymagało przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
+Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Analizując wyniki polecenia EXPLAIN dla obu zapytań można stwierdzić, że w pierwszym zapytaniu serwer przeszukuje wszystkie wiersze w tabeli. Drugie zapytanie wymaga przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain3.jpg} 
     \caption{EXPLAIN 3}
@@ -64,10 +72,10 @@ Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wym
     \caption{EXPLAIN 4}
 \end{figure}
 
-\subparagraph{Dopasowanie zakresu wartości}\mbox{}
-Dopasowanie zakresu wartości oznacza wyszukiwanie wartości w danym przedziale. W naszym przypadku może to być wyszukiwanie wszystkich komentarzy użytkowników o identyfikatorach z przedziału od 1990 do 2000.
+\subparagraph{Dopasowanie zakresu wartości}\mbox{} \newline
+Dopasowanie zakresu wartości oznacza wyszukiwanie wartości w danym przedziale. W tabeli \textit{StackOverflow} jest to przykładowo wyszukiwanie wszystkich komentarzy użytkowników o identyfikatorach z przedziału od 1990 do 2000.
 
-Ponownie wykonujemy dwa zapytania. Pierwsze na tabeli bez indeksu, drugie na tabeli z indeksem.
+Ponownie wykonano dwa zapytania. Pierwsze na tabeli bez indeksu, drugie na tabeli z indeksem.
 \begin{verbatim}
     SELECT * FROM Init_Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
@@ -76,8 +84,8 @@ Tym razem pierwsze zapytanie trwało 1.068 sekundy. Drugie zapytanie wykonujemy 
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
-Następnie sprawdzamy wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym zapytaniu, kolejny raz MySQL przeskanował całą tabelę Init\textunderscore Comments. Drugie natomiast wymagało przeskanowania jedynie wierszy, które zostały zwrócone jako rezultat zapytania.
-
+Następnie przeanalizowano wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym zapytaniu MySQL przeskanował całą tabelę Init\textunderscore Comments. Drugie natomiast wymagało przeskanowania jedynie wierszy, które zostały zwrócone jako rezultat zapytania.
+Efektywne wyszukiwanie za pomocą zakresu jest możliwe dzięki temu, że dane w indeksie przechowywane są w kolejności względem id użytkownika.
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain5.png} 
     \caption{EXPLAIN 5}
@@ -89,18 +97,12 @@ Następnie sprawdzamy wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym z
 \end{figure}
 
 
-PREFIX INDEX
-będą wymagały przeszukania całej tabeli. Dodatkowo wyszukiwanie za pomocą prefiksu nie będzie optymalne w przypadku indeksu wielokolumnowego dla wszystkich kolumn z wyjątkiem pierwszej. Jest to bezpośrednim następstwem budowy indeksów typu B-Tree i wynika z faktu sortowania kluczy względem pierwszej kolumny.
+
+\subparagraph{Zapytania dotyczące jedynie indeksów}\mbox{} \newline
+Taki indeks często nazywany jest indeksem pokrywającym. Zapytania dotyczące jedynie indeksów to zapytania, które wykorzystują jedynie wartości indeksu, więc nie muszą odwoływać się do rekordów bazy danych. Dzięki temu baza danych nie musi pobierać rekordów z dysku, a może pobrać je z indeksu.
 
 
-
-
-
-\subparagraph{Zapytania dotyczące jedynie indeksów}\mbox{}
-Zapytania dotyczące jedynie indeksów to zapytania, które wykorzystują jedynie wartości indeksu, a nie do rekordów bazy danych.
-
-
-
+\subparagraph{Podsumowanie}\mbox{} \newline
 
 
  

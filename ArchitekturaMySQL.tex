@@ -27,8 +27,26 @@ Jeżeli polecenie SELECT składa się z wielu podzapytań, ale nie znajduje się
 W MySQL 8.0 bufor zapytań został usunięty z serwera, ale wciąż jest dostępny w rozwiązaniach takich jak \textit{ProxySQL}. W takiej architekturze bufor znajduje się jeszcze przed serwerem MySQL. Przykład takiej architektury znajduje się w rozdziale dotyczącym skalowania horyzontalnego.
 
 \subsection{InnoDB Buffer Pool}
-TODO opisać
+
+InnoDB Buffer Pool jest przestrzenią pamięci przydzieloną dla serwera MySQL, w której przechowywane są często używane dane oraz indeksy. Dzięki temu możliwy jest szybszy dostęp do często używanych danych. 
+
+Dane w buforze przechowywane są w postacji listy podzielonej na 2 części (nową oraz starą).  Domyślnie nowa podlista zawiera 5/8 długości całej listy, a punkt ten jest nazywany środkiem listy. Jeżeli strona jest odczytywana po raz pierwszy, trafia no koniec starej części (środek listy), a ostatni element ze starej części jest usuwany. Jeżeli w kolejnym odczycie strona zostanie pobrana ze starej podlisty, trafia na koniec nowej części. W efekcie tego w nowej podliście przechowywane są najczęściej używane dane i dzięki zastosowanemu podziałowi jest mniejsze prawdopodobieństwo usunięcia najczęściej odczytywanych stron przez dodanie strony, która prawdopodobnie zostanie odczytana tylko raz.
+
+
 \subsection{Mechanizm Multiversion Concurrency Control}
-TODO Opisać
+Mechanizm MVCC (Multiversion Concurrency Control) jest implementacją mechanizmu optymistycznej wersji kontroli współbieżności. MVCC nie jest używany jedynie w bazach danych MySQL, ale jest ogólnie stosowany w większość nowoczesnych relacyjnych bazach danych.
 
+Podstawową ideą mechanizmu jest utrzymanie stałego obrazu danych dla transakcji. To oznacza, że z punktu widzenia transakcji stan bazy danych jest niezmienny, niezależnie od czasu jej trwania. Taka właściwość jest możliwa dzięki zastosowaniu dwóch dodatkowych ukrytych kolumn dla każdego wiersza: pierwsza kolumna oznacza numer wersji jego utworzenia, natomiast druga kolumna numer wersji, w której został usunięty. Numer wersji jest zwiększany z rozpoczęciem każdej kolejnej transakcji i jest unikatowy dla każdej z nich. 
 
+W ramach transakcji odczytywane mogą być jedynie wiersze z numerem wersji równym lub mniejszym od wersji bieżącej transakcji oraz numer wersji usunięcia wiersza musi być większy od aktualnej wersji transakcji.
+
+Numery wersji mogą być modyfikowane w następujących przypadkach.
+\begin{itemize}
+	\item \textbf{INSERT} Nowe rekordy zapisywane są z numerem wersji transakcji, w której zostały dodane, oraz niezdefiniowaną wersją usunięcia.
+	\item \textbf{DELETE} Numer wersji usunięcia zapisywany jest jako wersja transakcji, w której rekord został usunięty.
+	\item \textbf{UPDATE} Tworzona jest kopia rekordu z numerem wersji transakcji, w której został zmodyfikowany. Dodatkowo wersja oznacza moment usunięcia starego rekordu.
+\end{itemize}
+
+Dzięki temu odczytywanie danych nie będzie wymagało blokowania nawet na poziomie rekordu. Zapewnienie spójności wewnątrz transakcji odbywa się poprzez sprawdzenie dwóch powyższych warunków, zamiast blokowania rekordu na czas odczytu. Wiersze muszą być blokowane jedynie na czas modyfikowania danych. 
+
+Wadą mechanizmu MVCC jest konieczność przechowywania zwiększonej ilości danych. Dodatkowo mechanizm nie działa ze wszystkimi poziomami izolacji. Poziom izolacji READ\textunderscore UNCOMMITED jest sprzeczny z jego ideą, ponieważ na tym poziomie izolacji, wewnątrz transakcji dostępne są dane równolegle modyfikowane przez pozostałe transakcje. Podobnie poziom izolacji SERIALIZABLE, który blokuje wiersze, aż do momentu zakończenia transakcji nie będzie wykorzystywał mechanizmu MVCC.

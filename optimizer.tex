@@ -1,7 +1,7 @@
 \section{Optymalizator MySQL}
 
 Zasadniczo każde zapytanie SQL skierowane do bazy danych MySQL może zostać zrealizowane na wiele różnych sposobów. Optymalizator jest częścią oprogramowania serwera MySQL, który odpowiada za wybranie najefektywniejszego sposobu wykonania zapytania (plan wykonania zapytania).
-Proces ten ma kilka etapów. W pierwszej kolejności analizator MySQL dzieli zapytanie na tokeny i z nich tworzy drzewo (nazywane również \textit{drzewem analizy}). Na tym etapie przeprowadzana jest jednocześnie analiza składni zapytania. Następnym krokiem jest \textit{preprocessing}, w którego trakcie sprawdzane są między innymi: nazwy kolumn i tabel, a także nazwy i aliasy, aby zapewnić, że nazwy użyte w zapytaniu są np. jednoznaczne. Na kolejnym etapie weryfikowane są uprawnienia. Czynność ta może zajmować szczególnie dużo czasu, jeżeli serwer posiada bardzo dużą liczbę uprawnień. Po zakończeniu etapu \textit{preprocessingu} \texit{drzewo analizy} jest poprawne i gotowe do tego, aby optymalizator przekształcił je do postaci planu wykonania.
+Proces ten ma kilka etapów. W pierwszej kolejności analizator MySQL dzieli zapytanie na tokeny i z nich tworzy drzewo (nazywane również \textit{drzewem analizy}). Na tym etapie przeprowadzana jest jednocześnie analiza składni zapytania. Następnym krokiem jest \textit{preprocessing}, w którego trakcie sprawdzane są między innymi: nazwy kolumn i tabel, a także nazwy i aliasy, aby zapewnić, że nazwy użyte w zapytaniu są np. jednoznaczne. Na kolejnym etapie weryfikowane są uprawnienia. Czynność ta może zajmować szczególnie dużo czasu, jeżeli serwer posiada bardzo dużą liczbę uprawnień. Po zakończeniu etapu \textit{preprocessingu} \textit{drzewo analizy} jest poprawne i gotowe do tego, aby optymalizator przekształcił je do postaci planu wykonania.
 
 W MySQL stosowany jest optymalizator kosztowy. Oznacza to, że optymalizator szacuje koszt wykonania dla wariantów planu wykonania i wybiera ten z najmniejszym kosztem. Jednostką kosztu jest odczytanie pojedynczej, losowo wybranej strony danych o wielkości czterech kilobajtów. Wartość kosztu jest wyliczana na podstawie danych statystycznych, dlatego optymalizator wcale nie musi wybrać optymalnego planu.
 
@@ -80,12 +80,12 @@ W kolejnym kroku włączono profilowanie zapytań za pomocą komendy:
 \end{spverbatim}
 Wykonano 10 zapytań dla każdego wariantu i policzono średni czas, jaki serwer MySQL spędzał na etapie ''executing'', czyli etapie faktycznego wykonywania zapytania. Dla zapytania z kolejnością wybraną przez optymalizator średnia wartość wyniosła 0.04 sekundy, natomiast przy wymuszonej kolejności łączeń w zapytaniu wartość ta wyniosła 0.28 sekundy. 
 
-Powyższy eksperyment pokazał, że zamiana kolejności złączeń jest bardzo skuteczną formą optymalizacji i może prowadzić do wielokrotnego zmniejszenia kosztu zapytania. Oczywiście nadal może się zdarzyć sytuacja, kiedy zapytanie z wymuszoną kolejnością załączeń będzie wydajniejsze, ponieważ optymalizator MySQL nie zawsze może sprawdzić wszystkie potencjalne kombinacje złączeń, ale w zdecydowanej większości przypadków optymalizator złączeń okazuje się skuteczniejszy od człowieka.
+Powyższy eksperyment pokazuje, że zamiana kolejności złączeń jest bardzo skuteczną formą optymalizacji i może prowadzić do wielokrotnego zmniejszenia kosztu zapytania. Oczywiście nadal może się zdarzyć sytuacja, kiedy zapytanie z wymuszoną kolejnością załączeń będzie wydajniejsze, ponieważ optymalizator MySQL nie zawsze może sprawdzić wszystkie potencjalne kombinacje złączeń, ale w zdecydowanej większości przypadków optymalizator złączeń okazuje się skuteczniejszy od człowieka.
 
 \subsection{Konfiguracja optymalizatora złączeń}
-Optymalizator złączeń stara się wygenerować plan zapytań o najniższym możliwym koszcie. W idealnym przypadku optymalizator zweryfikowałby wszystkie możliwe kombinacje złączeń. Niestety operacja łączenia dla \textit{n} tabel będzie miała \textit{n!} możliwych kombinacji. Oznacza to, że dla dziesięciu tabel złączenia mogą zostać przeprowadzone na 3628800 różnych sposobów i gdyby optymalizator zdecydował się przetestować każdy dostępny scenariusz, kompilacja mogłaby zająć wiele godzin, a nawet dni. Do zdefiniowania, jak wiele planów powinien przetestować optymalizator służy opcja \textit{optimizer\textunderscore search\textunderscore depth}. Na ogół im niższa wartość zmiennej, tym szybciej optymalizator zwróci plan wykonania, ale zmniejsza się też prawdopodobieństwo optymalności planu. Wartość 0 oznacza, że MySQL dla każdego zapytania dobierze odpowiednią (zdaniem optymalizatora) przestrzeń przeszukiwania.
+Optymalizator złączeń stara się wygenerować plan zapytań o najniższym możliwym koszcie. W idealnym przypadku optymalizator zweryfikowałby wszystkie możliwe kombinacje złączeń. Niestety operacja łączenia dla \textit{n} tabel będzie miała \textit{n!} możliwych kombinacji. Oznacza to, że dla dziesięciu tabel złączenia mogą zostać przeprowadzone na 3628800 różnych sposobów i gdyby optymalizator zdecydował się przetestować każdy dostępny scenariusz, kompilacja mogłaby zająć wiele godzin, a nawet dni. Do określenia, jak wiele planów powinien przetestować optymalizator służy opcja \textit{optimizer\textunderscore search\textunderscore depth}. Na ogół im niższa wartość zmiennej, tym szybciej optymalizator zwróci plan wykonania, ale zmniejsza się też prawdopodobieństwo optymalności planu. Wartość 0 oznacza, że MySQL dla każdego zapytania dobierze odpowiednią (zdaniem optymalizatora) przestrzeń przeszukiwania.
 
-Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunderscore depth} przygotowałem następujący kod SQL, który tworzy dwie tabele, a następnie wypełnia je losowymi danymi.
+Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunderscore depth} przygotowano następujący kod SQL, który tworzy dwie tabele, a następnie wypełnia je losowymi danymi.
 
 \begin{spverbatim}
 	CREATE TABLE `lecturers`
@@ -119,7 +119,7 @@ Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunders
 	CALL fill_tables();
 \end{spverbatim}
 
-W kolejnym kroku wykonałem wielokrotnie następujące zapytanie:
+W kolejnym kroku wykonano wielokrotnie następujące zapytanie:
 \begin{spverbatim}
 	SELECT COUNT(*) FROM table_parent AS p WHERE 1
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 1 LIMIT 1)
@@ -133,7 +133,7 @@ W kolejnym kroku wykonałem wielokrotnie następujące zapytanie:
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 9 LIMIT 1)
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 10 LIMIT 1)
 \end{spverbatim}
-zmieniając parametr \textit{optimizer\textunderscore search\textunderscore depth}, dla każdej wartości zmiennej zapisałem średni czas wykonania polecenia EXPLAIN. Wyniki umieściłem w poniższej tabeli.
+zmieniając parametr \textit{optimizer\textunderscore search\textunderscore depth}, dla każdej wartości zmiennej zapisano średni czas wykonania polecenia EXPLAIN. Wyniki zamieszczono w poniższej tabeli.
 
 \begin{center}
 	\begin{tabular}{ |c|c| } 
@@ -152,36 +152,39 @@ zmieniając parametr \textit{optimizer\textunderscore search\textunderscore dept
 		\hline
 	\end{tabular}
 \end{center}
-Widzimy, że wraz ze wzrostem wartości parametru wzrastał czas wykonywania polecenia SQL. Kolejnym krokiem było włączenie profilowania i sprawdzenie, na który z etapów serwer spędził najwięcej czasu. Wyniki zostały posortowane według czasu i na poniższym zrzucie ekranu widzimy profil zapytania dla wartości 62.
+Wraz ze wzrostem wartości parametru wzrastał czas wykonywania polecenia SQL. W kolejnym kroku włączono profilowania i sprawdzono, na który z etapów serwer spędził najwięcej czasu. Wyniki posortowano według czasu. Na poniższym zrzucie ekranu umieszczono profil zapytania dla wartości 62.
 \begin{center}
 	\includegraphics[scale =0.60]{profile1.png} 
 \end{center}
-Profilowanie zapytania wskazuje nam, że przez większość czasu zapytania, serwer starał się zebrać dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Obserwacja pokazuje, że dla pewnych zapytań, próba wybrania optymalnego rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru \textit{optimizer\textunderscore search\textunderscore depth}.
+Profilowanie zapytania wskazuje, że przez większość czasu zapytania, serwer zbierał dane, które pozwolą mu wybrać optymalny plan wykonania zapytania. Okazało się, że dla pewnych zapytań, próba wybrania optymalnego rozwiązania może skończyć się gigantycznym wydłużeniem czasu zapytania. Co ciekawe nawet dla wartości 0 optymalizacja okazał się nieefektywna, co prowadzi do wniosku, że czasami jedym rozwiązaniem w przypadku, kiedy serwer zbyt dużą ilość czasu spędza na szukaniu optymalnego planu, jest ręczna zmiana wartości parametru \textit{optimizer\textunderscore search\textunderscore depth}.
 
-Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest \textit{optimizer\textunderscore prune\textunderscore level}. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach. Aby pokazać wpływ parametru na wydajność zapytania, wykorzystałem jeszcze raz zapytanie do wygenerowanej tabeli \textit{students}. Najpierw ustawiłem wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiłem wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzyłem średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do
-\textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego też zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.
+Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest \textit{optimizer\textunderscore prune\textunderscore level}. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach.
 
-\subsection{Konfiguracja statystyk tabel InnoDB dla optymalizatora}
-Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. Trwałe zapisywane są na dysku twardym i przechowywane są pomiędzy restartami serwera; natomiast nietrwałe są usuwane po każdym restarcie. Statystyki ulotne mogą być również usunięte po wykonaniu niekórych poleceń. 
+Aby pokazać wpływ parametru na wydajność zapytania, wykorzystano jeszcze raz zapytanie do wygenerowanej tabeli \textit{Students}. Najpierw ustawiono wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiono wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzono średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do \textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.
+
+\subsection{Konfiguracja statystyk tabel InnoDB}
+Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. Trwałe zapisywane są na dysku twardym i przechowywane są pomiędzy restartami serwera, nietrwałe (ulotne) są usuwane po każdym restarcie. 
 
 \subsubsection{Trwałe statystyki}
 Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{STAST\textunderscore PERSISTENT} = 0 dla wybranej tabeli.
 
 \paragraph{Konfiguracja automatycznego przeliczania statystyk}
-Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie, możemy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie możemy wywołać polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
+Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie, należy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie wywołujemy polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
 
 \paragraph{Obliczanie statystyk}
-Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr STATS\textunderscore SAMPLE\textunderscore PAGES dla konkretnej tabeli. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
+Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona dla konkretnej tabeli poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr \textit{stats\textunderscore sample\textunderscore pages}. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
 \begin{itemize}
 	\item \textbf{Wartości statystyczne odbiegają od rzeczywistych.} \linebreak
-	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli \textit{innodb\textunderscore index\textunderscore stats} i porównać z liczbą rzeczywistych unikatowych wartości indeksu. Sprawdźmy dokładność danych statystycznych dla indeksów tabeli \textit{Posts} i różnych liczb skanowanych stron. Tabela \textit{Posts} zawiera dwa indeksy: owner\textunderscore idx (owner\textunderscore id) oraz favorite\textunderscore idx (FavoriteCount, Score).
-	W tym celu przygotujemy cztery zapytania.
+	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli \textit{innodb\textunderscore index\textunderscore stats} i porównać z liczbą rzeczywistych unikatowych wartości indeksu.
+	
+	Sprawdzono dokładność danych statystycznych dla indeksów tabeli \textit{Posts} i różnych liczb skanowanych stron. Tabela \textit{Posts} zawiera dwa indeksy: owner\textunderscore idx (owner\textunderscore id) oraz favorite\textunderscore idx (FavoriteCount, Score).
+	W tym celu przygotowano cztery zapytania.
 	Dwa dla owner\textunderscore idx:
 	\begin{spverbatim}
 		SELECT count(DISTINCT OwnerUserId) from Posts; #liczba unikalnych wartości indeksu
 		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name=
 		'stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'owner_idx' AND 
-		stat_name = 'n_diff_pfx01'; # oszacowana liczba unikalnych wartości indeksu
+		stat_name = 'n_diff_pfx01';
 	\end{spverbatim}
 	Oraz dwa dla favorite\textunderscore idx:
 	\begin{spverbatim}
@@ -191,7 +194,7 @@ Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy loso
 		AND table_name = 'Posts' AND index_name = 'favorite_idx' AND 
 		stat_name = 'n_diff_pfx01';
 	\end{spverbatim}
-	W poniższej tabeli zamieszczone są wyniki eksperymentu.
+	W poniższej tabeli zamieszczono wyniki eksperymentu.
 	\begin{center}
 		\begin{tabular}{ |c|c|c|c| } 
 			\hline
@@ -207,10 +210,10 @@ Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy loso
 			\hline
 		\end{tabular}
 	\end{center}
-	Jak widzimy, wraz ze wzrostem liczby stron użytych do analizy wzrasta dokładność statystyk, ale rośnie czas przeprowadzania analizy tabeli. Można też zauważyć, że dla domyślnej wartości parametru, oszacowana wartość unikatowych wartości indeksu favorite\textunderscore idx diametralnie różni się od rzeczywistej, co może doprowadzić do wyboru nieoptymalnego indeksu na etapie optymalizacji. W takiej sytuacji dobrym wyborem może być zwiększenie wartości parametru.
+	Wraz ze wzrostem liczby stron użytych do analizy wzrasta dokładność statystyk, ale rośnie czas przeprowadzania analizy tabeli. Dla domyślnej wartości parametru, oszacowana wartość unikatowych wartości indeksu favorite\textunderscore idx diametralnie różni się od rzeczywistej, co może doprowadzić do wyboru nieoptymalnego indeksu na etapie optymalizacji. W takiej sytuacji dobrym wyborem będzie zwiększenie wartości parametru.
 	
 	\item \textbf{Zbyt długi czas zbierania statystyk dla tabeli} \linebreak
-	Eksperyment pokazał również, że przy wysokich wartościach parametru, serwer MySQL spędza dużo czasu na obliczaniu statystyk dla tabeli, co może prowadzić, szczególnie przy często zmieniających się tabelach, do wysokiego wykorzystania zasobów, szczególnie operacji odczytów z dysku.
+	Analizując wyniki tabeli można stwierdzić, że przy wysokich wartościach parametru, serwer MySQL spędza dużo czasu na obliczaniu statystyk dla tabeli, co może prowadzić, szczególnie przy często zmieniających się tabelach, do wysokiego wykorzystania zasobów, szczególnie operacji odczytów z dysku.
 \end{itemize}
 
 

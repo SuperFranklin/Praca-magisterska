@@ -1,13 +1,13 @@
 \subsubsection{Indeksy typu SPATIAL}
-W wersji 8.0 MySQL wprowadził wsparcie dla indeksów przestrzennych nazywanych \textit{SPATIAL INDEX} i bazuje na strukturze R-Tree. Sktuktura R-Tree jest rozwinięciem idei B-drzewa na większą liczbę wymiarów. Podobnie jak w B-drzewie operacja wyszukiwania danych jest operacją o złożoności asymptotycznej $O(log_M n)$, gdzie M jest rzędem drzewa. Poniżej przedstawię przykład tworzenia tabeli zawierającej dane geograficzne oraz indeksu przestrzennego na jednej z kolumn.
-Na początku stworzyłem tabelę, wykorzystując następujące polecenie:
+W wersji 8.0 MySQL wprowadził wsparcie dla indeksów przestrzennych nazywanych \textit{SPATIAL INDEX} i bazujących na strukturze R-Tree. Sktuktura R-Tree jest rozwinięciem idei B-drzewa na większą liczbę wymiarów. Podobnie jak w B-drzewie operacja wyszukiwania danych jest operacją o złożoności asymptotycznej $O(log_M n)$, gdzie M jest rzędem drzewa. Poniżej przedstawiono przykład tworzenia tabeli zawierającej dane geograficzne oraz indeksu przestrzennego na jednej z kolumn.
+W pierwszym kroku stworzono tabelę, wykorzystując następujące polecenie:
 \begin{spverbatim}
 	CREATE TABLE shops (
 	location GEOMETRY NOT NULL SRID 4326,
 	name VARCHAR(32) NOT NULL);
 \end{spverbatim}
-Żeby utworzyć indeks na kolumnie, musi być ona oznaczona jako \textit{NOT NULL} i wskazany zostać układ współrzędnych, w naszym przypadku WGS 84 (ESPG:4326) identyfikujący punkty na podstawie szerokości i długości geograficznej. Następnie na kolumnie \textit{location} tworzymy indeks przestrzenny.
+Aby utworzyć indeks na kolumnie, musi być ona oznaczona jako \textit{NOT NULL} i wskazany zostać układ współrzędnych, w naszym przypadku WGS 84 (ESPG:4326) identyfikujący punkty na podstawie szerokości i długości geograficznej. Następnie na kolumnie \textit{location} stworzono indeks przestrzenny.
 \begin{spverbatim}
 	CREATE SPATIAL INDEX location_idx ON shops (location);
 \end{spverbatim}
-Jeżeli będziemy chcieli stworzyć indeks na kolumnie, która nie ma zdefiniowanego układu współrzędnych, serwer utworzy go, ale użytkownik dostanie ostrzeżenie, że indeks nie będzie nigdy używany. Oczywiście indeksy możemy zakładać nie tylko na punkty; możemy użyć innych geometrii, między innymi: linii, wielokątów czy kolekcji punktów. W tym podrozdziale nie będę się szczegółowo skupiał na wszystkich zastosowaniach indeksów przestrzennych, chciałbym jedynie pokazać, że jest to bardzo ciekawe udogodnienie w przypadku używania danych geograficznych w bazie danych.
+Chcąc utworzyć indeks na kolumnie, która nie ma zdefiniowanego układu współrzędnych, serwer utworzy go, ale użytkownik dostanie ostrzeżenie, że indeks nie będzie nigdy używany. Indeksy możemy zakładać nie tylko na punkty; możemy użyć innych geometrii, między innymi: linii, wielokątów czy kolekcji punktów. Ten podrozdział nie będzie przedstawiał szczegółowych zastosowań indeksów przestrzennych, autor chciał jedynie pokazać, że jest to bardzo ciekawe udogodnienie w przypadku używania danych geograficznych w bazie danych.
