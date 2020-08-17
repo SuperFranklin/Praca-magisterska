@@ -158,6 +158,8 @@ Tym razem tylko 10 \% wierszy zostało odfiltrowane, a średni czas wykonania za
 \subsection{Sztuczny czy naturalny klucz główny}
 TODO
 
+\subsection{Procedury składowane}
+
 \subsection{Monitorowanie niewydajnych zapytań}
 Manualne wyszukiwanie niewydajnych zapytań, które są wykonywane na serwerze MySQL może być uciążliwe. Jednym z rozwiązań dostępnych natywnie w MySQL jest mechanizm \textit{Slow Query Log}, który umożliwia zbieranie informacji o długotrwałych zapytaniach. \textit{Slow query log} jest plikiem zawierającym zapytania, których czas wykonania przekracza wartość zdefiniowaną w polu \textit{long\textunderscore query\textunderscore time}, a liczba odczytanych wierszy przekracza wartość \textit{min\textunderscore examined\textunderscore row\textunderscore limit}. Dzięki temu analiza pliku pozwala zidentyfikować zapytania, które mogą być dobrymi kandydatami do dalszej optymalizacji. Wadą takiego rozwiązania jest pewien narzut czasowy wynikający z konieczności logowania informacji o zapytaniach. Z tego powodu bardzo istotne jest odpowiednie dobranie wartości czasu, od którego serwer powinien logować dane, ponieważ wybranie zbyt małej wartości może spowodować problemy wydajnościowe serwera, oraz doprowadzić do problemów z użyciem przestrzeni dyskowej ze względu na ogromne rozmiary plików. Logowanie jest domyślnie wyłączone. Aby je włączyć wystarczy wykonać następujące polecenia.
 \begin{spverbatim}

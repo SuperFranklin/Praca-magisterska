@@ -85,5 +85,6 @@
 \contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{71}
 \contentsline {subsection}{\numberline {9.3}Indeks na wielu kolumnach czy wiele indeks\IeC {\'o}w na jednej}{73}
 \contentsline {subsection}{\numberline {9.4}Sztuczny czy naturalny klucz g\IeC {\l }\IeC {\'o}wny}{74}
-\contentsline {subsection}{\numberline {9.5}Monitorowanie niewydajnych zapyta\IeC {\'n}}{74}
+\contentsline {subsection}{\numberline {9.5}Procedury sk\IeC {\l }adowane}{74}
+\contentsline {subsection}{\numberline {9.6}Monitorowanie niewydajnych zapyta\IeC {\'n}}{74}
 \contentsline {section}{Bibliografia}{75}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  18 AUG 2020 00:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  18 AUG 2020 00:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -6,7 +6,7 @@ entering extended mode
 (./main.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+(./configuration.tex (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/leqno.clo
 File: leqno.clo 2016/12/29 v1.2a Standard LaTeX option (left equation numbers)
@@ -810,48 +810,47 @@ less on input line 43.
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
 less on input line 44.
 
+) (./titlePage.tex
 </home/franek/Documents/magisterka/images/UAM.jpg, id=1, 666.99188pt x 778.4081
 3pt>
 File: /home/franek/Documents/magisterka/images/UAM.jpg Graphic file (type jpg)
 <use /home/franek/Documents/magisterka/images/UAM.jpg>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/UAM.jpg  used
- on input line 75.
+ on input line 20.
 (pdftex.def)             Requested size: 97.52045pt x 113.81102pt.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 103.
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 48.
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 103.
-
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 48.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 103
-.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 48.
+
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 103
-.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 48.
+
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 103.
+(Font)              <12> on input line 48.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 103.
+(Font)              <8> on input line 48.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 103.
-LaTeX Font Info:    Try loading font information for U+msa on input line 103.
+(Font)              <6> on input line 48.
+LaTeX Font Info:    Try loading font information for U+msa on input line 48.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 103.
+LaTeX Font Info:    Try loading font information for U+msb on input line 48.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -859,15 +858,15 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ! Missing } inserted.
 <inserted text> 
                 }
-l.105 					\small
-                  napisana pod kierunkiem \\
+l.50 					\small
+                 napisana pod kierunkiem \\
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
 Try to go on, since this might almost work.
 
 ! Extra }, or forgotten \endgroup.
-l.107 				}
-           
+l.52 				}
+          
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
 you forgot something else, as in `\hbox{$x}'. In such cases
@@ -877,7 +876,8 @@ deleted material, e.g., by typing `I$}'.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/franek/Documents/mag
-isterka/images/UAM.jpg>] [1] [2] [3] [4] [5] [6] [7] (./main.toc
+isterka/images/UAM.jpg>]) [1] (./statement.tex) [2] [3] (./abstract.tex
+[4] [5]) [6] [7] (./main.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 4.
 
@@ -2268,7 +2268,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [74 </home/franek/Documents/magisterka/images/explain_with_reputation_idx.png>]
-(./ProcedurySkladowane.tex) (./Bibliography.tex
+(./Bibliography.tex
 
 ! LaTeX Error: There's no line here to end.
 
@@ -2295,13 +2295,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6708 strings out of 492982
- 101179 string characters out of 6134897
- 160068 words of memory out of 5000000
+ 6716 strings out of 492982
+ 101261 string characters out of 6134897
+ 161106 words of memory out of 5000000
  10012 multiletter control sequences out of 15000+600000
  53574 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,43p,1562b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,11n,43p,1562b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share
 /texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm
@@ -2312,7 +2312,7 @@ ts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb>
 </usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type
 1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr
 /share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (76 pages, 1644467 bytes).
+Output written on main.pdf (76 pages, 1644524 bytes).
 PDF statistics:
  357 PDF objects out of 1000 (max. 8388607)
  210 compressed objects within 3 object streams
