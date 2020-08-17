@@ -1,35 +1,215 @@
-\documentclass[12pt]{article}
+\documentclass[11pt,a4paper,leqno]{article}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \selectlanguage{polish}
+\usepackage{polski}
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage[cp1250]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,amscd}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage{titlesec}   
 \usepackage{listings}
 \usepackage{mathtools}
 \usepackage{spverbatim}
-\usepackage{float}
-\linespread{1.25}
-\usepackage{array}
 \graphicspath{{/home/franek/Documents/magisterka/images/}}
 \setcounter{secnumdepth}{2} % only chapter and sections will be numbered
 \setcounter{tocdepth}{2}    % entries down to \subsubsections in the TOC
-\title{Praca magisterska}
-\author{Franciszek Słupski}
-\date{Brak}
-
+\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{in}
+\setlength{\textwidth}{5.7in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+\setlength{\parindent}{20pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} 
+\usepackage{float}
+\linespread{1.2}
+\usepackage{array}
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\newcommand{\totalemptypage}{\newpage\thispagestyle{empty}\null\newpage}
 \begin{document}
 
-\maketitle
+
+\pagestyle{fancy}  %L=Left, R=Right, C=Center, E-Even, O=Odd
+\fancyhead{}
+\fancyhead[LE,RO]{\small\textrm{Moja praca dyplomowa}}
+\fancyhead[RE,LO]{\ }
+\fancyhead[CE,CO]{\ }
+\fancyfoot[LE,RO]{\small\textrm{\textsf{\thepage}}}
+\fancyfoot[RE,LO]{\ }
+\fancyfoot[CE,CO]{\ }
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
 
+%\urlstyle{sf}
+
+%================================
+%  Strona tytułowa
+%================================
+
+\begin{titlepage}%
+	
+	\let\footnotesize\small
+	\let\footnoterule\relax
+	\let \footnote \thanks
+	
+	\begin{center}%
+		{\Large \bf Uniwersytet im. Adama Mickiewicza w Poznaniu \\ Wydział Matematyki i~Informatyki\par}
+	\end{center}%
+	\vspace{-0.5 cm}
+	\noindent\hrulefill
+	
+	\vspace{0.75cm plus 1mm minus 2mm}
+	
+	\setlength{\oddsidemargin}{0.2in}
+	\begin{figure}[h]
+		\label{UAM}
+		\begin{center}
+			\leavevmode
+			\includegraphics[height=4cm]{UAM.jpg}
+		\end{center}
+		%\caption{Logo UAM}
+	\end{figure}
+	\setlength{\oddsidemargin}{0.5in}
+	
+	\vspace{1 cm plus 1mm minus 2mm}
+	
+	\begin{center}%
+		{\Large\textbf{Optymalizacja wydajności baz danych MySQL}\par
+			\vskip 0.25 cm
+			{\large Database optimization in MySQL} }
+		
+		\vspace{1.0cm plus 1fill}
+		\begin{flushleft}%
+			{\center 
+				\Large\textbf{Franciszek Słupski}\par
+				\vskip 0.25 cm
+				\small 
+				Nr albumu: 452122\par
+				Kierunek: Informatyka\par
+			}
+			
+		\end{flushleft}%
+		
+		\vspace{2.5cm plus 1.5fill}
+		
+		\begin{flushright}\large
+			\begin{tabular}{l}
+				{\small Praca magisterska \\
+					\small napisana pod kierunkiem \\
+					\small prof. dr hab. Marka Wisły 
+				}
+			\end{tabular}
+		\end{flushright}
+		
+		\vspace{2cm plus .1fill}
+		{Poznań,\space 2020\par}
+	\end{center}
+\end{titlepage}%
+
+%----------------
+% Pusta strona
+%----------------
+\totalemptypage
 
 
+%================================
+%  oświadczenie
+%================================
+
+\thispagestyle{empty}
+
+\begin{flushright}
+	Poznań, dnia ..........................
+\end{flushright}
+
+\vspace{1 cm}
+
+\begin{center}
+	{\large OŚWIADCZENIE}
+\end{center}
+
+\vspace{0.75 cm}
+
+Ja, niżej podpisany .................................... student Wydziału Matematyki i Informatyki Uniwersytetu im. Adama Mickiewicza w Poznaniu oświadczam, że przedkładaną pracę dyplomową pt. "Audyt sieci teleinformatycznych z wykorzystaniem narzędzia Nessus" napisałem samodzielnie. Oznacza to, że przy pisaniu pracy, poza niezbędnymi konsultacjami, nie korzystałem z pomocy innych osób, a w szczególności nie zlecałem opracowania rozprawy lub jej części innym osobom, ani nie odpisywałem/ tej rozprawy lub jej części od innych osób.
+Oświadczam również, że egzemplarz pracy dyplomowej w wersji drukowanej jest całkowicie zgodny z egzemplarzem pracy dyplomowej w wersji elektronicznej.
+Jednocześnie przyjmuję do wiadomości, że przypisanie sobie, w pracy dyplomowej, autorstwa istotnego fragmentu lub innych elementów cudzego utworu lub ustalenia naukowego, stanowi podstawę stwierdzenia nieważności postępowania w sprawie nadania tytułu zawodowego.
 
 
+[.....]* - wyrażam zgodę na udostępnienie mojej pracy w czytelni Archiwum UAM
+
+[.....]* - wyrażam zgodę na udostępnienie mojej pracy w zakresie koniecznym do ochrony mojego prawa do autorstwa lub praw osób trzecich
+
+*Należy wpisać TAK w przypadku wyrażenia zgody na udostępnianie pracy w czytelni archiwum UAM, NIE w przypadku braku zgody. Niewypełnienie pola oznacza brak zgody na udostępnienie pracy.
+
+\vspace{0.75 cm}
+
+\begin{flushright}
+	...................................................\\
+	(czytelny podpis studenta)
+\end{flushright}
+
+
+%----------------
+% Pusta strona
+%----------------
+\totalemptypage
+
+
+%================================
+%  Streszczenie po polsku
+%================================
+
+\thispagestyle{empty}
+
+{\Large \textbf{Streszczenie}}
+
+\vspace{0.5 cm}
+
+Celem niniejszej pracy jest analiza zagadnienia optymalizacji bazy danych na przykładzie MySQL. Relacyjne bazy danych są obecnie jednym z najpopularniejszych sposobów przechowywania trwałych danych w informatyce. Praca zawiera zbiór teoretycznych zagadnień związanych z wydajnym stosowaniem bazy danych MySQL poparty wieloma przykładami. Badania i przykłady zostały przygotowane w taki sposób, aby ich powtórzenie przez czytelnika pracy było możliwie prote i wygodne. Dodatkowo większość przykładów nie jest specyficzna jedynie dla baz danych MySQL i techniki optymalizacji oraz zasada działania wielu elementów jest bardzo podobna do konkurencyjnych relacyjnych baz danych. Na końcu pracy przestawiono rozwiązanie kilku często spotykanych problemów i wątpliwości dotyczących efektywnego używania bazy danych MySQL. 
+\vspace{0.5 cm}
+
+{ \textbf{Słowa kluczowe: }} 
+baza danych, relacyjna baza danych, MySQL, indek bazodanowy, optymalizator MySQL, skalowalność
+
+
+%----------------
+% Pusta strona
+%----------------
+\totalemptypage
+
+%================================
+%  Abstract
+%================================
+
+\thispagestyle{empty}
+
+{\Large \textbf{Abstract}}
+
+\vspace{0.5 cm}
+
+This thesis describes problem of database optimization on the example of MySQL. Relational databases are one of the most popular ways of storing persistent data in IT today. Thesis contains a set of theoretical issues related to the efficient use of the MySQL database, supported by many examples. The research and examples have been prepared in such a way that their repetition by the reader of the work is as simple and convenient as possible. In addition, most examples are not specific to MySQL databases and optimization techniques, and the principle of operation of many elements is very similar to competing relational databases. At the end of the thesis, a solution to some common problems and doubts regarding the effective use of the MySQL database was presented.
+
+\vspace{0.5 cm}
+
+{ \textbf{Key words: }} 
+database, relational database, MySQL, database index, MySQL optimizer, scalability
+
+
+%----------------
+% Pusta strona
+%----------------
+\totalemptypage
 
 \tableofcontents
 \newpage
+
 
 \input{Introduction.tex}
 \newpage

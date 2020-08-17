@@ -1,88 +1,89 @@
 \babel@toc {polish}{}
 \babel@toc {polish}{}
-\contentsline {section}{\numberline {1}Wst\IeC {\k e}p}{3}
-\contentsline {subsection}{\numberline {1.1}Testowa baza danych}{3}
-\contentsline {section}{\numberline {2}Por\IeC {\'o}wnywanie zapyta\IeC {\'n}}{5}
-\contentsline {subsection}{\numberline {2.1}Polecenie EXPLAIN}{6}
-\contentsline {subsection}{\numberline {2.2}Wyniki polecenia EXPLAIN}{7}
-\contentsline {subsubsection}{Kolumna \#}{9}
-\contentsline {subsubsection}{Kolumna ID}{9}
-\contentsline {subsubsection}{Kolumna select\textunderscore type}{9}
-\contentsline {subsubsection}{Kolumna table}{11}
-\contentsline {subsubsection}{Kolumna Type}{11}
-\contentsline {subsubsection}{Kolumna Possible\textunderscore keys}{14}
-\contentsline {paragraph}{Kolumna key}{14}
-\contentsline {paragraph}{Kolumna key\textunderscore len}{15}
-\contentsline {paragraph}{Kolumna ref}{15}
-\contentsline {paragraph}{Kolumna rows}{15}
-\contentsline {paragraph}{Kolumna filtered}{16}
-\contentsline {paragraph}{Kolumna extra}{16}
-\contentsline {section}{\numberline {3}Architektura MySQL}{18}
-\contentsline {subsection}{\numberline {3.1}Obs\IeC {\l }uga po\IeC {\l }\IeC {\k a}cze\IeC {\'n} i w\IeC {\k a}tk\IeC {\'o}w}{18}
-\contentsline {subsection}{\numberline {3.2}Bufor zapyta\IeC {\'n}}{19}
-\contentsline {subsection}{\numberline {3.3}InnoDB Buffer Pool}{20}
-\contentsline {subsection}{\numberline {3.4}Mechanizm Multiversion Concurrency Control}{20}
-\contentsline {section}{\numberline {4}Silniki magazynu danych}{22}
-\contentsline {subsection}{\numberline {4.1}Kr\IeC {\'o}tka charakterystyka podstawowych silnik\IeC {\'o}w.}{22}
-\contentsline {subsubsection}{MyISAM}{22}
-\contentsline {subsubsection}{InnoDB}{23}
-\contentsline {subsubsection}{CSV Storage Engine}{25}
-\contentsline {subsubsection}{Memory}{25}
-\contentsline {subsubsection}{Silnik Archive}{27}
-\contentsline {subsection}{\numberline {4.2}Por\IeC {\'o}wnanie silnik\IeC {\'o}w}{27}
-\contentsline {subsubsection}{Przechowywanie danych}{27}
-\contentsline {subsubsection}{Wymaganie transakcyjno\IeC {\'s}ci}{29}
-\contentsline {subsubsection}{Operacje odczytu klucz-warto\IeC {\'s}\IeC {\'c}}{29}
-\contentsline {subsubsection}{Symultaniczne operacje odczytu z wykorzystaniem klucza g\IeC {\l }\IeC {\'o}wnego oraz operacji zapisu.}{32}
+\contentsline {section}{\numberline {1}Wst\IeC {\k e}p}{10}
+\contentsline {subsection}{\numberline {1.1}Testowa baza danych}{10}
+\contentsline {section}{\numberline {2}Por\IeC {\'o}wnywanie zapyta\IeC {\'n}}{11}
+\contentsline {subsection}{\numberline {2.1}Polecenie EXPLAIN}{12}
+\contentsline {subsection}{\numberline {2.2}Wyniki polecenia EXPLAIN}{12}
+\contentsline {subsubsection}{Kolumna \#}{14}
+\contentsline {subsubsection}{Kolumna ID}{14}
+\contentsline {subsubsection}{Kolumna select\textunderscore type}{15}
+\contentsline {subsubsection}{Kolumna table}{16}
+\contentsline {subsubsection}{Kolumna Type}{16}
+\contentsline {subsubsection}{Kolumna Possible\textunderscore keys}{18}
+\contentsline {paragraph}{Kolumna key}{18}
+\contentsline {paragraph}{Kolumna key\textunderscore len}{19}
+\contentsline {paragraph}{Kolumna ref}{19}
+\contentsline {paragraph}{Kolumna rows}{19}
+\contentsline {paragraph}{Kolumna filtered}{20}
+\contentsline {paragraph}{Kolumna extra}{20}
+\contentsline {section}{\numberline {3}Architektura MySQL}{22}
+\contentsline {subsection}{\numberline {3.1}Obs\IeC {\l }uga po\IeC {\l }\IeC {\k a}cze\IeC {\'n} i w\IeC {\k a}tk\IeC {\'o}w}{22}
+\contentsline {subsection}{\numberline {3.2}Bufor zapyta\IeC {\'n}}{22}
+\contentsline {subsection}{\numberline {3.3}InnoDB Buffer Pool}{23}
+\contentsline {subsection}{\numberline {3.4}Mechanizm Multiversion Concurrency Control}{24}
+\contentsline {section}{\numberline {4}Silniki magazynu danych}{25}
+\contentsline {subsection}{\numberline {4.1}Kr\IeC {\'o}tka charakterystyka podstawowych silnik\IeC {\'o}w.}{25}
+\contentsline {subsubsection}{MyISAM}{25}
+\contentsline {subsubsection}{InnoDB}{26}
+\contentsline {subsubsection}{CSV Storage Engine}{27}
+\contentsline {subsubsection}{Memory}{28}
+\contentsline {subsubsection}{Silnik Archive}{28}
+\contentsline {subsection}{\numberline {4.2}Por\IeC {\'o}wnanie silnik\IeC {\'o}w}{29}
+\contentsline {subsubsection}{Przechowywanie danych}{29}
+\contentsline {subsubsection}{Wymaganie transakcyjno\IeC {\'s}ci}{31}
+\contentsline {subsubsection}{Operacje odczytu klucz-warto\IeC {\'s}\IeC {\'c}}{31}
+\contentsline {subsubsection}{Symultaniczne operacje odczytu z wykorzystaniem klucza g\IeC {\l }\IeC {\'o}wnego oraz operacji zapisu.}{33}
 \contentsline {subsubsection}{Wyszukiwanie danych z zakresu.}{34}
-\contentsline {subsubsection}{Operacje zapisu.}{34}
-\contentsline {subsubsection}{Operacje aktualizacji danych z wykorzystaniem indeksu.}{35}
-\contentsline {subsubsection}{Operacje aktualizacji danych bez wykorzystania indeks\IeC {\'o}w.}{35}
+\contentsline {subsubsection}{Operacje zapisu.}{35}
+\contentsline {subsubsection}{Operacje aktualizacji danych z wykorzystaniem indeksu.}{36}
+\contentsline {subsubsection}{Operacje aktualizacji danych bez wykorzystania indeks\IeC {\'o}w.}{36}
 \contentsline {subsubsection}{Operacje usuwania danych}{36}
-\contentsline {subsubsection}{Podsumowanie}{36}
+\contentsline {subsubsection}{Podsumowanie}{37}
 \contentsline {section}{\numberline {5}Optymalizator MySQL}{38}
-\contentsline {subsection}{\numberline {5.1}Mo\IeC {\.z}liwo\IeC {\'s}ci optymalizatora}{39}
+\contentsline {subsection}{\numberline {5.1}Mo\IeC {\.z}liwo\IeC {\'s}ci optymalizatora}{38}
 \contentsline {subsection}{\numberline {5.2}Dane statystyczne dla optymalizatora}{40}
-\contentsline {subsection}{\numberline {5.3}Plan wykonania zapytania}{41}
-\contentsline {subsection}{\numberline {5.4}Optymalizator z\IeC {\l }\IeC {\k a}cze\IeC {\'n}}{43}
-\contentsline {subsection}{\numberline {5.5}Konfiguracja optymalizatora z\IeC {\l }\IeC {\k a}cze\IeC {\'n}}{44}
-\contentsline {subsection}{\numberline {5.6}Konfiguracja statystyk tabel InnoDB}{48}
-\contentsline {subsubsection}{Trwa\IeC {\l }e statystyki}{48}
-\contentsline {paragraph}{Konfiguracja automatycznego przeliczania statystyk}{49}
-\contentsline {paragraph}{Obliczanie statystyk}{49}
-\contentsline {section}{\numberline {6}Skalowalno\IeC {\'s}\IeC {\'c} i wysoka dost\IeC {\k e}pno\IeC {\'s}\IeC {\'c}}{52}
-\contentsline {subsection}{\numberline {6.1}Terminologia}{52}
-\contentsline {subsubsection}{Skalowalno\IeC {\'s}\IeC {\'c} a wydajno\IeC {\'s}\IeC {\'c}}{52}
-\contentsline {subsubsection}{Teoria CAP}{52}
-\contentsline {subsubsection}{Skalowanie wertykalne i horyzontalne}{53}
-\contentsline {subsection}{\numberline {6.2}Architektura master-slave}{54}
-\contentsline {subsection}{\numberline {6.3}Architektura multi-master}{57}
-\contentsline {subsection}{\numberline {6.4}Partycjonowanie funkcjonalne}{58}
-\contentsline {subsection}{\numberline {6.5}Data-sharding}{59}
-\contentsline {subsection}{\numberline {6.6}InnoDB Cluster}{60}
-\contentsline {subsection}{\numberline {6.7}Podsumowanie}{62}
-\contentsline {section}{\numberline {7}Partycjonowanie Tabel}{63}
-\contentsline {subsection}{\numberline {7.1}Metody partycjonowania}{63}
-\contentsline {subsubsection}{Range partitioning}{64}
-\contentsline {subsubsection}{List partitioning}{64}
-\contentsline {subsubsection}{Key partitioning}{65}
-\contentsline {subsubsection}{Hash partitioning}{65}
-\contentsline {subsection}{\numberline {7.2}Przypadki u\IeC {\.z}ycia}{65}
-\contentsline {subsection}{\numberline {7.3}Podsumowanie}{67}
-\contentsline {section}{\numberline {8}Indeksy}{68}
-\contentsline {subsection}{\numberline {8.1}Indeksy typu B-Tree}{68}
-\contentsline {paragraph}{Struktura}{69}
-\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{70}
-\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{70}
-\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{71}
-\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{72}
-\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{73}
-\contentsline {subparagraph}{Podsumowanie}{74}
-\contentsline {subsection}{\numberline {8.2}Indeksy typu hash}{74}
-\contentsline {subsubsection}{Indeksy typu SPATIAL}{75}
-\contentsline {section}{\numberline {9}Praktyczne problemy}{77}
-\contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{77}
-\contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{80}
-\contentsline {subsection}{\numberline {9.3}Indeks na wielu kolumnach czy wiele indeks\IeC {\'o}w na jednej}{82}
-\contentsline {subsection}{\numberline {9.4}Sztuczny czy naturalny klucz g\IeC {\l }\IeC {\'o}wny}{83}
-\contentsline {subsection}{\numberline {9.5}Monitorowanie niewydajnych zapyta\IeC {\'n}}{84}
+\contentsline {subsection}{\numberline {5.3}Plan wykonania zapytania}{40}
+\contentsline {subsection}{\numberline {5.4}Optymalizator z\IeC {\l }\IeC {\k a}cze\IeC {\'n}}{41}
+\contentsline {subsection}{\numberline {5.5}Konfiguracja optymalizatora z\IeC {\l }\IeC {\k a}cze\IeC {\'n}}{43}
+\contentsline {subsection}{\numberline {5.6}Konfiguracja statystyk tabel InnoDB}{46}
+\contentsline {subsubsection}{Trwa\IeC {\l }e statystyki}{46}
+\contentsline {paragraph}{Konfiguracja automatycznego przeliczania statystyk}{46}
+\contentsline {paragraph}{Obliczanie statystyk}{46}
+\contentsline {section}{\numberline {6}Skalowalno\IeC {\'s}\IeC {\'c} i wysoka dost\IeC {\k e}pno\IeC {\'s}\IeC {\'c}}{49}
+\contentsline {subsection}{\numberline {6.1}Terminologia}{49}
+\contentsline {subsubsection}{Skalowalno\IeC {\'s}\IeC {\'c} a wydajno\IeC {\'s}\IeC {\'c}}{49}
+\contentsline {subsubsection}{Teoria CAP}{49}
+\contentsline {subsubsection}{Skalowanie wertykalne i horyzontalne}{50}
+\contentsline {subsection}{\numberline {6.2}Architektura master-slave}{50}
+\contentsline {subsection}{\numberline {6.3}Architektura multi-master}{52}
+\contentsline {subsection}{\numberline {6.4}Partycjonowanie funkcjonalne}{53}
+\contentsline {subsection}{\numberline {6.5}Data-sharding}{54}
+\contentsline {subsection}{\numberline {6.6}InnoDB Cluster}{55}
+\contentsline {subsection}{\numberline {6.7}Podsumowanie}{56}
+\contentsline {section}{\numberline {7}Partycjonowanie Tabel}{58}
+\contentsline {subsection}{\numberline {7.1}Metody partycjonowania}{58}
+\contentsline {subsubsection}{Range partitioning}{58}
+\contentsline {subsubsection}{List partitioning}{59}
+\contentsline {subsubsection}{Key partitioning}{60}
+\contentsline {subsubsection}{Hash partitioning}{60}
+\contentsline {subsection}{\numberline {7.2}Przypadki u\IeC {\.z}ycia}{60}
+\contentsline {subsection}{\numberline {7.3}Podsumowanie}{61}
+\contentsline {section}{\numberline {8}Indeksy}{62}
+\contentsline {subsection}{\numberline {8.1}Indeksy typu B-Tree}{62}
+\contentsline {paragraph}{Struktura}{62}
+\contentsline {paragraph}{Zastosowanie indeksu typu B-Tree}{63}
+\contentsline {subparagraph}{Dopasowanie pe\IeC {\l }nego indeksu}{63}
+\contentsline {subparagraph}{Dopasowanie prefiksu znajduj\IeC {\k a}cego si\IeC {\k e} najbardziej na lewo}{64}
+\contentsline {subparagraph}{Dopasowanie zakresu warto\IeC {\'s}ci}{65}
+\contentsline {subparagraph}{Zapytania dotycz\IeC {\k a}ce jedynie indeks\IeC {\'o}w}{66}
+\contentsline {subparagraph}{Podsumowanie}{66}
+\contentsline {subsection}{\numberline {8.2}Indeksy typu hash}{67}
+\contentsline {subsubsection}{Indeksy typu SPATIAL}{68}
+\contentsline {section}{\numberline {9}Praktyczne problemy}{69}
+\contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{69}
+\contentsline {subsection}{\numberline {9.2}Przechowywanie warto\IeC {\'s}ci NULL czy pustej warto\IeC {\'s}ci}{71}
+\contentsline {subsection}{\numberline {9.3}Indeks na wielu kolumnach czy wiele indeks\IeC {\'o}w na jednej}{73}
+\contentsline {subsection}{\numberline {9.4}Sztuczny czy naturalny klucz g\IeC {\l }\IeC {\'o}wny}{74}
+\contentsline {subsection}{\numberline {9.5}Monitorowanie niewydajnych zapyta\IeC {\'n}}{74}
+\contentsline {section}{Bibliografia}{75}

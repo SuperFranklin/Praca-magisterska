@@ -147,10 +147,10 @@ Na rysunkach ~\ref{fig:explain_merge_index} oraz ~\ref{fig:explain_without_merge
 	CREATE INDEX reputation_idx ON Users(reputation);
 	EXPLAIN SELECT COUNT(*) FROM Users WHERE reputation = 1 AND views = 1;
 \end{spverbatim}
-\begin{figure}
-	\caption{Wyniki polecenia ANALYZE TABLE dla indeksu \textit{reputation\textunderscore idx}}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale = 0.32]{explain_with_reputation_idx.png}
+	\caption{Wyniki polecenia ANALYZE TABLE dla indeksu \textit{reputation\textunderscore idx}}
 	\label{fig:explain_with_reputation_idx}
 \end{figure}
 

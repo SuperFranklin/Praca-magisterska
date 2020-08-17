@@ -21,7 +21,7 @@ W czasie pisania tej pracy silnik MyISAM nie był już rozwijany, dlatego raczej
 
 \subsubsection{InnoDB}
 Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB uzupełniono o funkcje, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym wyborem. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe być również przechowywane w wielu plikach. Strukturę plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, przedstawiono na rysunku ~\ref{fig:innodb-fileslabel}.
-\begin{figure}
+\begin{figure}[!h]
 	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
 	\centering
 	\includegraphics[scale = 0.43]{innodb-files.png}
