@@ -17,7 +17,7 @@
 \contentsline {subsubsection}{Kolumna Possible\textunderscore keys}{23}
 \contentsline {paragraph}{Kolumna key}{23}
 \contentsline {paragraph}{Kolumna key\textunderscore len}{23}
-\contentsline {paragraph}{Kolumna ref}{24}
+\contentsline {paragraph}{Kolumna ref}{23}
 \contentsline {paragraph}{Kolumna rows}{24}
 \contentsline {paragraph}{Kolumna filtered}{24}
 \contentsline {paragraph}{Kolumna extra}{25}
@@ -80,7 +80,7 @@
 \contentsline {subsection}{\numberline {8.3}Architektura multi-master}{69}
 \contentsline {subsection}{\numberline {8.4}Partycjonowanie funkcjonalne}{71}
 \contentsline {subsection}{\numberline {8.5}Data-sharding}{72}
-\contentsline {subsection}{\numberline {8.6}InnoDB Cluster}{74}
+\contentsline {subsection}{\numberline {8.6}InnoDB Cluster}{73}
 \contentsline {subsection}{\numberline {8.7}Podsumowanie}{75}
 \contentsline {section}{\numberline {9}Praktyczne problemy}{76}
 \contentsline {subsection}{\numberline {9.1}Sortowanie wynik\IeC {\'o}w}{76}

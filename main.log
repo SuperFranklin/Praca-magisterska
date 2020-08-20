@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  20 AUG 2020 22:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.1)  20 AUG 2020 23:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -989,11 +989,11 @@ File: /home/franek/Documents/magisterka/images/explain7.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/explain7.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain7.png 
- used on input line 25.
-(pdftex.def)             Requested size: 469.74669pt x 34.12688pt.
+ used on input line 26.
+(pdftex.def)             Requested size: 434.51657pt x 31.56743pt.
 
-Overfull \hbox (57.80792pt too wide) in paragraph at lines 25--26
-[][] 
+Overfull \hbox (22.5778pt too wide) in paragraph at lines 26--27
+ [] 
  []
 
 
@@ -1009,17 +1009,11 @@ File: /home/franek/Documents/magisterka/images/explain8.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/explain8.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain8.png 
- used on input line 33.
-(pdftex.def)             Requested size: 451.278pt x 42.55824pt.
+ used on input line 35.
+(pdftex.def)             Requested size: 440.00208pt x 41.49484pt.
 
-Overfull \hbox (39.33923pt too wide) in paragraph at lines 33--34
-[][] 
- []
-
-
-Overfull \hbox (63.53647pt too wide) in paragraph at lines 38--38
-[]\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[] (SELECT[]
- id[] FROM[] Users[] WHERE[] DisplayName[]
+Overfull \hbox (28.06331pt too wide) in paragraph at lines 35--36
+ [] 
  []
 
 </home/franek/Documents/magisterka/images/explain9.png, id=70, 1178.4025pt x 80
@@ -1028,15 +1022,15 @@ File: /home/franek/Documents/magisterka/images/explain9.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/explain9.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain9.png 
- used on input line 40.
-(pdftex.def)             Requested size: 471.35265pt x 32.11942pt.
+ used on input line 44.
+(pdftex.def)             Requested size: 447.7976pt x 30.5143pt.
 
-Overfull \hbox (59.41388pt too wide) in paragraph at lines 40--41
-[][] 
+Overfull \hbox (35.85884pt too wide) in paragraph at lines 44--45
+ [] 
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 45--45
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 49--49
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserID[] in[] (SELECT[
 ] UserId[] FROM[] Posts[] GROUP[]
  []
@@ -1047,15 +1041,15 @@ File: /home/franek/Documents/magisterka/images/explain9a.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain9a.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain9a.png
-  used on input line 47.
-(pdftex.def)             Requested size: 457.3004pt x 34.52837pt.
+  used on input line 52.
+(pdftex.def)             Requested size: 445.874pt x 33.66562pt.
 
-Overfull \hbox (45.36163pt too wide) in paragraph at lines 47--48
-[][] 
+Overfull \hbox (33.93523pt too wide) in paragraph at lines 52--53
+ [] 
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 52--52
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 57--57
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserID[] in[] (SELECT[
 ] UserId[] FROM[] Posts[] GROUP[]
  []
@@ -1066,15 +1060,15 @@ File: /home/franek/Documents/magisterka/images/explain10.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain10.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain10.png
-  used on input line 54.
-(pdftex.def)             Requested size: 479.78401pt x 32.11942pt.
+  used on input line 60.
+(pdftex.def)             Requested size: 443.80112pt x 29.71053pt.
 
-Overfull \hbox (67.84525pt too wide) in paragraph at lines 54--55
-[][] 
+Overfull \hbox (31.86235pt too wide) in paragraph at lines 60--61
+ [] 
  []
 
 
-Overfull \hbox (14.13644pt too wide) in paragraph at lines 59--59
+Overfull \hbox (14.13644pt too wide) in paragraph at lines 65--65
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Posts[] [] WHERE[] OwnerUserId[] IN[] (SE
 LECT[] id[] FROM[] Users[] WHERE[]
  []
@@ -1085,11 +1079,11 @@ File: /home/franek/Documents/magisterka/images/explain11.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain11.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain11.png
-  used on input line 61.
-(pdftex.def)             Requested size: 438.83173pt x 52.99706pt.
+  used on input line 68.
+(pdftex.def)             Requested size: 427.86679pt x 51.67284pt.
 
-Overfull \hbox (26.89296pt too wide) in paragraph at lines 61--62
-[][] 
+Overfull \hbox (15.92802pt too wide) in paragraph at lines 68--69
+ [] 
  []
 
 
@@ -1102,7 +1096,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 ents/magisterka/images/explain8.png> </home/franek/Documents/magisterka/images/
 explain9.png> </home/franek/Documents/magisterka/images/explain9a.png> </home/f
 ranek/Documents/magisterka/images/explain10.png>]
-Overfull \hbox (7.96144pt too wide) in paragraph at lines 66--66
+Overfull \hbox (7.96144pt too wide) in paragraph at lines 73--73
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Comments[] WHERE[] UserId[] =[] (SELECT[]
  @var1[] FROM[] Users[] WHERE[]
  []
@@ -1113,11 +1107,11 @@ File: /home/franek/Documents/magisterka/images/explain12.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain12.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain12.png
-  used on input line 68.
-(pdftex.def)             Requested size: 449.67204pt x 30.91495pt.
+  used on input line 76.
+(pdftex.def)             Requested size: 427.20044pt x 29.37003pt.
 
-Overfull \hbox (37.73328pt too wide) in paragraph at lines 68--69
-[][] 
+Overfull \hbox (15.26167pt too wide) in paragraph at lines 76--77
+ [] 
  []
 
 </home/franek/Documents/magisterka/images/explain13.png, id=79, 901.3675pt x 48
@@ -1126,29 +1120,34 @@ File: /home/franek/Documents/magisterka/images/explain13.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain13.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain13.png
-  used on input line 75.
-(pdftex.def)             Requested size: 360.5406pt x 19.27164pt.
+  used on input line 84.
+(pdftex.def)             Requested size: 432.65147pt x 23.12611pt.
+
+Overfull \hbox (20.7127pt too wide) in paragraph at lines 84--85
+ [] 
+ []
+
 </home/franek/Documents/magisterka/images/explain24.png, id=80, 1066.98625pt x 
 79.29625pt>
 File: /home/franek/Documents/magisterka/images/explain24.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain24.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain24.png
-  used on input line 83.
-(pdftex.def)             Requested size: 426.78694pt x 31.71793pt.
-
-Overfull \hbox (14.84818pt too wide) in paragraph at lines 83--84
-[][] 
- []
-
+  used on input line 93.
+(pdftex.def)             Requested size: 405.459pt x 30.13287pt.
 </home/franek/Documents/magisterka/images/explain25.png, id=81, 1321.93875pt x 
 49.18375pt>
 File: /home/franek/Documents/magisterka/images/explain25.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain25.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain25.png
-  used on input line 90.
-(pdftex.def)             Requested size: 396.58469pt x 14.75522pt.
+  used on input line 101.
+(pdftex.def)             Requested size: 423.02905pt x 15.7391pt.
+
+Overfull \hbox (11.09029pt too wide) in paragraph at lines 101--102
+ [] 
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1166,20 +1165,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [19]
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.127 	\newline
-               	WartoÅ›Ä‡ \textit{ALL} informuje o tym, Å¼e serwer musi prze...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1201,10 +1186,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 158--160
-
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1212,16 +1193,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [23]
+! Too many }'s.
+l.195 ...i 15748463 (rysunek ~\ref{fig:explain14}}
+                                                  )
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
 </home/franek/Documents/magisterka/images/explain14.png, id=101, 1038.88126pt x
  79.29625pt>
 File: /home/franek/Documents/magisterka/images/explain14.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain14.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain14.png
-  used on input line 188.
+  used on input line 200.
 (pdftex.def)             Requested size: 415.54514pt x 31.71793pt.
 
-Overfull \hbox (3.60637pt too wide) in paragraph at lines 188--189
+Overfull \hbox (3.60637pt too wide) in paragraph at lines 200--201
 [][] 
  []
 
@@ -1252,7 +1239,7 @@ File: /home/franek/Documents/magisterka/images/innodb-files.png Graphic file (t
 ype png)
 <use /home/franek/Documents/magisterka/images/innodb-files.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/innodb-files.
-png  used on input line 27.
+png  used on input line 26.
 (pdftex.def)             Requested size: 211.486pt x 107.4694pt.
 
 
@@ -1292,18 +1279,18 @@ File: /home/franek/Documents/magisterka/images/engines_tests.png Graphic file (
 type png)
 <use /home/franek/Documents/magisterka/images/engines_tests.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/engines_tests
-.png  used on input line 112.
-(pdftex.def)             Requested size: 150.36072pt x 180.57338pt.
+.png  used on input line 111.
+(pdftex.def)             Requested size: 107.40099pt x 128.98155pt.
 </home/franek/Documents/magisterka/images/engines_storage.png, id=127, 655.4487
 5pt x 234.8775pt>
 File: /home/franek/Documents/magisterka/images/engines_storage.png Graphic file
  (type png)
 <use /home/franek/Documents/magisterka/images/engines_storage.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/engines_stora
-ge.png  used on input line 118.
-(pdftex.def)             Requested size: 458.81099pt x 164.41312pt.
+ge.png  used on input line 117.
+(pdftex.def)             Requested size: 419.48576pt x 150.32108pt.
 
-Overfull \hbox (46.87222pt too wide) in paragraph at lines 118--120
+Overfull \hbox (7.547pt too wide) in paragraph at lines 117--118
  [][] 
  []
 
@@ -1319,7 +1306,7 @@ File: /home/franek/Documents/magisterka/images/memory_engine_storage.png Graphi
 c file (type png)
 <use /home/franek/Documents/magisterka/images/memory_engine_storage.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/memory_engine
-_storage.png  used on input line 126.
+_storage.png  used on input line 125.
 (pdftex.def)             Requested size: 238.49283pt x 210.78911pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1331,11 +1318,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [31]
-Overfull \hbox (94.41148pt too wide) in paragraph at lines 142--142
-[]\T1/lmtt/m/n/12 sysbench[] --db-driver=mysql[] --mysql-user=root[] --mysql-pa
-ssword=root[] --mysql-db=test[]
- []
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -1350,7 +1332,7 @@ File: /home/franek/Documents/magisterka/images/struktura_sbtest1.png Graphic fi
 le (type png)
 <use /home/franek/Documents/magisterka/images/struktura_sbtest1.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/struktura_sbt
-est1.png  used on input line 147.
+est1.png  used on input line 148.
 (pdftex.def)             Requested size: 251.14018pt x 89.73593pt.
 </home/franek/Documents/magisterka/images/sysbench_statistics.png, id=136, 626.
 34pt x 541.02126pt>
@@ -1358,7 +1340,7 @@ File: /home/franek/Documents/magisterka/images/sysbench_statistics.png Graphic
 file (type png)
 <use /home/franek/Documents/magisterka/images/sysbench_statistics.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/sysbench_stat
-istics.png  used on input line 158.
+istics.png  used on input line 159.
 (pdftex.def)             Requested size: 375.80688pt x 324.61525pt.
 
 
@@ -1369,12 +1351,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [33 </home/franek/Documents/magisterka/images/memory_engine_storage.png> </home
 /franek/Documents/magisterka/images/struktura_sbtest1.png>]
-Overfull \hbox (36.09343pt too wide) in paragraph at lines 162--169
+Overfull \hbox (36.09343pt too wide) in paragraph at lines 164--171
  [] 
  []
 
 
-Overfull \hbox (1.10316pt too wide) in paragraph at lines 175--176
+Overfull \hbox (1.10316pt too wide) in paragraph at lines 177--178
 \T1/lmr/m/n/12 Do przy-go-to-wa-nia te-sto-wych ze-sta-wów da-nych wy-ko-rzy-st
 ano na-st¦-pu-j¡ce skrypty: 
  []
@@ -1393,7 +1375,7 @@ zytow.png Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/wyniki_testu_symulatnicznych_odcz
 ytow.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/wyniki_testu_
-symulatnicznych_odczytow.png  used on input line 190.
+symulatnicznych_odczytow.png  used on input line 191.
 (pdftex.def)             Requested size: 384.84071pt x 384.84071pt.
 
 
@@ -1403,7 +1385,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [35]
-Overfull \hbox (36.09343pt too wide) in paragraph at lines 194--201
+Overfull \hbox (36.09343pt too wide) in paragraph at lines 196--203
  [] 
  []
 
@@ -1415,25 +1397,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [36 </home/franek/Documents/magisterka/images/wyniki_testu_symulatnicznych_odcz
 ytow.png>]
-Overfull \hbox (51.18646pt too wide) in paragraph at lines 210--210
-[]\T1/lmtt/m/n/12 --mysql-db=test[] --table_size=2000000[] --mysql_storage_engi
-ne=<nazwa[] silniku>[] 
- []
-
-
-Overfull \hbox (14.13644pt too wide) in paragraph at lines 210--210
-[]\T1/lmtt/m/n/12 --num-threads=12[] /usr/share/sysbench/select_random_ranges.l
-ua[] prepare[] 
- []
-
-
-Overfull \hbox (1.78644pt too wide) in paragraph at lines 233--233
+Overfull \hbox (1.78644pt too wide) in paragraph at lines 236--236
 [][] \T1/lmtt/m/n/12 sysbench[] --db-driver=mysql[] --mysql-user=root[] --mysql
 -password=root[] 
  []
 
 
-Overfull \hbox (1.78644pt too wide) in paragraph at lines 233--233
+Overfull \hbox (1.78644pt too wide) in paragraph at lines 236--236
 [][] \T1/lmtt/m/n/12 --mysql-db=test[] --table_size=2000000[] --mysql_storage_e
 ngine=<nazwa[]
  []
@@ -1445,7 +1415,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [37]
-Overfull \hbox (22.18437pt too wide) in paragraph at lines 260--267
+Overfull \hbox (22.18437pt too wide) in paragraph at lines 263--270
  [] 
  []
 
@@ -1456,7 +1426,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [38])
-Overfull \hbox (1.02884pt too wide) in paragraph at lines 318--24
+Overfull \hbox (1.02884pt too wide) in paragraph at lines 321--24
 \T1/lmr/m/n/12 st¦p-nych obec-nie sil-ni-ków My-SQL. W zde-cy-do-wa-nej wi¦k-sz
 o-±ci przy-pad-ków, które
  []
@@ -1501,12 +1471,6 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [42]
-Overfull \hbox (32.65445pt too wide) in paragraph at lines 32--32
-[]    \T1/lmtt/m/n/12 SELECT * FROM Init_Comments WHERE UserId = 1200 AND PostI
-d = 910331;[] 
- []
-
-
 Overfull \hbox (1.77943pt too wide) in paragraph at lines 39--39
 []    \T1/lmtt/m/n/12 SELECT * FROM Comments WHERE UserId = 1200 AND PostId = 9
 10331;[] 
@@ -1518,11 +1482,11 @@ File: /home/franek/Documents/magisterka/images/explain1.jpg Graphic file (type
 jpg)
 <use /home/franek/Documents/magisterka/images/explain1.jpg>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain1.jpg 
- used on input line 43.
+ used on input line 44.
 (pdftex.def)             Requested size: 417.55898pt x 59.72296pt.
 
-Overfull \hbox (5.62021pt too wide) in paragraph at lines 43--44
-[][] 
+Overfull \hbox (5.62021pt too wide) in paragraph at lines 44--45
+ [][] 
  []
 
 </home/franek/Documents/magisterka/images/explain2.jpg, id=174, 837.1275pt x 12
@@ -1531,11 +1495,11 @@ File: /home/franek/Documents/magisterka/images/explain2.jpg Graphic file (type
 jpg)
 <use /home/franek/Documents/magisterka/images/explain2.jpg>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain2.jpg 
- used on input line 49.
+ used on input line 51.
 (pdftex.def)             Requested size: 418.56273pt x 62.23235pt.
 
-Overfull \hbox (6.62396pt too wide) in paragraph at lines 49--50
-[][] 
+Overfull \hbox (6.62396pt too wide) in paragraph at lines 51--52
+ [][] 
  []
 
 
@@ -1554,24 +1518,19 @@ File: /home/franek/Documents/magisterka/images/explain3.jpg Graphic file (type
 jpg)
 <use /home/franek/Documents/magisterka/images/explain3.jpg>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain3.jpg 
- used on input line 67.
-(pdftex.def)             Requested size: 420.06834pt x 60.72672pt.
-
-Overfull \hbox (8.12958pt too wide) in paragraph at lines 67--68
-[][] 
- []
-
+ used on input line 70.
+(pdftex.def)             Requested size: 411.67159pt x 59.51285pt.
 </home/franek/Documents/magisterka/images/explain4.jpg, id=179, 941.5175pt x 11
 9.44624pt>
 File: /home/franek/Documents/magisterka/images/explain4.jpg Graphic file (type 
 jpg)
 <use /home/franek/Documents/magisterka/images/explain4.jpg>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain4.jpg 
- used on input line 72.
-(pdftex.def)             Requested size: 470.7576pt x 59.72296pt.
+ used on input line 76.
+(pdftex.def)             Requested size: 423.67897pt x 53.7503pt.
 
-Overfull \hbox (58.81883pt too wide) in paragraph at lines 72--73
-[][] 
+Overfull \hbox (11.7402pt too wide) in paragraph at lines 76--77
+ [][] 
  []
 
 
@@ -1585,7 +1544,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [44 </home/franek/Documents/magisterka/images/explain2.jpg> </home/franek/Docum
 ents/magisterka/images/explain3.jpg>]
-Overfull \hbox (7.94743pt too wide) in paragraph at lines 82--82
+Overfull \hbox (7.94743pt too wide) in paragraph at lines 86--86
 []    \T1/lmtt/m/n/12 SELECT * FROM Init_Comments WHERE UserId >1990 AND UserId
  <2000;[] 
  []
@@ -1596,11 +1555,11 @@ File: /home/franek/Documents/magisterka/images/explain5.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/explain5.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain5.png 
- used on input line 91.
-(pdftex.def)             Requested size: 468.7501pt x 25.09367pt.
+ used on input line 96.
+(pdftex.def)             Requested size: 421.87222pt x 22.58415pt.
 
-Overfull \hbox (56.81134pt too wide) in paragraph at lines 91--92
-[][] 
+Overfull \hbox (9.93346pt too wide) in paragraph at lines 96--97
+ [][] 
  []
 
 </home/franek/Documents/magisterka/images/explain6.png, id=184, 937.5025pt x 51
@@ -1609,15 +1568,15 @@ File: /home/franek/Documents/magisterka/images/explain6.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/explain6.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain6.png 
- used on input line 96.
-(pdftex.def)             Requested size: 468.7501pt x 25.59555pt.
+ used on input line 102.
+(pdftex.def)             Requested size: 421.87222pt x 23.03584pt.
 
-Overfull \hbox (56.81134pt too wide) in paragraph at lines 96--97
-[][] 
+Overfull \hbox (9.93346pt too wide) in paragraph at lines 102--103
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
@@ -1675,9 +1634,9 @@ File: /home/franek/Documents/magisterka/images/explain20.png Graphic file (type
 <use /home/franek/Documents/magisterka/images/explain20.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain20.png
   used on input line 25.
-(pdftex.def)             Requested size: 440.45868pt x 29.71053pt.
+(pdftex.def)             Requested size: 416.66287pt x 28.10541pt.
 
-Overfull \hbox (28.51991pt too wide) in paragraph at lines 25--27
+Overfull \hbox (4.7241pt too wide) in paragraph at lines 25--26
  [][] 
  []
 
@@ -1687,14 +1646,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[50 </home/franek/Documents/magisterka/images/explain20.png>]
-Overfull \hbox (7.96144pt too wide) in paragraph at lines 41--41
+[50]
+Overfull \hbox (7.96144pt too wide) in paragraph at lines 42--42
 []\T1/lmtt/m/n/12 SELECT[] *[] FROM[] Posts[] p[] LEFT[] JOIN[] PostTypes[] pt[
 ] ON[] p.PostTypeId[] =[] pt.Id[]
  []
 
 
-Overfull \hbox (7.96144pt too wide) in paragraph at lines 41--41
+Overfull \hbox (7.96144pt too wide) in paragraph at lines 42--42
 \T1/lmtt/m/n/12 LEFT[] JOIN[] PostLinks[] pl[] ON[] p.Id[] =[] pl.PostId[] LEFT
 [] JOIN[] LinkTypes[] lt[] on[]
  []
@@ -1705,7 +1664,7 @@ File: /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png Graphic fil
 e (type png)
 <use /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_1.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/PLAN_WYKONANI
-A_1.png  used on input line 44.
+A_1.png  used on input line 45.
 (pdftex.def)             Requested size: 321.14684pt x 154.024pt.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1713,14 +1672,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[51]
+[51 </home/franek/Documents/magisterka/images/explain20.png>]
 </home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png, id=211, 485.815
 pt x 402.50375pt>
 File: /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png Graphic fil
 e (type png)
 <use /home/franek/Documents/magisterka/images/PLAN_WYKONANIA_2.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/PLAN_WYKONANI
-A_2.png  used on input line 48.
+A_2.png  used on input line 49.
 (pdftex.def)             Requested size: 218.61473pt x 181.125pt.
 </home/franek/Documents/magisterka/images/explain21.png, id=212, 626.34pt x 323
 .2075pt>
@@ -1728,7 +1687,7 @@ File: /home/franek/Documents/magisterka/images/explain21.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain21.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain21.png
-  used on input line 52.
+  used on input line 53.
 (pdftex.def)             Requested size: 313.16922pt x 161.60335pt.
 
 
@@ -1746,13 +1705,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [53 </home/franek/Documents/magisterka/images/explain21.png>]
-Overfull \hbox (14.13644pt too wide) in paragraph at lines 62--62
+Overfull \hbox (14.13644pt too wide) in paragraph at lines 63--63
 []\T1/lmtt/m/n/12 SELECT[] u.Id,[] p.Id,[] c.Id,[] pt.`Type`[] FROM[] Users[] u
 [] INNER[] JOIN[] Posts[] p[] ON[]
  []
 
 
-Overfull \hbox (7.96144pt too wide) in paragraph at lines 62--62
+Overfull \hbox (7.96144pt too wide) in paragraph at lines 63--63
 \T1/lmtt/m/n/12 u.Id[] =[] p.OwnerUserId[] [] INNER[] JOIN[] Comments[] c[] ON[
 ] c.UserId[] =[] u.Id[] INNER[]
  []
@@ -1763,7 +1722,7 @@ File: /home/franek/Documents/magisterka/images/explain22.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain22.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain22.png
-  used on input line 66.
+  used on input line 67.
 (pdftex.def)             Requested size: 397.48132pt x 62.33229pt.
 </home/franek/Documents/magisterka/images/explain23.png, id=223, 885.3075pt x 1
 36.51pt>
@@ -1771,7 +1730,7 @@ File: /home/franek/Documents/magisterka/images/explain23.png Graphic file (type
  png)
 <use /home/franek/Documents/magisterka/images/explain23.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain23.png
-  used on input line 70.
+  used on input line 71.
 (pdftex.def)             Requested size: 398.38469pt x 61.42892pt.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1788,43 +1747,43 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [55]
-Overfull \hbox (1.78644pt too wide) in paragraph at lines 121--121
+Overfull \hbox (1.78644pt too wide) in paragraph at lines 122--122
 []\T1/lmtt/m/n/12 INSERT[] INTO[] `students`[] (`id`,[] `lecturer_id`,[] `value
 `)[] VALUES[] (0,[] 1,[]
  []
 
 
-Overfull \hbox (1.78644pt too wide) in paragraph at lines 121--121
+Overfull \hbox (1.78644pt too wide) in paragraph at lines 122--122
 []\T1/lmtt/m/n/12 INSERT[] INTO[] `students`[] (`id`,[] `lecturer_id`,[] `value
 `)[] VALUES[] (0,[] 2,[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
@@ -1836,31 +1795,31 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [56]
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
 
 
-Overfull \hbox (20.31145pt too wide) in paragraph at lines 137--137
+Overfull \hbox (20.31145pt too wide) in paragraph at lines 138--138
 []\T1/lmtt/m/n/12 AND[] EXISTS[] (SELECT[] 1[] FROM[] students[] AS[] s[] WHERE
 [] s.lecturer_id[] =[] p.id[] AND[]
  []
@@ -1871,7 +1830,7 @@ File: /home/franek/Documents/magisterka/images/profile1.png Graphic file (type
 png)
 <use /home/franek/Documents/magisterka/images/profile1.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/profile1.png 
- used on input line 159.
+ used on input line 160.
 (pdftex.def)             Requested size: 225.24323pt x 46.3736pt.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1887,20 +1846,14 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [58]
-Overfull \hbox (63.36021pt too wide) in paragraph at lines 177--179
-\T1/lmr/m/n/12 by¢ zmie-niona dla kon-kret-nej ta-beli po-przez pa-ra-metr \T1/
-lmr/m/it/12 in-nodb_stats_persistent_sample_pages
+Overfull \hbox (8.504pt too wide) in paragraph at lines 178--180
+\T1/lmr/m/it/12 innodb_stats_persistent_sample_pages \T1/lmr/m/n/12 lub pa-ra-m
+etr \T1/lmr/m/it/12 stats_sample_pages\T1/lmr/m/n/12 . Zmian¦
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--182
+Underfull \hbox (badness 10000) in paragraph at lines 181--183
 []\T1/lmr/bx/n/12 Warto±ci sta-ty-styczne od-bie-gaj¡ od rze-czy-wi-stych.
- []
-
-
-Overfull \hbox (18.81113pt too wide) in paragraph at lines 193--193
- []\T1/lmtt/m/n/12 SELECT[] COUNT(DISTINCT[] OwnerUserId)[] FROM[] Posts;[] #li
-czba[] unikalnych[] 
  []
 
 
@@ -1960,15 +1913,9 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [63 </home/franek/Documents/magisterka/images/votes_partitioned_files.png>]
-Overfull \hbox (14.13644pt too wide) in paragraph at lines 58--58
+Overfull \hbox (14.13644pt too wide) in paragraph at lines 59--59
 []\T1/lmtt/m/n/12 SELECT[] COUNT(id)[] FROM[] Votes_partitioned[] v[] WHERE[] v
 .VoteTypeId[] =[] 12[] AND[]
- []
-
-
-Overfull \hbox (32.66145pt too wide) in paragraph at lines 58--58
-[]\T1/lmtt/m/n/12 SELECT[] COUNT(id)[] FROM[] Votes[] v[] WHERE[] v.VoteTypeId[
-] =[] 12[] AND[] v.CreationDate[]
  []
 
 </home/franek/Documents/magisterka/images/explain_without_rage_partition1.png, 
@@ -1978,16 +1925,16 @@ png Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/explain_without_rage_partition1.p
 ng>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain_witho
-ut_rage_partition1.png  used on input line 63.
-(pdftex.def)             Requested size: 350.89412pt x 27.62265pt.
+ut_rage_partition1.png  used on input line 64.
+(pdftex.def)             Requested size: 391.69896pt x 30.83484pt.
 </home/franek/Documents/magisterka/images/explain_range_partition1.png, id=258,
  821.0675pt x 62.2325pt>
 File: /home/franek/Documents/magisterka/images/explain_range_partition1.png Gra
 phic file (type png)
 <use /home/franek/Documents/magisterka/images/explain_range_partition1.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/explain_range
-_partition1.png  used on input line 69.
-(pdftex.def)             Requested size: 353.05214pt x 26.75945pt.
+_partition1.png  used on input line 70.
+(pdftex.def)             Requested size: 394.10793pt x 29.87125pt.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -2037,7 +1984,7 @@ ng Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/architektura-z-load-balancerem.pn
 g>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/architektura-
-z-load-balancerem.png  used on input line 53.
+z-load-balancerem.png  used on input line 52.
 (pdftex.def)             Requested size: 244.36067pt x 315.72664pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -2071,7 +2018,7 @@ File: /home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png
 <use /home/franek/Documents/magisterka/images/partycjonowanie-funkcjonalne.png>
 
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/partycjonowan
-ie-funkcjonalne.png  used on input line 72.
+ie-funkcjonalne.png  used on input line 73.
 (pdftex.def)             Requested size: 209.58327pt x 217.61328pt.
 
 
@@ -2089,17 +2036,20 @@ rding.png Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-shar
 ding.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/Partycjonowan
-ie-funkcjonalne-sharding.png  used on input line 88.
+ie-funkcjonalne-sharding.png  used on input line 90.
 (pdftex.def)             Requested size: 176.15768pt x 211.28885pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 </home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png, id=2
 93, 638.385pt x 452.69125pt>
 File: /home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png 
 Graphic file (type png)
 <use /home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png>
 Package pdftex.def Info: /home/franek/Documents/magisterka/images/InnoDb-cluste
-r-architektura.png  used on input line 98.
+r-architektura.png  used on input line 100.
 (pdftex.def)             Requested size: 351.11282pt x 248.98096pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -2109,16 +2059,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[73 </home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-shar
-ding.png>]
+[73]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[74 </home/franek/Documents/magisterka/images/InnoDb-cluster-architektura.png>]
-)
+[74 </home/franek/Documents/magisterka/images/Partycjonowanie-funkcjonalne-shar
+ding.png> </home/franek/Documents/magisterka/images/InnoDb-cluster-architektura
+.png>])
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
@@ -2306,140 +2256,10 @@ Underfull \hbox (badness 1721) in paragraph at lines 3--4
  []
 
 
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11 	\\t
-         odo -mark-whitehorn-relacyjne-bazy-danych
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13 	\\t
-         odo Cormen T. H., Leiserson C. E., Rivest R. L., Wprowadzenie do al...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! Package inputenc Error: Unicode char â€‹ (U+200B)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13 ..., Wprowadzenie do algorytmÃ³w WNT 2001 â€‹
-                                                  ISBN 83-204-2556-5â€‹.
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! Package inputenc Error: Unicode char â€‹ (U+200B)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13 ...orytmÃ³w WNT 2001 â€‹ISBN 83-204-2556-5â€‹
-                                                  .
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.15 	\\t
-         odo Bondi, AndrÃ© B. (2000). Characteristics of scalability and the...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.17 	\\N
-         . A. L. Seth Gilbert, â€œPerspectives on the CAP
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.20 	\\h
-         ttps://www.geeksforgeeks.org/horizontal-and-vertical-scaling-in-dat...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.22 	\\t
-         odo A Guttman 'R-trees a dynamic index structure for spatial search...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.24 	\\t
-         odo link do bazy stackoverflow?
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.28 	\\t
-         odo przeniesc indeksy jako jeden z wczesniejszych rozdziaÅ‚Ã³w!
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+[]\T1/lmr/m/n/12 https://www.geeksforgeeks.org/horizontal-and-vertical-scaling-
+in-
+ []
 
 )
 
@@ -2454,10 +2274,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6735 strings out of 492982
- 101465 string characters out of 6134897
- 160120 words of memory out of 5000000
- 10027 multiletter control sequences out of 15000+600000
+ 6742 strings out of 492982
+ 101531 string characters out of 6134897
+ 160159 words of memory out of 5000000
+ 10034 multiletter control sequences out of 15000+600000
  61629 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,11n,43p,1576b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2470,7 +2290,7 @@ i8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/font
 s/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb>
 </usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type
 1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (85 pages, 1619936 bytes).
+Output written on main.pdf (85 pages, 1619966 bytes).
 PDF statistics:
  382 PDF objects out of 1000 (max. 8388607)
  227 compressed objects within 3 object streams

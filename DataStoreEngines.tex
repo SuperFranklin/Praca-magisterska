@@ -22,9 +22,9 @@ W czasie pisania tej pracy silnik MyISAM nie był już rozwijany, dlatego autor 
 \subsubsection{InnoDB}
 Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB uzupełniono o funkcje, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym wyborem. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe być również przechowywane w wielu plikach. Strukturę plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, przedstawiono na rysunku ~\ref{fig:innodb-fileslabel}.
 \begin{figure}[!h]
-	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
 	\centering
 	\includegraphics[scale = 0.43]{innodb-files.png}
+	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
 	\label{fig:innodb-fileslabel}
 \end{figure}
 Poniżej przedstawiono podstawowe charakterystyki silnika.
@@ -107,23 +107,23 @@ W celu porównania sposobu przechowywania danych na dysku przegotowano testową 
 \end{spverbatim}
 Klucze główne usunięto w przypadku silników, które ich nie wspierają. Ostatecznie tabela zawiera około 2,5 miliona wierszy.
 \begin{figure}[!h]
-	\caption{Baza danych użyta do testowania silników baz danych}
 	\centering
-	\includegraphics[scale = 0.7]{engines_tests.png}
+	\includegraphics[scale = 0.5]{engines_tests.png}
+	\caption{Baza danych użyta do testowania silników baz danych}
 	\label{fig:label}
 \end{figure}
 \begin{figure}[!h]
-	\caption{Pliki z danymi użytkowników dla testowych silników.}
 	\centering
-	\includegraphics[scale = 0.7]{engines_storage.png}
+	\includegraphics[scale = 0.64]{engines_storage.png}
+	\caption{Pliki z danymi użytkowników dla testowych silników.}
 	\label{fig:engines_storage}
 \end{figure}
 
 Na rysunku ~\ref{fig:engines_storage} przedstawiono pliki tabel testowej bazy danych. Pod względem optymalizacji ilości miejsca na dysku zdecydowanie najlepiej wypada silnik Archive, który potrzebuje jedynie 67 MB dla danych użytkowników. Na drugim miejscu pod tym względem plasuje się silnik MyISAM. Silniki InnoDB oraz CSV wymagają praktycznie takiej samej przestrzeni dyskowej; w granicach 250 MB. Silnik MEMORY na dysku twardym przechowuje jedynie strukturę tabeli, ale do sprawdzenia ilości użytej pamięci możemy użyć narzędzia \textit{MySQL Workbench}.
 \begin{figure}[!h]
-	\caption{Informacje dotyczące tabeli Users\textunderscore memory w \textit{MySQL Workbench}. \textit{StackOverflow}}
 	\centering
 	\includegraphics[scale = 0.6]{memory_engine_storage.png}
+	\caption{Informacje dotyczące tabeli Users\textunderscore memory w \textit{MySQL Workbench}. \textit{StackOverflow}}
 	\label{fig:label}
 \end{figure}
 Silnik MEMORY wymaga prawie 5.5 Gb pamięci. Wynika to w dużej mierze z tego, że silnik MEMORY dla kolumn VARCHAR zawsze rezerwuje rozmiar wynikający z maksymalnej wartości, nawet jeżeli nie jest ona wykorzystana.
@@ -137,14 +137,16 @@ W przypadku tabel, które wymagają użycia transakcji, jedynym możliwym wybore
 \subsubsection{Operacje odczytu klucz-wartość}
 Do testowania użyto narzędzia \textit{sysbench}, które posiada wbudowany mechanizm ułatwiający testowanie baz danych. Za pomocą poniższych poleceń rzygotowano testową bazę danych udostępnioną przez \textit{sysbench}. 
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --range_selects=off --mysql_storage_engine=
-	<nazwa silnika> /usr/share/sysbench/oltp_read_only.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root 
+	--mysql-db=test --table_size=2000000 --range_selects=off 
+	--mysql_storage_engine=	<nazwa silnika> 
+	/usr/share/sysbench/oltp_read_only.lua prepare
 \end{spverbatim} 
 Baza danych zawiera 2 miliony rekordów, tabela domyślnie przyjmuje nazwę \textit{sbtest1}.
 \begin{figure}[H]
-	\caption{Struktura tabeli \textit{sbtest1}.}
 	\centering
 	\includegraphics[scale = 0.6]{struktura_sbtest1.png}
+	\caption{Struktura tabeli \textit{sbtest1}.}
 	\label{fig:label}
 \end{figure}
 
@@ -153,9 +155,9 @@ Aby wykonać test polecenie \textit{prepare} należy zamienić na polecenie \tex
 	SELECT c FROM sbtest1 WHERE id=?
 \end{spverbatim}
 \begin{figure}[H]
-	\caption{Przykładowe statystyki testu wydajności izolowanych operacji odczytu.}
 	\centering
 	\includegraphics[scale = 0.6]{sysbench_statistics.png}
+	\caption{Przykładowe statystyki testu wydajności izolowanych operacji odczytu.}
 	\label{fig:label}
 \end{figure}
 \begin{center}
@@ -185,9 +187,9 @@ Wykonanie testu analogicznie jak w poprzednich przypadkach wykonano, zamieniają
 
 Na rysunku ~\ref{fig:wyniki_testu_symulatnicznych_odczytow} przedstawiono wyniki testu. W przypadku tego testu operacje odczytu wykonywane były równolegle z operacjami zapisu do tabeli.
 \begin{figure}[H]
-	\caption{Przykładowe statystyki testu symultanicznych odczytów i zapisów.}
 	\centering
 	\includegraphics[scale = 0.6]{wyniki_testu_symulatnicznych_odczytow.png}
+	\caption{Przykładowe statystyki testu symultanicznych odczytów i zapisów.}
 	\label{fig:wyniki_testu_symulatnicznych_odczytow}
 \end{figure}
 \begin{center}
@@ -205,8 +207,9 @@ Wyniki testu przedstawione w tabeli powyżej wskazują, że najwydajniejszym sil
 Kolejny test symuluje operację wyszukiwania danych za pomocą zakresu. Do jego przygotowania wykorzystano następujące polecenie.
 \begin{spverbatim}
 	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root
-	--mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silniku>
-	--num-threads=12 /usr/share/sysbench/select_random_ranges.lua prepare
+	--mysql-db=test --table_size=2000000 
+	--mysql_storage_engine=<nazwa silniku>  --num-threads=12 
+	/usr/share/sysbench/select_random_ranges.lua prepare
 \end{spverbatim}
 W związku z tym, że domyślnym indeksem dla tabeli MEMORY jest indeks HASH, a nie B-tree, na tej tabeli dodatkowo utworzono indeks typu B-Tree, wykorzystując następujące polecenie.
 \begin{spverbatim}

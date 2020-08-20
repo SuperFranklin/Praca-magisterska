@@ -48,9 +48,9 @@ Reasumując skalowanie horyzontalne za pomocą mechanizmu replikacji \textit{mas
 Skalowanie z zastosowaniem replikacji \textit{master-slave} jest często stosowane razem z \textit{load balancerem} (przykładowo ProxySQL), który odpowiada za balansowanie obciążenia operacji odczytu pomiędzy serwerami podrzędnymi oraz zapewnia przeźroczystość dostępu do danych z punktu widzenia aplikacji, która ma wrażenie komunikowania się z tylko jednym serwerem. Przykład takiej architektura przedstawiono na poniższym diagramie.
 
 \begin{figure}[!h]
-	\caption{Przykładowa architektura master-slave z load balancerem}
 	\centering
 	\includegraphics[scale = 0.45]{architektura-z-load-balancerem.png}
+	\caption{Przykładowa architektura master-slave z load balancerem}
 	\label{fig:label}
 \end{figure}
 
@@ -68,9 +68,11 @@ Architektura \textit{multi-master} będzie szczególnie przydatna, kiedy potrzeb
 
 Funkcje aplikacji można podzielić na pewne podgrupy, które nie łączą się z pozostałymi, na poziomie zapytań SQL. Przykładowo serwis społecznościowy \textit{Facebook} umożliwia odczytywania postów innych użytkoników oraz dokonywanie zakupów w sekcji \textit{Marketplace}. Jeżeli użytkownik przegląda aktualne oferty w dziale \textit{Marketplace}, to zapytania kierowane do bazy danych, będą odpytywać jedynie kilka tabel związanych z zakupami. Jeżeli w tym samym czasie inny użytkownik przegląda posty użytkowników, zapytania nie będą dotyczyć table związanych z zakupami. Oczywiście przykład, który przedstawiłem powyżej, może być rozwiązany za pomocą podziału na osobne serwisy jeszcze na poziomie aplikacji, ale w tym przykładzie założono, że nasza aplikacja nie została podzielona na osobne serwisy i łączy się z jedną bazą danych. W takiej sytuacji obciążenie serwera MySQL jest sumą obciążeń związanych z postami i zakupami. W takim przypadku skutecznym rozwiązaniem jest podział danych pojedynczej aplikacji na zestaw tabel, które nigdy nie są ze sobą łączone. Oczywiście takiego partycjonowania danych nie można przeprowadzać w nieskończoność, ponieważ nie istnieje skończony zbiór tabel, które możemy w taki sposób podzielić. Dodatkowo w ramach każdej z grup jesteśmy ograniczeni możliwościami skalowania pionowego bazy danych. Wadą jest też zwiększona złożoność samej aplikacji, która musi obsłużyć kilka źródeł danych. 
 
-\begin{center}
+\begin{figure}
+	\centering
 	\includegraphics[scale = 0.8]{partycjonowanie-funkcjonalne.png} 
-\end{center}
+	\caption{Przykład architektury wykorzystującej partycjonowanie funkcjonalne}
+\end{figure}
 
 
 \subsection{Data-sharding}
@@ -86,7 +88,7 @@ Głownymi przesłankami skłaniającymi do zastosowania tego sposobu skalowalno�
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale = 0.5]{Partycjonowanie-funkcjonalne-sharding.png}
-	\caption{Przykładowa architektura partycjonowania funkcjonalnego}
+	\caption{Przykładowa architektura partycjonowania funkcjonalnego oraz data-shardingu}
 	\label{fig:data-sharding}
 \end{figure}
 

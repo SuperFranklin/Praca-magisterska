@@ -25,12 +25,12 @@ Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli WHERE uwzględni
 
 Założono, że celem jest wyszukanie wszystkich komentarzy użytkownika o id 1200 do postu o id 910331 w tabeli \textit{Comments}.
 
-Najpierw wykonano zapytania na tabeli nie zawierającej indeksów.
- \textit{employees}. 
+Najpierw wykonano zapytania na tabeli nie zawierającej indeksów. 
 \begin{verbatim}
-    SELECT * FROM Init_Comments WHERE UserId = 1200 AND PostId = 910331;
+    SELECT * FROM Init_Comments WHERE UserId = 1200 
+    AND PostId = 910331;
 \end{verbatim}
-Zapytanie zwraca wyniko w 13,7 sekundy.
+Zapytanie zwraca wyniko w średnim czasie wynoszącym 13,7 sekundy.
 
 Następnie analogiczne zapytanie wykonano na tabeli \textit{Comments} zawierającej indeks na obu kolumnach.
 \textit{employees\textunderscore idx}. 
@@ -40,12 +40,14 @@ Następnie analogiczne zapytanie wykonano na tabeli \textit{Comments} zawierają
 Dla drugiego zapytania baza danych zwróciła wyniki w 0,013 sekundy. Wykorzystując polecenie EXPLAIN dla obu zapytań, otrzymano wyniki przedstawione na rysunkach ~\ref{fig::explain1.jpg} oraz ~\ref{fig::explain2.jpg}. Na rysunku ~\ref{fig::explain1.jpg} przestawiono wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast na rysunku ~\ref{fig::explain2.jpg} wynik polecania EXPLAIN dla drugiego zapytania. Jak wynika z danych, pierwsze zapytania nie będzie korzystać z indeksów, dlatego wartość w kolumnie \textit{Rows} wskazuje, że serwer MySQL dokona skanowania wszystkich wierszy tabeli \textit{init\textunderscore Comments}. Drugie zapytanie korzysta z indeksu z utworzonego indeksu. W tym przypadku serwer musi przeskanować jedynie 3 wiersze tabeli Comments. Różnica w czasie wykonania obu zapytań wynika z użycia indeksu w drugim zapytaniu.
 
 \begin{figure}[h]
+	\centering
     \includegraphics[scale =0.5]{explain1.jpg} 
     \caption{EXPLAIN 1}
     \label{fig::explain1.jpg}
 \end{figure}
 
 \begin{figure}[h]
+	\centering
     \includegraphics[scale =0.5]{explain2.jpg} 
     \caption{EXPLAIN 2}
     \label{fig::explain2.jpg}
@@ -64,12 +66,14 @@ W tym celu przygotowano dwa zapytania. Pierwsze na tabeli \textit{Init\textunder
 \end{verbatim}
 Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Analizując wyniki polecenia EXPLAIN dla obu zapytań widać, że w pierwszym zapytaniu serwer przeszukuje wszystkie wiersze w tabeli. Drugie zapytanie wymaga przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
 \begin{figure}[h]
-    \includegraphics[scale =0.5]{explain3.jpg} 
+	\centering
+    \includegraphics[scale =0.49]{explain3.jpg} 
     \caption{EXPLAIN 3}
 \end{figure}
 
 \begin{figure}[h]
-    \includegraphics[scale =0.5]{explain4.jpg} 
+	\centering
+    \includegraphics[scale =0.45]{explain4.jpg} 
     \caption{EXPLAIN 4}
 \end{figure}
 
@@ -88,12 +92,14 @@ Tym razem pierwsze zapytanie trwało 1.068 sekundy. Drugie zapytanie wykonano na
 Następnie przeanalizowano wynik polecenia EXPLAIN dla obu zapytań. Przy pierwszym zapytaniu MySQL przeskanował całą tabelę Init\textunderscore Comments. Drugie natomiast wymagało przeskanowania jedynie wierszy, które zostały zwrócone jako rezultat zapytania.
 Efektywne wyszukiwanie za pomocą zakresu jest możliwe dzięki temu, że dane w indeksie przechowywane są w kolejności względem id użytkownika.
 \begin{figure}[h]
-    \includegraphics[scale =0.5]{explain5.png} 
+	\centering
+    \includegraphics[scale =0.45]{explain5.png} 
     \caption{EXPLAIN 5}
 \end{figure}
 
 \begin{figure}[h]
-    \includegraphics[scale =0.5]{explain6.png} 
+	\centering
+    \includegraphics[scale =0.45]{explain6.png} 
     \caption{EXPLAIN 6}
 \end{figure}
 

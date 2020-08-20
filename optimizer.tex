@@ -15,14 +15,15 @@ W tym podrozdziale przedstawiono kilka przykładowych optymalizacji, które moż
 	\item \textbf{Zamiana OUTER JOIN na INNER JOIN.} Nawet jeżeli w zapytaniu użyjemy klauzuli OUTER JOIN, złączenie nie zawsze musi być wykonywany jako OUTER JOIN. Niektóre czynniki takie jak warunki w klauzuli WHERE czy schemat bazy danych mogą spowodować, że OUTER JOIN będzie równoznaczne złączeniu INNER JOIN. 
 	\item \textbf{Przekształcenia algebraiczne.} Optymalizator przeprowadza transformacje algebraiczne takie jak: redukcja stałych, eliminowanie nieosiągalnych warunków czy stałych. Przykładowo warunek (2=2 AND a>2) może zostać przekształcony do postaci (a>2). Podobnie warunek (a<b AND b=c AND a=5) może być przekształcony do (b>5 AND b=c AND a=5).
 	\item \textbf{Optymalizacja funkcji MIN(), MAX().}
-	Serwer już na etapie optymalizacji zapytania może uznać wartości zwracane przez funkcje jako stałe dla reszty zapytania. W niektórych przypadkach optymalizator może nawet pominąć tabelę w planie wykonania zapytania, jeżeli jedyną wartością pobieraną z tabeli jest wynik funkcji MIN() lub MAX(). W takim przypadku w danych wyjściowych polecenia EXPLAIN znajdzie się ciąg tekstowy''Select tables optimized away''.
+	Serwer już na etapie optymalizacji zapytania może uznać wartości zwracane przez funkcje jako stałe dla reszty zapytania. W niektórych przypadkach optymalizator może nawet pominąć tabelę w planie wykonania zapytania, jeżeli jedyną wartością pobieraną z tabeli jest wynik funkcji MIN() lub MAX(). W takim przypadku w danych wyjściowych polecenia EXPLAIN znajdzie się ciąg tekstowy''Select tables optimized away'' (rysunek ~\ref{fig:explain20})
 	Na rysunku ~\ref{fig:explain20} widzimy, że kolumna \textit{ref} dla pierwszego wiersza jest wartość ''const'', czyli najmniejsza wartość id z tabeli \textit{Users} została potraktowana jako stała.
 	\begin{spverbatim}
 		EXPLAIN SELECT * FROM Comments WHERE UserId = (SELECT MIN(id) FROM Users);
 	\end{spverbatim}
 \begin{figure}
 	\centering
-	\includegraphics[scale = 0.37]{explain20.png}
+	\includegraphics[scale = 0.35]{explain20.png}
+	\caption{}
 	\label{fig:explain20}
 \end{figure}
 	\item \textbf{Optymalizacja funkcji COUNT().} Wyniki funkcji COUNT() bez klauzuli WHERE w niektórych silnikach (np. MyISM), również mogą zostać potraktowane jako stała, ale nie dotyczy to najpopularniejszego obecnie w MySQL silnika InnoDB.
@@ -175,7 +176,7 @@ Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkic
 Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie, należy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie wywołujemy polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
 
 \paragraph{Obliczanie statystyk}\mbox{}\\
-Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona dla konkretnej tabeli poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr \textit{stats\textunderscore sample\textunderscore pages}. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
+Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona dla konkretnej tabeli poprzez parametr \newline \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr \textit{stats\textunderscore sample\textunderscore pages}. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
 \begin{itemize}
 	\item \textbf{Wartości statystyczne odbiegają od rzeczywistych.} \linebreak
 	Aby sprawdzić dokładność statystyk dla wybranego indeksu możemy porównać dane statystyczne znajdujące się w tabeli \textit{innodb\textunderscore index\textunderscore stats} i porównać z liczbą rzeczywistych unikatowych wartości indeksu.
@@ -184,8 +185,7 @@ Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy loso
 	W tym celu przygotowano cztery zapytania.
 	Dwa dla owner\textunderscore idx:
 	\begin{spverbatim}
-		SELECT COUNT(DISTINCT OwnerUserId) FROM Posts; #liczba unikalnych
-		wartości indeksu
+		SELECT COUNT(DISTINCT OwnerUserId) FROM Posts;
 		SELECT stat_value FROM mysql.innodb_index_stats WHERE 
 		database_name= 'stackOverflowMedium' AND table_name = 'Posts' 
 		AND index_name = 'owner_idx' 

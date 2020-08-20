@@ -22,7 +22,8 @@ W celu zademonstrowania wyników polecenia EXPLAIN na rzeczywistych przykładach
 	SELECT u.DisplayName, c.CreationDate, c.`Text` FROM  Comments c LEFT JOIN Users u ON c.UserId = u.Id WHERE c.PostId = 875;
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain7.png} 
+	\center
+	\includegraphics[scale =0.37]{explain7.png} 
 	\caption{Przykład 1}
 \end{figure}
 \begin{spverbatim}
@@ -30,64 +31,74 @@ W celu zademonstrowania wyników polecenia EXPLAIN na rzeczywistych przykładach
 	SELECT c.`Text` FROM Comments c WHERE c.PostID = 875;
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain8.png} 
+	\center
+	\includegraphics[scale =0.39]{explain8.png} 
 	\caption{Przykład 2}
 \end{figure}
 \begin{spverbatim}
-	SELECT * FROM Comments WHERE UserId = (SELECT id FROM Users WHERE DisplayName = 'Jarrod Dixon');
+	SELECT * FROM Comments WHERE UserId = (SELECT id FROM Users WHERE
+	DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain9.png} 
+	\center
+	\includegraphics[scale =0.38]{explain9.png} 
 	\caption{Przykład 3}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Comments WHERE UserID in (SELECT UserId FROM Posts GROUP BY UserId HAVING COUNT(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain9a.png} 
+	\center
+	\includegraphics[scale =0.39]{explain9a.png} 
 	\caption{Przykład 4}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Comments WHERE UserID in (SELECT UserId FROM Posts GROUP BY UserId HAVING COUNT(*) > 10);
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain10.png} 
+	\center
+	\includegraphics[scale =0.37]{explain10.png} 
 	\caption{Przykład 5}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Posts  WHERE OwnerUserId IN (SELECT id FROM Users WHERE Reputation>1000 UNION SELECT UserId FROM Comments WHERE Score >10)
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain11.png} 
+	\center
+	\includegraphics[scale =0.39]{explain11.png} 
 	\caption{Przykład 6}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Comments WHERE UserId = (SELECT @var1 FROM Users WHERE DisplayName = 'Jarrod Dixon');
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain12.png} 
+	\center
+	\includegraphics[scale =0.38]{explain12.png} 
 	\caption{Przykład 7}
 \end{figure}
 \begin{spverbatim}
 SELECT * FROM Comments LIMIT 10;
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain13.png} 
+	\center
+	\includegraphics[scale =0.48]{explain13.png} 
 	\caption{Przykład 8}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Users WHERE Id BETWEEN 1 AND 100 AND 
 	id NOT IN (SELECT OwnerUserId FROM Posts WHERE Score >100);
 \end{spverbatim}
-\begin{figure}[H]
-	\includegraphics[scale =0.4]{explain24.png} 
+\begin{figure}[h!]
+	\center
+	\includegraphics[scale =0.38]{explain24.png} 
 	\caption{Przykład 9}
 \end{figure}
 \begin{spverbatim}
 	SELECT * FROM Comments WHERE UserId = 20500 OR id = 20500;
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.3]{explain25.png} 
+	\center
+	\includegraphics[scale =0.32]{explain25.png} 
 	\caption{Przykład 10}
 \end{figure}
 
@@ -122,20 +133,22 @@ Odczytując kolejno wartości kolumny \textit{table} możemy dowiedzieć się, w
 Kolumna \textit{Type} informuje o tym, w jaki sposób MySQL będzie przetwarzał wiersze w tabeli. Poniżej przedstawiono najważniejsze metody dostępu do danych, w kolejności od najgorszej do najlepszej.
 
 \begin{itemize}
-	\item \textbf{ALL} 
-	
-	\newline	Wartość \textit{ALL} informuje o tym, że serwer musi przeskanować całą tabelę w celu odnalezienia rekordów. Istnieją jednak wyjątki takie, jak w przykładzie 8, w którym polecenie \textit{EXPLAIN} pokazuje, że będzie wykonywany pełny skan tabeli, a w rzeczywistości dzięki użyciu polecenia \textit{LIMIT} zapytanie będzie wymagało jedynie 10 rekordów.
-	\item \textbf{Index} 
-	\newline MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku, w jakim jest przechowywane w indeksie, dzięki czemu unika sortowania. Największą wadą jest jednak nadal konieczność odczytu całej tabeli. Co więcej, dane z dysku pobierane są z adresów, których kolejność wynika z użytego indeksu. Adresy te nie muszą zajmować na dysku ciągłych obszarów, a to oznacza, że czas odczytu danych może znacznie wydłużyć się. Jeżeli w kolumnie \textit{extra} jest dodatkowo zawarta informacja ''Using Index'' oznacza to, ze MySQL wykorzystuje indeks pokrywający (opisany w dalszej części pracy) i nie wymaga odczytywania innych danych z dysku – do wykonania zapytania wystarczają dane umieszczone w indeksie.
+	\item \textbf{ALL} \newline
+	Wartość ALL informuje o tym, że serwer musi przeskanować całą tabelę w celu odnalezienia rekordów. Istnieją jednak wyjątki takie, jak w przykładzie 8, w którym polecenie \textit{EXPLAIN} pokazuje, że będzie wykonywany pełny skan tabeli, a w rzeczywistości dzięki użyciu polecenia \textit{LIMIT} zapytanie będzie wymagało jedynie 10 rekordów.
+	\item \textbf{Index} \newline
+MySQL skanuje wszystkie wiersze w tabeli, ale może wykonać to w porządku, w jakim jest przechowywane w indeksie, dzięki czemu unika sortowania. Największą wadą jest jednak nadal konieczność odczytu całej tabeli. Co więcej, dane z dysku pobierane są z adresów, których kolejność wynika z użytego indeksu. Adresy te nie muszą zajmować na dysku ciągłych obszarów, a to oznacza, że czas odczytu danych może znacznie wydłużyć się. Jeżeli w kolumnie \textit{extra} jest dodatkowo zawarta informacja ''Using Index'' oznacza to, ze MySQL wykorzystuje indeks pokrywający (opisany w dalszej części pracy) i nie wymaga odczytywania innych danych z dysku – do wykonania zapytania wystarczają dane umieszczone w indeksie.
 	\item \textbf{Range} \newline
 	Wartość \textit{range} oznacza ograniczone skanowanie zakresu. Takie skanowanie rozpoczyna się od pewnego miejsca indeksu, dzięki czemu nie musimy przechodzić przez cały indeks. Skanowanie indeksu powodują zapytania zawierające klauzulę \textit{BETWEEN} lub \textit{WHERE} z < lub >. Wady są takie same jak przy rodzaju \textit{index}
-	\item \textbf{Index\textunderscore subquery} \newline Tego typu zapytanie zostało przedstawione w przykładzie 9, w którym podzapytanie korzysta z nieunikalnego indeksu, jest wykonane przed głównym zapytaniem i jego wartości są przekazane do niego jako stałe.
-	\item\textbf{Unique\textunderscore subquery} \newline Analogicznie do \textit{index\textunderscore subquery}, ale tym razem z użyciem klucza głównego lub indeksu UNIQUE NOT NULL.
-	\item \textbf{Index\textunderscore merge}
-\newline Czasami jeden indeks nie wystarczy do efektywnego wykonania zapytania. W  przykładzie 10 na tabeli \textit{Comments} założono dwa różne indeksy, obejmujące obie kolumny występujące w zapytaniu. Użycie tylko jednego indeksu poprawi  efektywność zapytania w ograniczonym stopniu, ponieważ serwer MySQL nadal musi przeprowadzić pełny skan tabeli. Dlatego od wersji 5.0 optymalizator może zdecydować się na złączenie kilku indeksów, dla efektywniejszego wykonania zapytania. Decyzja o tym, czy łączyć indeksy często zapada na podstawie rozmiaru tabeli. Przy tabelach niewielkich rozmiarów operacja złączenia może być kosztowniejsza niż pełny skan tabeli, ale przy dużych tabelach, przykładowo takich jak \textit{Comments} złączenie znacząco przyśpiesza wykonania zapytania. 
-\item \textbf{Fulltext} \newline Wartość \textit{fulltext} oznacza, że wykorzystane zostało wyszukiwanie pełnotekstowe, opisane w dalszej części pracy.
-\item \textbf{Ref}
-\newline Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedynczej wartości.
+	\item \textbf{Index\textunderscore subquery} \newline 
+	Tego typu zapytanie zostało przedstawione w przykładzie 9, w którym podzapytanie korzysta z nieunikalnego indeksu, jest wykonane przed głównym zapytaniem i jego wartości są przekazane do niego jako stałe.
+	\item\textbf{Unique\textunderscore subquery} \newline 
+	Analogicznie do \textit{index\textunderscore subquery}, ale tym razem z użyciem klucza głównego lub indeksu UNIQUE NOT NULL.
+	\item \textbf{Index\textunderscore merge} \newline
+Czasami jeden indeks nie wystarczy do efektywnego wykonania zapytania. W  przykładzie 10 na tabeli \textit{Comments} założono dwa różne indeksy, obejmujące obie kolumny występujące w zapytaniu. Użycie tylko jednego indeksu poprawi  efektywność zapytania w ograniczonym stopniu, ponieważ serwer MySQL nadal musi przeprowadzić pełny skan tabeli. Dlatego od wersji 5.0 optymalizator może zdecydować się na złączenie kilku indeksów, dla efektywniejszego wykonania zapytania. Decyzja o tym, czy łączyć indeksy często zapada na podstawie rozmiaru tabeli. Przy tabelach niewielkich rozmiarów operacja złączenia może być kosztowniejsza niż pełny skan tabeli, ale przy dużych tabelach, przykładowo takich jak \textit{Comments} złączenie znacząco przyśpiesza wykonania zapytania. 
+\item \textbf{Fulltext} \newline 
+Wartość \textit{fulltext} oznacza, że wykorzystane zostało wyszukiwanie pełnotekstowe, opisane w dalszej części pracy.
+\item \textbf{Ref} \newline
+Jest to wyszukiwanie, w którym MySQL musi przeszukać jedynie indeks w celu znalezienia rekordu opowiadającego pojedynczej wartości.
 Przykładem takiego zapytania jest wyszukiwanie numerów postów danego użytkownika w tabeli \textit{Comments} zawierającej indeks typu \textit{BTREE} na kolumnach \textit{UserId} oraz \textit{PostId}.
 
 \begin{spverbatim}
@@ -143,7 +156,8 @@ Przykładem takiego zapytania jest wyszukiwanie numerów postów danego użytkow
 \end{spverbatim}
 Dodatkowo odmianą dostępu \textit{ref} jest \textit{ref\textunderscore or\textunderscore null}, który oznacza, że wymagany jest dodatkowy dostęp w celu sprawdzenia wartości NULL.
 
-\item \textbf{Eq\textunderscore ref} \newline Jest to najlepsza możliwa forma złączenia. Oznacza, że z tabeli odczytywany jest tylko jeden wiersz dla każdej kombinacji wierszy z poprzednich tabel. Z tego rodzaju złączeniem mamy do czynienia, jeżeli wszystkie kolumny używane do złączenia są kluczem głównym lub indeksem ''NOT NULL UNIQUE''. Przykładem takiego zapytania jest złączenie wszystkich komentarzy z postami, bazując na kluczu głównym Id z tabeli Posts. 
+\item \textbf{Eq\textunderscore ref} \newline 
+Jest to najlepsza możliwa forma złączenia. Oznacza, że z tabeli odczytywany jest tylko jeden wiersz dla każdej kombinacji wierszy z poprzednich tabel. Z tego rodzaju złączeniem mamy do czynienia, jeżeli wszystkie kolumny używane do złączenia są kluczem głównym lub indeksem ''NOT NULL UNIQUE''. Przykładem takiego zapytania jest złączenie wszystkich komentarzy z postami, bazując na kluczu głównym Id z tabeli Posts. 
 \begin{spverbatim}
 	SELECT * FROM Comments c JOIN Posts p ON c.PostId = p.id;
 \end{spverbatim}
@@ -155,9 +169,7 @@ Przeważnie występuje w przypadku użycia w klauzuli WHERE wartości z indeksu 
 \end{spverbatim}
 
 
-\item {\textbf{NULL}}
-\newline
-
+\item {\textbf{NULL}}\newline
 Oznacza, że serwer nie wymaga skanowania całej tabeli lub indeksu i może zwrócić wartość już podczas fazy optymalizacji. Przykładem takiego zapytania może być zwrócenie minimalnej wartości z indeksu tabeli.
 
 \begin{spverbatim}
@@ -180,17 +192,19 @@ Wartość oznacza, jaki jest rozmiar bajtów użytego indeksu. W przypadku, kied
 Kolumna pokazuje, które kolumny z innych tabel lub zmienne z innych tabel zostaną wykorzystane do wyszukania wartości w indeksie podanym w kolumnie \textit{key}. W przykładzie do przeszukania indeksu tabeli Posts wykorzystano kolumnę UserId z tabeli Comments (alias c). Wartość \textit{const} oznacza, że do przeszukania wartości została wykorzystana stała podana np. w klauzuli WHERE (Przykład 2). Kolumna może też przyjąć wartość \textit{func}, co oznacza, że wartość użyta do wyszukania jest wynikiem obliczenia pewnej funkcji (przykład 9).
 
 \paragraph{Kolumna rows}\leavevmode\\
-Kolumna wskazuje oszacowaną liczbę wierszy, które MySQL będzie musiał odczytać w celu znalezienia szukanych rekordów. Wartość może znacząco odbiegać od rzeczywistej liczby wierszy, które zostaną odczytane podczas wykonania zapytania. Jest to liczba przeszukiwanych rekordów na danym poziomie zagnieżdżenia pętli planu złączenia. Oznacza to, że nie jest to całkowita liczba rekordów, a jedynie liczba rekordów w jednej pętli złączenia danej tabeli. W przypadku złączenia sumaryczna liczba przeszukiwanych nie jest sumą wartości z wszystkich wierszy, a iloczynem wartości z wierszy biorących udział w złączeniu. W przykładzie 9 łączna suma wierszy, które muszą zostać przeszukane, nie wynosi 15748463.
+Kolumna wskazuje oszacowaną liczbę wierszy, które MySQL będzie musiał odczytać w celu znalezienia szukanych rekordów. Wartość może znacząco odbiegać od rzeczywistej liczby wierszy, które zostaną odczytane podczas wykonania zapytania. Jest to liczba przeszukiwanych rekordów na danym poziomie zagnieżdżenia pętli planu złączenia. Oznacza to, że nie jest to całkowita liczba rekordów, a jedynie liczba rekordów w jednej pętli złączenia danej tabeli. W przypadku złączenia sumaryczna liczba przeszukiwanych nie jest sumą wartości z wszystkich wierszy, a iloczynem wartości z wierszy biorących udział w złączeniu. Dla poniższego polecenia łączna suma wierszy, które muszą zostać przeszukane, nie wynosi 15748463 (rysunek ~\ref{fig:explain14}})
 \begin{spverbatim}
 	SELECT * FROM Posts p JOIN PostTypes pt ON p.PostTypeId = pt.Id;
 \end{spverbatim}
 \begin{figure}[H]
-	\includegraphics[scale =0.4]{explain14.png} 
-	\caption{Przykład 9}
+	\includegraphics[scale =0.4]{explain14.png}
+	\caption{}
+	\label{fig:explain14} 
 \end{figure}
 Podczas szacowania wartości w kolumnie \textit{rows} optymalizator nie bierze pod uwagę klauzli \textit{LIMIT}.
 
-\paragraph{Kolumna filtered}\leavevmode\\. Wskazuje na wartość oszacowaną przez optymalizator, która informuje, ile rekordów może zostać odfiltrowane za pomocą klauzuli WHERE. W przykładzie 4 optymalizator MySQL oszacował, że jedynie 10 procent użytkowników napisało w sumie więcej niż 10 komentarzy. Przed wersją 8.0, aby kolumna filtered była umieszczona w wynikach zapytania, należało wykorzystać polecenie EXPLAIN EXTENDED.
+\paragraph{Kolumna filtered}\leavevmode\\
+Wskazuje na wartość oszacowaną przez optymalizator, która informuje, ile rekordów może zostać odfiltrowane za pomocą klauzuli WHERE. W przykładzie 4 optymalizator MySQL oszacował, że jedynie 10 procent użytkowników napisało w sumie więcej niż 10 komentarzy. Przed wersją 8.0, aby kolumna filtered była umieszczona w wynikach zapytania, należało wykorzystać polecenie EXPLAIN EXTENDED.
 
 \paragraph{Kolumna extra}\leavevmode\\
 Kolumna \textit{extra} zawiera informacje, których nie udało się zamieścić w pozostałych kolumnach. Poniżej przedstawiono kilka najważniejszych informacji, które mogą znaleźć się w tej kolumnie.

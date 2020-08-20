@@ -54,19 +54,20 @@ Partycjonowanie dokonywane jest na podstawie wyniku pewnej funkcji mieszającej 
 Załóżmy, że użytkownik chce pobrać liczbę ocen ''Spam'' w roku 2013. Pole \textit{CreationDate} nie jest indeksowane. Przygotowano następujące zapytanie dla dwóch tabel przygotowanych wcześniej:
 \begin{spverbatim}
 	SELECT COUNT(id) FROM Votes_partitioned v WHERE v.VoteTypeId = 12 AND v.CreationDate BETWEEN '2013-01-01' AND '2013-12-31'; 
-	SELECT COUNT(id) FROM Votes v WHERE v.VoteTypeId = 12 AND v.CreationDate BETWEEN '2013-01-01' AND '2013-12-31';
+	SELECT COUNT(id) FROM Votes v WHERE v.VoteTypeId = 12 AND
+	v.CreationDate BETWEEN '2013-01-01' AND '2013-12-31';
 \end{spverbatim}
 \bigskip
 W pierwszym kroku porównano wyniki polecenia EXPLAIN dla obu zapytań. Na rysunku ~\ref{fig:explain_range_partition1} przedstawiono wynik dla tabeli partycjonowanej, a na ~\ref{fig:explain_without_rage_partition1} dla niepartycjonowanej. Jak wynika z analizy, już na etapie optymalizacji baza danych wybiera partycje w której będzie wyszukiwał rekordy. Z tego powodu liczba rekordów do przeszukania jest niemal trzykrotnie mniejsza dla tabeli \textit{Votes\textunderscore partitioned}. Czasy wykonania zapytania dla obu tabel to kolejno: 10.03 sekund dla tabeli partycjonowanej i 17.58 dla niepartycjonowanej.
 \begin{figure}
 	\centering
-	\includegraphics[scale = 0.43]{explain_without_rage_partition1.png}
+	\includegraphics[scale = 0.48]{explain_without_rage_partition1.png}
 	\caption{Widok tabeli bez partycjonowania zakresowego}
 	\label{fig:explain_without_rage_partition1}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[scale = 0.43]{explain_range_partition1.png}
+	\includegraphics[scale = 0.48]{explain_range_partition1.png}
 	\caption{Widok tabeli partycjonowanej zakresowo}
 	\label{fig:explain_range_partition1}
 \end{figure}
