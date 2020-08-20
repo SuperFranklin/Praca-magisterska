@@ -4,7 +4,10 @@ Najprostszą i zarazem najpopularniejszą analogią pozwalającą zrozumieć dzi
 
 Podobnie jest z tabelami w bazie danych. Przy tabelach o niewielkiej ilości wierszy, wyszukanie konkretnego rekordu jest wydajne nawet przy niestosowaniu indeksów. Indeksy stają się jednak kluczowe wraz ze wzrostem rozmiaru danych.
 
-W MySQL istnieje wiele rodzajów indeksów, które są implementowane w warstwie silnika bazy danych, dlatego też nie każdy rodzaj indeksu jest obsługiwany przez wszystkie silniki. W tym rozdziale omówione zostaną najpopularniejsze z nich.
+W MySQL istnieje wiele rodzajów indeksów, które są implementowane w warstwie silnika bazy danych, dlatego też nie każdy rodzaj indeksu jest obsługiwany przez wszystkie silniki. W tym rozdziale omówiono najpopularniejsze z nich.
 \input{BTree.tex}
 \input{Hash.tex}
 \input{Spatial.tex}
+
+\subsection{Podsumowanie}
+W tym rozdziale przedstawiono trzy podstawowe indeksy stosowane w bazach danych MySQL. Podstawowym wnioskiem z tego rozdziału są ogromne możliwości optymalizowania zapytań z wykorzystaniem indeksów. Zdaniem autora poprawne stosowanie indeksów jest kluczowym elementem tworzenia wydajnego schematu bazy danych, ponieważ indeksy mogą przyśpieszyć praktycznie każdy rodzaj zapytania. Podstawowym i domyślnym indeksem stosowanym w MySQL jest indeks B-Tree, ale jak przedstawiono w tym rozdziale, pozostałe indeksy mogą być rozważone w specyficznych zastosowaniach.

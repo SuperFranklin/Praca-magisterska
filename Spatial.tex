@@ -1,5 +1,5 @@
-\subsubsection{Indeksy typu SPATIAL}
-W wersji 8.0 MySQL wprowadził wsparcie dla indeksów przestrzennych nazywanych \textit{SPATIAL INDEX} i bazujących na strukturze R-Tree. Sktuktura R-Tree jest rozwinięciem idei B-drzewa na większą liczbę wymiarów. Podobnie jak w B-drzewie operacja wyszukiwania danych jest operacją o złożoności asymptotycznej $O(log_M n)$, gdzie M jest rzędem drzewa. Poniżej przedstawiono przykład tworzenia tabeli zawierającej dane geograficzne oraz indeksu przestrzennego na jednej z kolumn.
+\subsection{Indeksy typu SPATIAL}
+W wersji 8.0 MySQL wprowadzono wsparcie dla indeksów przestrzennych nazywanych \textit{SPATIAL INDEX} i bazujących na strukturze R-Tree. Sktruktura R-Tree jest rozwinięciem idei B-drzewa na większą liczbę wymiarów. Podobnie jak w B-drzewie operacja wyszukiwania danych jest operacją o złożoności asymptotycznej $O(log_M n)$, gdzie M jest rzędem drzewa. Poniżej przedstawiono przykład tworzenia tabeli zawierającej dane geograficzne oraz indeksu przestrzennego na jednej z kolumn.
 W pierwszym kroku stworzono tabelę, wykorzystując następujące polecenie:
 \begin{spverbatim}
 	CREATE TABLE shops (
@@ -10,4 +10,6 @@ Aby utworzyć indeks na kolumnie, musi być ona oznaczona jako \textit{NOT NULL}
 \begin{spverbatim}
 	CREATE SPATIAL INDEX location_idx ON shops (location);
 \end{spverbatim}
-Chcąc utworzyć indeks na kolumnie, która nie ma zdefiniowanego układu współrzędnych, serwer utworzy go, ale użytkownik dostanie ostrzeżenie, że indeks nie będzie nigdy używany. Indeksy możemy zakładać nie tylko na punkty; możemy użyć innych geometrii, między innymi: linii, wielokątów czy kolekcji punktów. Ten podrozdział nie będzie przedstawiał szczegółowych zastosowań indeksów przestrzennych, autor chciał jedynie pokazać, że jest to bardzo ciekawe udogodnienie w przypadku używania danych geograficznych w bazie danych.
+Zakładając indeks na kolumnie, która nie ma zdefiniowanego układu współrzędnych, serwer utworzy go, ale użytkownik dostanie ostrzeżenie, że indeks nie będzie nigdy używany. 
+
+Indeksy można zakładać nie tylko na punkty; można użyć innych geometrii, między innymi: linii, wielokątów czy kolekcji punktów. W tym podrozdziale nie przedstawiono szczegółowych zastosowań indeksów przestrzennych, autor chciał jedynie pokazać, że jest to bardzo ciekawe udogodnienie w przypadku używania danych geograficznych w bazie danych.

@@ -21,7 +21,6 @@ W tym podrozdziale przedstawiono kilka przykładowych optymalizacji, które moż
 		EXPLAIN SELECT * FROM Comments WHERE UserId = (SELECT MIN(id) FROM Users);
 	\end{spverbatim}
 \begin{figure}
-	\caption{Pliki silnika InnoDB testowej bazy danych \textit{StackOverflow}}
 	\centering
 	\includegraphics[scale = 0.37]{explain20.png}
 	\label{fig:explain20}
@@ -56,16 +55,17 @@ Drzewo otrzymane jako wynik polecenia EXPLAIN jest drzewem lewostronnie zagnież
 
 \subsection{Optymalizator złączeń}
 Większość operacji złączeń można wykonać na różne sposoby, uzyskując ten sam wynik. Zamiana kolejności jest bardzo skuteczną formą optymalizacji zapytań. W tym podrozdziale rozważono następujące zapytanie.
-
+\newpage
 \begin{spverbatim}
-	SELECT u.Id, p.Id, c.Id, pt.`Type` FROM Users u INNER JOIN Posts p ON u.Id = p.OwnerUserId	INNER JOIN Comments c ON c.UserId = u.Id INNER JOIN PostTypes pt ON pt.Id = p.PostTypeId WHERE u.Id = 4;
+	SELECT u.Id, p.Id, c.Id, pt.`Type` FROM Users u INNER JOIN Posts p ON u.Id = p.OwnerUserId  INNER JOIN Comments c ON c.UserId = u.Id INNER JOIN 
+	PostTypes pt ON pt.Id = p.PostTypeId WHERE u.Id = 4;
 \end{spverbatim}
-
-Wykonując polecenie z prefiksem EXPLAIN, otrzymujemy następujący wynik:
+\bigskip
+Wykonując polecenie z prefiksem EXPLAIN, otrzymano następujący wynik:
 \begin{center}
 	\includegraphics[scale =0.45]{explain22.png} 
 \end{center}
-Następnie modyfikujemy zapytanie dodając słowo kluczowe STRAIGHT\textunderscore JOIN, aby wymusić kolejność złączeń taką jak w zapytaniu.
+Następnie zmodyfikowano zapytanie dodając słowo kluczowe STRAIGHT\textunderscore JOIN, aby wymusić kolejność złączeń taką jak w zapytaniu.
 \begin{center}
 	\includegraphics[scale =0.45]{explain23.png} 
 \end{center}
@@ -78,6 +78,7 @@ W kolejnym kroku włączono profilowanie zapytań za pomocą komendy:
 \begin{spverbatim}
 	SET PROFILING = 1;
 \end{spverbatim}
+\bigskip
 Wykonano 10 zapytań dla każdego wariantu i policzono średni czas, jaki serwer MySQL spędzał na etapie ''executing'', czyli etapie faktycznego wykonywania zapytania. Dla zapytania z kolejnością wybraną przez optymalizator średnia wartość wyniosła 0.04 sekundy, natomiast przy wymuszonej kolejności łączeń w zapytaniu wartość ta wyniosła 0.28 sekundy. 
 
 Powyższy eksperyment pokazuje, że zamiana kolejności złączeń jest bardzo skuteczną formą optymalizacji i może prowadzić do wielokrotnego zmniejszenia kosztu zapytania. Oczywiście nadal może się zdarzyć sytuacja, kiedy zapytanie z wymuszoną kolejnością załączeń będzie wydajniejsze, ponieważ optymalizator MySQL nie zawsze może sprawdzić wszystkie potencjalne kombinacje złączeń, ale w zdecydowanej większości przypadków optymalizator złączeń okazuje się skuteczniejszy od człowieka.
@@ -104,22 +105,23 @@ Aby pokazać wpływ parametru \textit{optimizer\textunderscore search\textunders
 	);
 	INSERT INTO `lecturers` VALUES (1), (2);
 	
-	delimiter ;;
+	DELIMITER ;;
 	CREATE PROCEDURE fill_tables()
 	BEGIN
-		DECLARE i int DEFAULT 0;
+		DECLARE i INT DEFAULT 0;
 		WHILE i <= 1000 DO
 			INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 1, i);
 			INSERT INTO `students` (`id`, `lecturer_id`, `value`) VALUES (0, 2, i);
 			SET i = i + 1;
 		END WHILE;
 	END;;
-	delimiter ;
+	DELIMITER ;
 	
 	CALL fill_tables();
 \end{spverbatim}
-
+\bigskip
 W kolejnym kroku wykonano wielokrotnie następujące zapytanie:
+\bigskip
 \begin{spverbatim}
 	SELECT COUNT(*) FROM table_parent AS p WHERE 1
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 1 LIMIT 1)
@@ -133,7 +135,7 @@ W kolejnym kroku wykonano wielokrotnie następujące zapytanie:
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 9 LIMIT 1)
 	AND EXISTS (SELECT 1 FROM students AS s WHERE s.lecturer_id = p.id AND s.value = 10 LIMIT 1)
 \end{spverbatim}
-zmieniając parametr \textit{optimizer\textunderscore search\textunderscore depth}, dla każdej wartości zmiennej zapisano średni czas wykonania polecenia EXPLAIN. Wyniki zamieszczono w poniższej tabeli.
+Zmieniając parametr \textit{optimizer\textunderscore search\textunderscore depth}, dla każdej wartości zmiennej zapisano średni czas wykonania polecenia EXPLAIN. Wyniki zamieszczono w poniższej tabeli.
 
 \begin{center}
 	\begin{tabular}{ |c|c| } 
@@ -160,18 +162,19 @@ Profilowanie zapytania wskazuje, że przez większość czasu zapytania, serwer 
 
 Drugim atrybutem, który służy do konfiguracji optymalizatora złączeń jest \textit{optimizer\textunderscore prune\textunderscore level}. Parametr decyduje o tym, czy optymalizator może wykorzystać heurystyki do wybrania optymalnego planu. Jeżeli ta opcja zostanie włączona, optymalizator może pominąć niektóre plany, bazując na pewnych heurystykach. Dokumentacja MySQL wskazuje, że relatywnie rzadko dochodzi do sytuacji, kiedy optymalizator pomija optymalny plan wykonania, a włączenie tej opcji może znacznie przyśpieszyć proces optymalizacji. Dlatego też domyślną wartością jest 1, co oznacza, że serwer może bazować na heurystykach.
 
-Aby pokazać wpływ parametru na wydajność zapytania, wykorzystano jeszcze raz zapytanie do wygenerowanej tabeli \textit{Students}. Najpierw ustawiono wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Z poprzedniego eksperymentu wiemy, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiono wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzono średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do \textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.
+Aby pokazać wpływ parametru na wydajność zapytania, wykorzystano jeszcze raz zapytanie do wygenerowanej tabeli \textit{Students}. Najpierw ustawiono wartość parametru optimizer\textunderscore search\textunderscore depth=0, a następnie optimizer\textunderscore prune\textunderscore level=0. Poprzedni eksperyment pokazuje, że to zapytanie powinno wykonać się w czasie mniej więcej 1.8 sekundy, ale tym razem wymagało średnio ok. 3.8 sekundy, czyli ponad 2 dłużej. Następnie ustawiono wartość optimizer\textunderscore search\textunderscore depth=62 i ponownie zmierzono średni czas wykonania zapytania. Tym razem zapytanie trwało średnio 121 sekund, co oznacza prawie czterokrotny spadek wydajności w stosunku do \textit{optimizer\textunderscore prune\textunderscore level}=1. Dlatego zalecane jest pozostawienie domyślnej wartości \textit{ optimizer\textunderscore prune}, chyba że mamy pewności pominięcia optymalnego planu zapytania.
 
 \subsection{Konfiguracja statystyk tabel InnoDB}
 Dla tabeli InnoDB zbierane są dwa rodzaje statystyk: trwałe i nietrwałe. Trwałe zapisywane są na dysku twardym i przechowywane są pomiędzy restartami serwera, nietrwałe (ulotne) są usuwane po każdym restarcie. 
 
 \subsubsection{Trwałe statystyki}
-Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{STAST\textunderscore PERSISTENT} = 0 dla wybranej tabeli.
+Od wersji MySQL 5.6.6 trwałe statystyki są domyślnie włączone dla wszystkich tabel InnoDB, ale można je wyłączyć dla wszystkich tabel poprzez ustawienie parametru \textit{innodb\textunderscore stats\textunderscore persistent} = OFF, lub poprzez ustawienie \textit{stats\textunderscore persistent} = 0 dla wybranej tabeli.
 
-\paragraph{Konfiguracja automatycznego przeliczania statystyk}
+\paragraph{Konfiguracja automatycznego przeliczania statystyk}\mbox{}\\
+\smallskip
 Standardowo przeliczenie trwałych statystyk dla tabeli ma miejsce, jeżeli zmodyfikowane zostanie więcej niż 10 \% wierszy w tabeli. Jeżeli chcemy wyłączyć automatyczne kalkulowanie, należy ustawić parametr \textit{innodb\textunderscore stats\textunderscore auto\textunderscore recalc} = false. Należy pamiętać o tym, że przeliczanie statystyk odbywa się asynchronicznie, to znaczy serwer nie wykonuje kalkulacji natychmiastowo po zmodyfikowaniu 10 \% wierszy, ale próbuje znaleźć optymalny czas. Jeżeli chcemy wymusić przeliczenie wywołujemy polecenie ANALYZE TABLE. Jeżeli dodajemy indeks do tabeli lub kolumna jest usuwana, przeliczenie odbywa się automatycznie.
 
-\paragraph{Obliczanie statystyk}
+\paragraph{Obliczanie statystyk}\mbox{}\\
 Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy losowo wybranych wierszy. Domyślnie skanowane jest 20 stron, ale wartość ta może być zmieniona dla konkretnej tabeli poprzez parametr \textit{innodb\textunderscore stats\textunderscore persistent\textunderscore sample\textunderscore pages} lub parametr \textit{stats\textunderscore sample\textunderscore pages}. Zmianę wartości parametru powinna zostać rozpatrzona w następujących przypadkach:
 \begin{itemize}
 	\item \textbf{Wartości statystyczne odbiegają od rzeczywistych.} \linebreak
@@ -181,24 +184,26 @@ Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy loso
 	W tym celu przygotowano cztery zapytania.
 	Dwa dla owner\textunderscore idx:
 	\begin{spverbatim}
-		SELECT count(DISTINCT OwnerUserId) from Posts; #liczba unikalnych wartości indeksu
-		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name=
-		'stackOverflowMedium' AND table_name = 'Posts' AND index_name = 'owner_idx' AND 
-		stat_name = 'n_diff_pfx01';
+		SELECT COUNT(DISTINCT OwnerUserId) FROM Posts; #liczba unikalnych
+		wartości indeksu
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE 
+		database_name= 'stackOverflowMedium' AND table_name = 'Posts' 
+		AND index_name = 'owner_idx' 
+		AND	stat_name = 'n_diff_pfx01';
 	\end{spverbatim}
 	Oraz dwa dla favorite\textunderscore idx:
 	\begin{spverbatim}
-		SELECT count(DISTINCT FavoriteCount, Score) from Posts;
-		SELECT stat_value FROM mysql.innodb_index_stats WHERE database_name=
-		'stackOverflowMedium'
-		AND table_name = 'Posts' AND index_name = 'favorite_idx' AND 
-		stat_name = 'n_diff_pfx01';
+		SELECT COUNT(DISTINCT FavoriteCount, Score) FROM Posts;
+		SELECT stat_value FROM mysql.innodb_index_stats WHERE 
+		database_name= 'stackOverflowMedium' AND table_name = 'Posts' 
+		AND index_name = 'favorite_idx' 
+		AND	stat_name = 'n_diff_pfx01';
 	\end{spverbatim}
 	W poniższej tabeli zamieszczono wyniki eksperymentu.
 	\begin{center}
 		\begin{tabular}{ |c|c|c|c| } 
 			\hline
-			sample pages & owner\textuderscore idx & favorite\textunderscore idx & ANALYZE TABLE czas [s]\\ 
+			sample pages & owner\textunderscore idx & favorite\textunderscore idx & ANALYZE TABLE czas [s]\\ 
 			\hline
 			1 & 3597380 & 8368 & 0.04\\
 			20 & 1364542 & 159689 & 0.06\\
@@ -216,4 +221,6 @@ Dane statystyczne dotyczące tabeli są obliczane na podstawie pewnej grupy loso
 	Analizując wyniki tabeli można stwierdzić, że przy wysokich wartościach parametru, serwer MySQL spędza dużo czasu na obliczaniu statystyk dla tabeli, co może prowadzić, szczególnie przy często zmieniających się tabelach, do wysokiego wykorzystania zasobów, szczególnie operacji odczytów z dysku.
 \end{itemize}
 
+\subsection{Podsumowanie}
+W tym rozdziale przedstawiono ogólne zasady działania optymalizatora MySQL. Zwrócono uwagę przede wszystim na to, że optymalizator bazuje jedynie na danych statystycznych oraz pewnych heurystykach, stąd decyzje podejmowane przez niego nie muszą być optymalne. W skrajnych przypadkach optymalizator może nawet znacząco pogorszyć wydajność zapytań, dlatego ważna jest świadomość jego ograniczeń oraz umiejętność poprawnego dostrajania jego parametrów.
 

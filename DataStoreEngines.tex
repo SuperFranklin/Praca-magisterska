@@ -1,9 +1,9 @@
 \section{Silniki magazynu danych}
-Niniejszy rozdział poświęcony jest omówieniu zagadnień związanych z silnikami bazy danych. Silnik bazy danych jest częścią bazy danych odpowiedzialną za wykonywanie kodu SQL, czyli wykonywanie operacji na danych. SQL jest językiem deklaratywnym. Klient podając polecenie SQL, opisuje warunku, jakie musi spełnić końcowe rozwiązanie, a nie szczegółową implementację. Z tego wynika, że to silnik bazy danych odpowiedzialny jest za dostarczenie implementacji pozwalajacej na wykonywanie kodu SQL. Silnik dodatkowo definiuje sposób przechowywania dnaych oraz zbiór operacji, które możemy na nich wykonać.
+Niniejszy rozdział poświęcony jest omówieniu zagadnień związanych z silnikami bazy danych. Silnik bazy danych jest częścią bazy danych odpowiedzialną za wykonywanie kodu SQL, czyli wykonywanie operacji na danych. SQL jest językiem deklaratywnym. Klient, podając polecenie SQL, opisuje warunku, jakie musi spełnić końcowe rozwiązanie, a nie szczegółową implementację. Z tego wynika, że to silnik bazy danych odpowiedzialny jest za dostarczenie implementacji pozwalającej na wykonywanie kodu SQL. Silnik dodatkowo definiuje sposób przechowywania dnaych oraz zbiór operacji, które możemy na nich wykonać.
 
 Architektura MySQL umożliwia korzystanie z wielu różnych silników. Silnik bazy danych wybierany jest per tabela, co oznacza, że w ramach pojedynczej bazy danych można używać różnych silników.
 \subsection{Krótka charakterystyka podstawowych silników.}
-W tym podrozdziale nie zostały przedstawione szczegółowe opisy silników dostępnych w MySQL, raczej ich główne charakterystyki, zalety oraz ograniczenia. Część z silników pominięto ze względu na ich marginalną popularność oraz zastosowanie. W zdecydowanej większości przypadków aktualnie najodpowiedniejszym silnikiem jest InnoDB, aczkolwiek każdy z silników opisanych w tym rozdziale ma pewne zalety i w specyficznych przypadkach przedstawionych w tym podrozdziale, warto rozważyć użycie silnika alternatywnego do InnoDB.
+W tym podrozdziale nie zostały przedstawione szczegółowe opisy silników dostępnych w MySQL, raczej ich główne charakterystyki, zalety oraz ograniczenia. Część z silników pominięto ze względu na ich marginalną popularność oraz zastosowanie. W zdecydowanej większości przypadków aktualnie najodpowiedniejszym silnikiem jest InnoDB, aczkolwiek każdy z silników opisanych w tym rozdziale ma pewne zalety. W tym podrozdziale sprawdzono, czy w pewnych sytuacjach zasadne jest użycie jednego z alternatywnych silników.
 \subsubsection{MyISAM}
 MyISAM był domyślnym silnikiem składowania danych do wersji 5.4 (włącznie). Każda tabela przechowywana jest w dwóch plikach na dysku twardym. Dane przechowywane są w pliku z rozszerzeniem \textbf{.MYD (MYData)}
 natomiast w drugim pliku (\textbf{.MYI(MYIndex)}) składowane są indeksy. Poniżej przedstawiono kilka cech tego silnika bazy danych. 
@@ -17,7 +17,7 @@ natomiast w drugim pliku (\textbf{.MYI(MYIndex)}) składowane są indeksy. Poni�
 	\item \textbf{Obsługa statystyk.}
 \end{itemize}
 
-W czasie pisania tej pracy silnik MyISAM nie był już rozwijany, dlatego raczej odradzane jest jego stosowanie w nowszych wersjach serwera MySQL. 
+W czasie pisania tej pracy silnik MyISAM nie był już rozwijany, dlatego autor odradza jego stosowanie w nowszych wersjach serwera MySQL. 
 
 \subsubsection{InnoDB}
 Od wersji 5.5 InnoDB jest domyślnym silnikiem bazy danych MySQL. Mechanizm InnoDB uzupełniono o funkcje, których brakowało w MyISAM i obecnie jest zdecydowanie najpopularniejszym wyborem. Domyślnie dane przechowywane są w pojedynczych plikach, ale możliwe być również przechowywane w wielu plikach. Strukturę plików bazy \textit{StackOverflow}, która dla wszystkich tabel używa silnika InnoDB, przedstawiono na rysunku ~\ref{fig:innodb-fileslabel}.
@@ -31,7 +31,7 @@ Poniżej przedstawiono podstawowe charakterystyki silnika.
 \begin{itemize}
 	\item \textbf{Wsparcie dla transakcji.} Silnik wspiera transakcje oraz wszystkie cztery poziomy izolacji modelu \textit{ANSI}. Poziom izolacji transakcji określa zasady widoczności pomiędzy współbieżnymi transakcjami. Dzięki wsparciu dla wszystkich czterech izolacji  silnik InnoDB spełnia wymagania stawiane aplikacją wymagającym zapewnienie integralności danych. 
 	\item \textbf{Wsparcie dla indeksów.} InnoDb wspiera najważniejsze indeksy takie jak: B-tree, Hash, Spatial.
-	\item \textbf{Blokowanie dostępu na poziomie rekordów. } Dostęp do tabel InnoDB jest blokowany za pomocą mechanizmy MVCC (Multi-Versioned Concurrency Control). Blokowane są pojedyncze rekody, zamiast całej tabeli. Wprowadzenie tej zmiany znacząco zwiększyło wydajność równoległych operacji modyfikujących dane w tabeli.
+	\item \textbf{Blokowanie dostępu na poziomie rekordów. } Dostęp do tabel InnoDB jest blokowany za pomocą mechanizmy MVCC (Multi-Versioned Concurrency Control). Blokowane są pojedyncze rekordy, zamiast całej tabeli. Wprowadzenie tej zmiany znacząco zwiększyło wydajność równoległych operacji modyfikujących dane w tabeli.
 	\item \textbf{Wsparcie dla kluczy obcych.}
 	\item \textbf{Buforowanie danych oraz indeksów.} Silnik InnoDb może buforować nie tylko indeksy, ale również dane.
 	\item  \textbf{Nieskompresowane indeksy.} Silnik InnoDb nie kompresuje indeksów, co prowadzi do zwiększenia zużycia przestrzeni dyskowej.
@@ -40,7 +40,7 @@ Poniżej przedstawiono podstawowe charakterystyki silnika.
 \end{itemize}
 
 \subsubsection{CSV Storage Engine}
-Silnik CSV Storage Engine przechowuje dane tabeli w plikach tekstowych w formacie csv z wartościami rozdzielonymi przecinkami.Ten silnik może być przydatny, jeżeli chcemy nasze dane przechowywać w formacie csv. Posiada wiele ograniczeń, dlatego nie jest zalecane jego stosowanie, o ile nie zależy nam na przechowywaniu danych tabeli w formacie CSV.
+Silnik CSV Storage Engine przechowuje dane tabeli w plikach tekstowych w formacie csv z wartościami rozdzielonymi przecinkami. Ten silnik może być przydatny, jeżeli chcemy nasze dane przechowywać w formacie csv. Posiada wiele ograniczeń, dlatego autor nie zaleca jego stosowania, o ile nie zależy nam na przechowywaniu danych tabeli w formacie CSV.
 Poniżej przedstawiono podstawowe ograniczenia tego silnika.
 \begin{itemize}
 	\item \textbf{Brak wsparcia dla indeksów i kluczy obcych.}
@@ -69,9 +69,9 @@ Zastosowanie silnika MEMORY warto rozważyć w następujących sytuacjach.
 \end{itemize}
 
 \subsubsection{Silnik Archive}
-Archive jest silnikiem służącym do przechowywania dużej ilości nieindeksowanych danych, które są rzadko pobierane. 
+Archive jest silnikiem służącym do przechowywania dużej ilości nieindeksowanych danych, które są rzadko pobierane. Jego głównym zastosowaniem jest archiwizacja danych z wysokim poziomem kompresji danych.
 
-Podstawowe cechy tego silnika zostały przedstawione poniżej.
+Podstawowe cechy tego silnika przedstawiono poniżej.
 \begin{itemize}
 	\item \textbf{Brak wsparcia dla transakcji.}
 	\item \textbf{Możliwe wykonywanie jedynie operacji INSERT, REPLACE oraz SELECT}. W tabelach Archive niemożliwe jest usuwanie i modyfikowanie istniejących krotek.
@@ -89,33 +89,33 @@ Podstawowe cechy tego silnika zostały przedstawione poniżej.
 W celu porównania sposobu przechowywania danych na dysku przegotowano testową bazę danych, zawierającą pięć tabel będących niemalże kopią tabeli \textit{Users} z bazy testowej, z których każda wykorzystuje inny silnik. Jedyną zmianą jest brak kolumny \textit{AboutMe}, która została usunięta ze względu brak wsparcia dla kolumn TEXT w silniku MEMORY. Do tworzenia tabel wykorzystano polecenia z poniższego listingu, a następnie zaimportowano dane z bazy \textit{Stackoverflow}. Ponieważ nie wszystkie silniki wspierają przechowywania wartości NULL, zamieniono domyślne wartości NULL na wartość 0 lub pusty tekst (w zależności od typu danych).
 \begin{spverbatim}
 	CREATE TABLE `Users` (
-	`Id` int NOT NULL,
-	`Age` int NOT NULL DEFAULT 0,
-	`CreationDate` datetime NOT NULL,
-	`DisplayName` varchar(80) NOT NULL,
-	`DownVotes` int NOT NULL,
-	`EmailHash` varchar(80) NOT NULL DEFAULT '',
-	`LastAccessDate` datetime NOT NULL,
-	`Location` varchar(200) NOT NULL DEFAULT '',
-	`Reputation` int NOT NULL,
-	`UpVotes` int NOT NULL,
-	`Views` int NOT NULL,
-	`WebsiteUrl` varchar(400) NOT NULL DEFAULT '',
-	`AccountId` int NOT NULL DEFAULT 0,
+	`Id` INT NOT NULL,
+	`Age` INT NOT NULL DEFAULT 0,
+	`CreationDate` DATETIME NOT NULL,
+	`DisplayName` VARCHAR(80) NOT NULL,
+	`DownVotes` INT NOT NULL,
+	`EmailHash` VARCHAR(80) NOT NULL DEFAULT '',
+	`LastAccessDate` DATETIME NOT NULL,
+	`Location` VARCHAR(200) NOT NULL DEFAULT '',
+	`Reputation` INT NOT NULL,
+	`UpVotes` INT NOT NULL,
+	`Views` INT NOT NULL,
+	`WebsiteUrl` VARCHAR(400) NOT NULL DEFAULT '',
+	`AccountId` INT NOT NULL DEFAULT 0,
 	PRIMARY KEY (`Id`) -- w tabelach, które wspierają klucze główne
 	) ENGINE=<nazwa silnika>;
 \end{spverbatim}
-Klucze główne zostały usunięte w przypadku silników, które ich nie wspierają. Ostatecznie tabela zawiera około 2,5 miliona wierszy.
+Klucze główne usunięto w przypadku silników, które ich nie wspierają. Ostatecznie tabela zawiera około 2,5 miliona wierszy.
 \begin{figure}[!h]
 	\caption{Baza danych użyta do testowania silników baz danych}
 	\centering
-	\includegraphics[scale = 0.59]{engines_tests.png}
+	\includegraphics[scale = 0.7]{engines_tests.png}
 	\label{fig:label}
 \end{figure}
 \begin{figure}[!h]
 	\caption{Pliki z danymi użytkowników dla testowych silników.}
 	\centering
-	\includegraphics[scale = 0.6]{engines_storage.png}
+	\includegraphics[scale = 0.7]{engines_storage.png}
 	\label{fig:engines_storage}
 \end{figure}
 
@@ -174,10 +174,13 @@ Z powyższej tabeli wynika, że w przypadku zapytań używających pełnego kluc
 
 Do przygotowania testowych zestawów danych wykorzystano następujące skrypty:
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --range_selects=off --mysql_storage_engine=<nazwa silinika>  /usr/share/sysbench/oltp_read_write.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root
+	--mysql-db=test --table_size=2000000 --num-threads=12
+	--range_selects=off --mysql_storage_engine=<nazwa silinika>
+	/usr/share/sysbench/oltp_read_write.lua prepare
 \end{spverbatim}
 
-Wykonanie testu analogicznie jak w poprzednich przypadkach wykonano, zastępując słowo kluczowe \textit{prepare} na \textit{run}.
+Wykonanie testu analogicznie jak w poprzednich przypadkach wykonano, zamieniając słowo kluczowe \textit{prepare} na \textit{run}.
 
 
 Na rysunku ~\ref{fig:wyniki_testu_symulatnicznych_odczytow} przedstawiono wyniki testu. W przypadku tego testu operacje odczytu wykonywane były równolegle z operacjami zapisu do tabeli.
@@ -196,12 +199,14 @@ Na rysunku ~\ref{fig:wyniki_testu_symulatnicznych_odczytow} przedstawiono wyniki
 		\hline
 	\end{tabular}
 \end{center}
-Wyniki testu przedstawione w tabeli powyżej wskazują, że najwydajniejszym silnikiem w przypadku równoleglych operacji odczytu i modyfikacji danych w środowisku wielowątkowym okazał się silnik InnoDB, na co wpływ ma zastosowanie mechanizmu blokowania pojedynczych rekordów, zamiast całej tabeli zastosowany w pozostałych.
+Wyniki testu przedstawione w tabeli powyżej wskazują, że najwydajniejszym silnikiem w przypadku równoległych operacji odczytu i modyfikacji danych w środowisku wielowątkowym okazał się silnik InnoDB, na co wpływ ma zastosowanie mechanizmu blokowania pojedynczych rekordów, zamiast całej tabeli zastosowany w pozostałych.
 
 \subsubsection{Wyszukiwanie danych z zakresu.}
 Kolejny test symuluje operację wyszukiwania danych za pomocą zakresu. Do jego przygotowania wykorzystano następujące polecenie.
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silniku> --num-threads=12 /usr/share/sysbench/select_random_ranges.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root
+	--mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silniku>
+	--num-threads=12 /usr/share/sysbench/select_random_ranges.lua prepare
 \end{spverbatim}
 W związku z tym, że domyślnym indeksem dla tabeli MEMORY jest indeks HASH, a nie B-tree, na tej tabeli dodatkowo utworzono indeks typu B-Tree, wykorzystując następujące polecenie.
 \begin{spverbatim}
@@ -222,7 +227,9 @@ Wyniki testu pokazują, że przy tego typu operacjach najwydajniejsze są silnik
 \subsubsection{Operacje zapisu.}
 Kolejny test prezentuje wydajność operacji zapisu w środowisku wielowątkowym. Do jego wykonania użyto następującego polecenia:
 \begin{spverbatim}
-	 sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silnika> --num-threads=12 /usr/share/sysbench/oltp_insert.lua prepare
+	 sysbench --db-driver=mysql --mysql-user=root --mysql-password=root
+	 --mysql-db=test --table_size=2000000 --mysql_storage_engine=<nazwa silnika>
+	 --num-threads=12 /usr/share/sysbench/oltp_insert.lua prepare
 \end{spverbatim}
 
 Wyniki testu przedstawiono w poniższej tabeli:
@@ -242,8 +249,10 @@ W teście najszybszy okazał się silnik \textit{Archive}, który został zaproj
 
 Kolejny test przedstawia wydajność operacji aktualizacji danych z wykorzystaniem indeksu w środowisku wielowątkowym. Do jego przygotowania użyto następującego polecenia.
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=
-	<nazwa silnika> /usr/share/sysbench/oltp_update_index.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root 
+	--mysql-db=test --table_size=2000000 --num-threads=12 
+	--mysql-storage_engine=	<nazwa silnika> 
+	/usr/share/sysbench/oltp_update_index.lua prepare
 \end{spverbatim}
 
 Wyniki testu zamieszczono w poniższej tabeli.
@@ -263,8 +272,10 @@ Test jest miarodajny jedynie dla trzech silników wspierających indeksy. Podsta
 Kolejny test również przedstawia wydajność operacji aktualizacji danych w środowisku wielowątkowym, ale bez wykorzystania indeksów.
 Do wykonania testu użyto polecenia:
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=
-	<nazwa silnika> /usr/share/sysbench/oltp_update_non_index.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root
+	--mysql-db=test --table_size=2000000 --num-threads=12 
+	--mysql-storage_engine=	<nazwa silnika>
+	/usr/share/sysbench/oltp_update_non_index.lua prepare
 	
 \end{spverbatim}
 \begin{center}
@@ -279,9 +290,12 @@ Do wykonania testu użyto polecenia:
 
 Testy potwierdzają, że w środowisku wielowątkowym przy operacjach modyfikujących dane najwydajniejszy jest silnik \textit{InnoDB}, dzięki blokowaniu na poziomie rekordów.
 \subsubsection{Operacje usuwania danych}
-W kolejnym teście sprawdzono wydajność operacji usuwania danych w środowisku wie
+W kolejnym teście sprawdzono wydajność operacji usuwania danych w środowisku wielowątkowym.
 \begin{spverbatim}
-	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root --mysql-db=test --table_size=2000000 --num-threads=12 --mysql-storage_engine=<nazwa tabeli>  /usr/share/sysbench/oltp_delete.lua prepare
+	sysbench --db-driver=mysql --mysql-user=root --mysql-password=root 
+	--mysql-db=test --table_size=2000000 --num-threads=12 
+	--mysql-storage_engine=<nazwa tabeli>  
+	/usr/share/sysbench/oltp_delete.lua prepare
 \end{spverbatim}
 
 \begin{center}
@@ -292,11 +306,13 @@ W kolejnym teście sprawdzono wydajność operacji usuwania danych w środowisku
 	średni czas [ms] & 312.5 & 43.3 & 106.1 & Brak wsparcia & 62342.1 \\
 	\hline
 \end{tabular}
-
-Silnik InnoDB jest najwydajniejszym rozwiązaniem ze względu na mechanizm blokowania na poziomie rekordów.
 \end{center}
 
 
-\subsubsection{Podsumowanie}
+Silnik InnoDB jest najwydajniejszym rozwiązaniem ze względu na mechanizm blokowania na poziomie rekordów.
+
+
+
+\subsection{Podsumowanie}
 
 W tym rozdziale przedstawiono podstawowe własności najpopularniejszych dostępnych obecnie silników MySQL. W zdecydowanej większości przypadków, które możemy spotkać we współczesnych aplikacjach, korzystających z baz danych najlepszym rozwiązaniem jest silnik InnoDB. W przypadku tabel, do których dane są jedynie zapisywane, ale nie odczytywane, dobrym wyborem jest silnik \textit{Archive}, który zapewnia najlepszą wydajność operacji zapisu, oraz zdecydowanie niższe zużycie przestrzeni dyskowej od pozostałych silników. Wyniki testów wydajnościowych potwierdzają, że silnik \textit{MyISAM} nie powinien być obecnie stosowany. Silnik \textit{InnoDB} będący jego następcą jest bardziej wydajny, a dodatkowo zawiera mechanizmy, których brakuje \textit{MyISAM}. Silnik \textit{MEMORY} w środowisku wielowątkowym nie jest bardziej wydajny od \textit{InnoDB}, a dodatkowo zużywa wiele pamięci. Silnik \textit{CSV} jest niewydajny i ubogi w funkcje, dlatego według autora nie powinien być używany w produkcyjnych zastosowaniach.

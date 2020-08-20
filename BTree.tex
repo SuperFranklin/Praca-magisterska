@@ -4,11 +4,11 @@ Indeks typu B-Tree jest zdecydowanie najczęściej stosowanym typem indeksu w ba
 \paragraph{Struktura}\mbox{}
 
 Indeks typu B-Tree zbudowany jest na bazie struktury B-Drzewa. B-Drzewo jest drzewiastą strukturą danych przechowującą dane wraz z kluczami posortowanymi w pewnej kolejności. Każdy węzeł drzewa może posiadać od M+1 do 2M+1 dzieci, za wyjątkiem korzenia, który od 0 do 2M+1 potomków, gdzie M jest nazywany rzędem drzewa. Dzięki temu maksymalna wysokość drzewa zawierającego n kluczy wynosi $log_M n$. Takie właściwości sprawiają, że operacje wyszukiwania są złożoności asymptotycznej $O(log_M n)$. Należy wspomnieć, że MySQL do zapisu indeksów stosuje strukurę B+Drzewa, która jest szczególnym przypadkiem B-Drzewa i zawiera dane jedynie w liściach.
-Zastosowanie struktury B+Drzewa sprawia, że liście z danymi znajdują się w jednakowej odległości od korzenia drzewa. Wysoki rząd oznacza niską wysokość drzewa, to z kolei sprawia, że zapytanie wymaga mniejszej ilości operacji odczytu z dysku. Ma to fundamentalne znaczenie, ponieważ dane zapisane są na dyskach twardych, których czasy dostępu są dużo większe niż do pamięci RAM. Przykładowo dana jest tabela zawierająca bilion wierszy, oraz indeks, którego rząd wynosi 64. Operacja wyszukania na danej tabeli wykorzystująca indeks będzie wymagać średnio tylu operacji odczytu, jaka jest wysokość drzewa przechowującego indeksy. Wysokość drzewa obliczamy ze wzoru $\log M n$,gdzie M jest rzędem drzewa równym 64, a n oznacza liczbę wierszy. W takim przypadku będziemy potrzebować zaledwie 5 odczytów danych z dysku. 
+Zastosowanie struktury B+Drzewa sprawia, że liście z danymi znajdują się w jednakowej odległości od korzenia drzewa. Wysoki rząd oznacza niską wysokość drzewa, to z kolei sprawia, że zapytanie wymaga mniejszej ilości operacji odczytu z dysku. Ma to fundamentalne znaczenie, ponieważ dane zapisane są na dyskach twardych, których czasy dostępu są dużo większe niż do pamięci RAM. Przykładowo dana jest tabela zawierająca bilion wierszy oraz indeks, którego rząd wynosi 64. Operacja wyszukania na danej tabeli wykorzystująca indeks będzie wymagać średnio tylu operacji odczytu, jaka jest wysokość drzewa przechowującego indeksy. Wysokość drzewa obliczamy ze wzoru $\log M n$, gdzie M jest rzędem drzewa równym 64, a n oznacza liczbę wierszy. W takim przypadku będziemy potrzebować zaledwie 5 odczytów danych z dysku. 
 
 Dodatkowo silnik InnoDB nie przechowuje referencji do miejsca w pamięci, w którym znajdują się dane, ale odwołuje się do rekordów poprzez klucz podstawowy, który jednoznacznie identyfikuje każdy wiersz w tabeli. Dzięki temu zmiana fizycznego położenia rekordu nie wymusza aktualizacji indeksu. 
 
-Indeksy mogą być zakładane zarówno na jedną jak i wiele kolumn. W przypadku indeksu wielokolumnowego, węzły sortowane są w pierwszej kolejności względem pierwszej kolumny indeksu. W następnej kolejności węzły z równymi wartościami pierwszej kolumny, sortowane są względem drugiej itd. Kolejność kolumn jest ustalana na podstawie kolejności podczas polecenia tworzenia indeksu.
+Indeksy mogą być zakładane zarówno na jedną, jak i wiele kolumn. W przypadku indeksu wielokolumnowego węzły sortowane są w pierwszej kolejności względem pierwszej kolumny indeksu. W następnej kolejności węzły z równymi wartościami pierwszej kolumny sortowane są względem drugiej itd. Kolejność kolumn jest ustalana na podstawie kolejności podczas polecenia tworzenia indeksu.
 
 \paragraph{Zastosowanie indeksu typu B-Tree}\mbox{}
 
@@ -20,9 +20,10 @@ ON Comments(UserId,PostId);
 utworzono indeks typu B-Tree na dwóch kolumnach \textit{first\textunderscore UserId} oraz \textit{last\textunderscore PostId}.
 
 \subparagraph{Dopasowanie pełnego indeksu}\mbox{}
-Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli \textit{where} uwzględnione zostaną wszystkie kolumny, na które założony jest indeks. 
 
-Załóżmy, że celem jest wyszukanie wszystkich komentarzy użytkownika o id 1200 do postu o id 910331 w tabeli \textit{Comments}.
+Dopasowanie pełnego indeksu ma miejsce wtedy, kiedy w klauzuli WHERE uwzględnione zostaną wszystkie kolumny, na które założony jest indeks. 
+
+Założono, że celem jest wyszukanie wszystkich komentarzy użytkownika o id 1200 do postu o id 910331 w tabeli \textit{Comments}.
 
 Najpierw wykonano zapytania na tabeli nie zawierającej indeksów.
  \textit{employees}. 
@@ -36,7 +37,7 @@ Następnie analogiczne zapytanie wykonano na tabeli \textit{Comments} zawierają
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId = 1200 AND PostId = 910331;
 \end{verbatim}
-Dla drugiego zapytania baza danych zwraca wyniki w 0,013 sekundy. Wykorzystując polecenie EXPLAIN dla obu zapytań, otrzymano wyniki przedstawione na rysunkach ~\ref{fig::explain1.jpg} oraz ~\ref{fig::explain2.jpg}. Rysunek ~\ref{fig::explain1.jpg} przestawia wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast Rysunek ~\ref{fig::explain2.jpg} wynik polecania EXPLAIN dla drugiego zapytania. Z danych wynika, że pierwsze zapytania nie będzie korzystać z indeksów, dlatego wartość w kolumnie \textit{Rows} wskazuje, że serwer MySQL dokona skanowania wszystkich wierszy tabeli \textit{init\textunderscore Comments}. Drugie zapytanie korzysta z indeksu z utworzonego indeksu. W tym przypadku serwer musi przeskanować jedynie 3 wiersze tabeli Comments. Różnica w czasie wykonania obu zapytań wynika z użycia indeksu w drugim zapytaniu.
+Dla drugiego zapytania baza danych zwróciła wyniki w 0,013 sekundy. Wykorzystując polecenie EXPLAIN dla obu zapytań, otrzymano wyniki przedstawione na rysunkach ~\ref{fig::explain1.jpg} oraz ~\ref{fig::explain2.jpg}. Na rysunku ~\ref{fig::explain1.jpg} przestawiono wynik polecenia EXPLAIN dla pierwszego zapytania, natomiast na rysunku ~\ref{fig::explain2.jpg} wynik polecania EXPLAIN dla drugiego zapytania. Jak wynika z danych, pierwsze zapytania nie będzie korzystać z indeksów, dlatego wartość w kolumnie \textit{Rows} wskazuje, że serwer MySQL dokona skanowania wszystkich wierszy tabeli \textit{init\textunderscore Comments}. Drugie zapytanie korzysta z indeksu z utworzonego indeksu. W tym przypadku serwer musi przeskanować jedynie 3 wiersze tabeli Comments. Różnica w czasie wykonania obu zapytań wynika z użycia indeksu w drugim zapytaniu.
 
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain1.jpg} 
@@ -61,7 +62,7 @@ W tym celu przygotowano dwa zapytania. Pierwsze na tabeli \textit{Init\textunder
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId = 1200;
 \end{verbatim}
-Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Analizując wyniki polecenia EXPLAIN dla obu zapytań można stwierdzić, że w pierwszym zapytaniu serwer przeszukuje wszystkie wiersze w tabeli. Drugie zapytanie wymaga przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
+Pierwsze zapytanie zostało wykonane w czasie 12,9 sekundy, natomiast drugie wymagało jedynie 0,0044 sekundy. Analizując wyniki polecenia EXPLAIN dla obu zapytań widać, że w pierwszym zapytaniu serwer przeszukuje wszystkie wiersze w tabeli. Drugie zapytanie wymaga przeszukania 209 wierszy, dlatego że tym razem zapytanie było mniej selektywne niż przy dopasowaniu pełnego indeksu.
 \begin{figure}[h]
     \includegraphics[scale =0.5]{explain3.jpg} 
     \caption{EXPLAIN 3}
@@ -80,7 +81,7 @@ Ponownie wykonano dwa zapytania. Pierwsze na tabeli bez indeksu, drugie na tabel
     SELECT * FROM Init_Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
 
-Tym razem pierwsze zapytanie trwało 1.068 sekundy. Drugie zapytanie wykonujemy na tabeli Comments zawierającej indeksy.
+Tym razem pierwsze zapytanie trwało 1.068 sekundy. Drugie zapytanie wykonano na tabeli Comments zawierającej indeksy.
 \begin{verbatim}
     SELECT * FROM Comments WHERE UserId >1990 AND UserId <2000;
 \end{verbatim}
